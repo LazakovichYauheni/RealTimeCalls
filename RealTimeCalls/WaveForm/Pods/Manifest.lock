@@ -1,0 +1,33 @@
+PODS:
+  - GoogleWebRTC (1.1.32000)
+  - MarqueeLabel (4.0.5)
+  - NotificationBannerSwift (3.0.6):
+    - MarqueeLabel (~> 4.0.5)
+    - SnapKit (~> 5.0.1)
+  - SnapKit (5.0.1)
+  - Starscream (3.0.6)
+
+DEPENDENCIES:
+  - GoogleWebRTC
+  - NotificationBannerSwift (~> 3.0.0)
+  - SnapKit
+  - Starscream (~> 3.0.2)
+
+SPEC REPOS:
+  trunk:
+    - GoogleWebRTC
+    - MarqueeLabel
+    - NotificationBannerSwift
+    - SnapKit
+    - Starscream
+
+SPEC CHECKSUMS:
+  GoogleWebRTC: 4d261187b30512efdb711d21fa961a6adf138717
+  MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
+  NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+
+PODFILE CHECKSUM: a2266b888f17964befda643dd2bf59e5c708592c
+
+COCOAPODS: 1.11.3
