@@ -18,7 +18,7 @@ public enum BottomButtonType {
 }
 
 public protocol BottomButtonDelegate: AnyObject {
-    func bottomButtonTapped(type: BottomButtonType)
+    func bottomButtonTapped(type: BottomButtonType, isOn: Bool)
 }
 
 public final class BottomButton: UIView {
@@ -115,8 +115,8 @@ public final class BottomButton: UIView {
     }
     
     @objc private func viewTapped() {
-        delegate?.bottomButtonTapped(type: type)
         isOn.toggle()
+        delegate?.bottomButtonTapped(type: type, isOn: isOn)
         
         let newImage = generateTintedImage(image: image, color: isOn ? .clear : UIColor.white, backgroundColor: isOn ? .white : Colors.whiteColorWithAlpha020)
         let cgNewImage = newImage!.cgImage!

@@ -24,8 +24,9 @@ public final class StartViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.worker = WebSocketWorker()
-        self.worker.delegate = self
+        worker = WebSocketWorker()
+        worker.delegate = self
+        contentViewController.delegate = self
     }
     
     private func startCallView() {
@@ -72,7 +73,13 @@ extension StartViewController: WebSocketWorkerDelegate {
         contentViewController.didClientChecking()
     }
     
-    public func didClientConnected() {
-        contentViewController.didClientConnected()
+    public func didClientConnected(statusChanged: @escaping () -> Void) {
+        contentViewController.didClientConnected(statusChanged: statusChanged)
+    }
+}
+
+extension StartViewController: ViewControllerRespondable {
+    func muteButtonTapped(isOn: Bool) {
+        worker.mute(isOn: isOn)
     }
 }

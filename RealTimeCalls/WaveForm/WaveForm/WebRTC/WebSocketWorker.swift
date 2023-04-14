@@ -12,7 +12,7 @@ import WebRTC
 public protocol WebSocketWorkerDelegate: AnyObject {
     func didNeedToShowNotification()
     func didClientChecking()
-    func didClientConnected()
+    func didClientConnected(statusChanged: @escaping () -> Void)
 }
 
 public final class WebSocketWorker: NSObject {
@@ -38,6 +38,10 @@ public final class WebSocketWorker: NSObject {
         let data = try! JSONEncoder().encode(signalingMessage)
         let message = String(data: data, encoding: String.Encoding.utf8)!
         self.socket.write(string: message)
+    }
+    
+    func mute(isOn: Bool) {
+        webRTCClient.mute(isOn: isOn)
     }
     
     func sendTapNotification() {
@@ -167,7 +171,7 @@ extension WebSocketWorker: WebRTCClientDelegate {
         delegate?.didClientChecking()
     }
     
-    public func didClientConnected() {
-        delegate?.didClientConnected()
+    public func didClientConnected(statusChanged: @escaping () -> Void) {
+        delegate?.didClientConnected(statusChanged: statusChanged)
     }
 }

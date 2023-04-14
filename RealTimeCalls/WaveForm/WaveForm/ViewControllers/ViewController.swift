@@ -9,13 +9,20 @@ import UIKit
 import SnapKit
 import SwiftUI
 
+protocol ViewControllerRespondable: AnyObject {
+    func muteButtonTapped(isOn: Bool)
+}
+
 class ViewController: UIViewController {
+    weak var delegate: ViewControllerRespondable?
+    
     let contentableView = ContentableView()
     
     override func loadView() {
         let microMonitor = MicrophoneMonitor()
         microMonitor.delegate = self
         view = contentableView
+        contentableView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -44,14 +51,15 @@ class ViewController: UIViewController {
     }
     
     func didClientChecking() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.contentableView.changeCallStatus(status: .ringing)
         }
     }
     
-    func didClientConnected() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+    func didClientConnected(statusChanged: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             self.contentableView.changeCallStatus(status: .speaking)
+            statusChanged()
         }
     }
 }
@@ -61,5 +69,11 @@ extension ViewController: MicrophoneEventsDelegate {
         if value >= 200 {
             contentableView.updateLiquidSize(value: value)
         }
+    }
+}
+
+extension ViewController: ContentableViewDelegate {
+    func muteButtonTapped(isOn: Bool) {
+        delegate?.muteButtonTapped(isOn: isOn)
     }
 }

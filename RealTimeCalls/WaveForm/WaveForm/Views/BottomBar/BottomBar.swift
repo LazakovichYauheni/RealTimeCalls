@@ -10,6 +10,7 @@ import SnapKit
 
 public protocol BottomBarDelegate: AnyObject {
     func didTapEndButton()
+    func didMuteButtonTapped(isOn: Bool)
 }
 
 public final class BottomBar: UIView {
@@ -66,12 +67,21 @@ public final class BottomBar: UIView {
 }
 
 extension BottomBar: BottomButtonDelegate {
-    public func bottomButtonTapped(type: BottomButtonType) {
-        if type == .end {
+    public func bottomButtonTapped(type: BottomButtonType, isOn: Bool) {
+        switch type {
+        case .speaker:
+            return
+        case .video:
+            return
+        case .mute:
+            delegate?.didMuteButtonTapped(isOn: isOn)
+        case .end:
             delegate?.didTapEndButton()
             stackView.isHidden = true
             closeButton.isHidden = false
             closeButton.animate()
+        case .defaultType:
+            return
         }
     }
 }

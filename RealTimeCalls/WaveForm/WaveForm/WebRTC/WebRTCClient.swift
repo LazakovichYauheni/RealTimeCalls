@@ -11,7 +11,7 @@ import WebRTC
 public protocol WebRTCClientDelegate: NSObject {
     func didGenerateCandidate(iceCandidate: RTCIceCandidate)
     func didClientChecking()
-    func didClientConnected()
+    func didClientConnected(statusChanged: @escaping () -> Void)
 }
 
 public final class WebRTCClient: NSObject {
@@ -26,6 +26,10 @@ public final class WebRTCClient: NSObject {
     }
 
     weak var delegate: WebRTCClientDelegate?
+    
+    func mute(isOn: Bool) {
+        localAudioTrack.isEnabled = !isOn
+    }
     
     func setup() {
         peerConnectionFactory = RTCPeerConnectionFactory()
@@ -204,9 +208,9 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
             print("completed")
         case .connected:
             print("connected")
-            let xxx = peerConnection.localStreams
-            localAudioTrack.isEnabled = true
-            delegate?.didClientConnected()
+            delegate?.didClientConnected() {
+                self.localAudioTrack.isEnabled = true
+            }
         case .count:
             print("count")
         case .disconnected:

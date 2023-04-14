@@ -8,7 +8,12 @@
 import UIKit
 import SnapKit
 
-final class ContentableView: UIView {    
+protocol ContentableViewDelegate: AnyObject {
+    func muteButtonTapped(isOn: Bool)
+}
+
+final class ContentableView: UIView {
+    weak var delegate: ContentableViewDelegate?
     // MARK: - Subview Properties
     
     private let backgroundView = BackgroundView(frame: .zero)
@@ -267,5 +272,9 @@ final class ContentableView: UIView {
 extension ContentableView: BottomBarDelegate {
     func didTapEndButton() {
         changeCallStatus(status: .ending)
+    }
+    
+    func didMuteButtonTapped(isOn: Bool) {
+        delegate?.muteButtonTapped(isOn: isOn)
     }
 }
