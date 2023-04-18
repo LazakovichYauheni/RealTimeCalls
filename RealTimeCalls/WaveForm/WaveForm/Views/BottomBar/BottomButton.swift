@@ -14,6 +14,7 @@ public enum BottomButtonType {
     case video
     case mute
     case end
+    case flip
     case defaultType
 }
 
@@ -28,7 +29,8 @@ public final class BottomButton: UIView {
     private var isOn: Bool = false
     
     private var type: BottomButtonType = .defaultType
-
+    private var isFlippable = true
+    
     private lazy var imageIconView: UIImageView = {
        let imageView = UIImageView()
         return imageView
@@ -42,10 +44,11 @@ public final class BottomButton: UIView {
         return label
     }()
     
-    public init(image: UIImage, name: String, type: BottomButtonType) {
+    public init(image: UIImage, name: String, type: BottomButtonType, isFlippable: Bool) {
         super.init(frame: .zero)
         self.image = image
         self.type = type
+        self.isFlippable = isFlippable
         title.text = name
         imageIconView.clipsToBounds = true
         imageIconView.layer.cornerRadius = 25
@@ -118,16 +121,23 @@ public final class BottomButton: UIView {
         isOn.toggle()
         delegate?.bottomButtonTapped(type: type, isOn: isOn)
         
-        let newImage = generateTintedImage(image: image, color: isOn ? .clear : UIColor.white, backgroundColor: isOn ? .white : Colors.whiteColorWithAlpha020)
-        let cgNewImage = newImage!.cgImage!
-        
-        let oldImage = imageIconView.image
-        imageIconView.image = newImage
-        imageIconView.layer.animateScale(from: 1, to: 1.12, duration: 0.1, completion: { _ in
-            self.imageIconView.layer.animateScale(from: 1.12, to: 1, duration: 0.1)
-        })
-        imageIconView.layer.animate(from: oldImage?.cgImage!, to: cgNewImage, keyPath: "contents", timingFunction: CAMediaTimingFunctionName.easeInEaseOut.rawValue, duration: 0.2)
-        imageIconView.layer.animateSpring(from: 0.01 as NSNumber, to: 1 as NSNumber, keyPath: "sdad", duration: 0.5)
+        if isFlippable {
+            let newImage = generateTintedImage(image: image, color: isOn ? .clear : UIColor.white, backgroundColor: isOn ? .white : Colors.whiteColorWithAlpha020)
+            let cgNewImage = newImage!.cgImage!
+            
+            let oldImage = imageIconView.image
+            imageIconView.image = newImage
+            imageIconView.layer.animateScale(from: 1, to: 1.12, duration: 0.1, completion: { _ in
+                self.imageIconView.layer.animateScale(from: 1.12, to: 1, duration: 0.1)
+            })
+            imageIconView.layer.animate(from: oldImage?.cgImage!, to: cgNewImage, keyPath: "contents", timingFunction: CAMediaTimingFunctionName.easeInEaseOut.rawValue, duration: 0.2)
+            imageIconView.layer.animateSpring(from: 0.01 as NSNumber, to: 1 as NSNumber, keyPath: "sdad", duration: 0.5)
+        } else {
+            imageIconView.layer.animateScale(from: 1, to: 1.12, duration: 0.1, completion: { _ in
+                self.imageIconView.layer.animateScale(from: 1.12, to: 1, duration: 0.1)
+            })
+            imageIconView.layer.animateSpring(from: 0.01 as NSNumber, to: 1 as NSNumber, keyPath: "sdad", duration: 0.5)
+        }
     }
 }
 

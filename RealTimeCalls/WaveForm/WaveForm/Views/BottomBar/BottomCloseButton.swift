@@ -8,7 +8,12 @@
 import UIKit
 import SnapKit
 
+protocol BottomCloseButtonDelegate: AnyObject {
+    func tapped()
+}
+
 public final class BottomCloseButton: UIView {
+    weak var delegate: BottomCloseButtonDelegate?
     let secondLayer = BottomButtonLayer(color: UIColor.white)
     
     let maskLayer = CAShapeLayer()
@@ -66,10 +71,12 @@ public final class BottomCloseButton: UIView {
     }
     
     func animate() {
-        secondLayer.animate()
+        secondLayer.animate() {
+            self.delegate?.tapped()
+        }
     }
     
     @objc private func tapped() {
-        
+        delegate?.tapped()
     }
 }

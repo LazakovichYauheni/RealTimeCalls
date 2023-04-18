@@ -26,8 +26,9 @@ public final class BottomButtonLayer: CAShapeLayer {
         path = updatedPath.cgPath
     }
     
-    func animate() {
+    func animate(onSuccess: @escaping () -> Void) {
         CATransaction.begin()
+        CATransaction.setCompletionBlock(onSuccess)
         CATransaction.setValue(5, forKey: kCATransactionAnimationDuration)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: .linear))
         mask?.position.x = bounds.maxX + bounds.width / 2

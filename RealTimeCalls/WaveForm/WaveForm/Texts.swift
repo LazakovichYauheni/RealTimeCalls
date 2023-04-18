@@ -18,4 +18,5 @@ public enum Texts {
     static let buttonMute = "mute"
     static let buttonEndCall = "end call"
     static let buttonClose = "Close"
+    static let flip = "flip"
 }

@@ -13,6 +13,14 @@ public protocol WebSocketWorkerDelegate: AnyObject {
     func didNeedToShowNotification()
     func didClientChecking()
     func didClientConnected(statusChanged: @escaping () -> Void)
+    func didDisconnect()
+    func needToShowRemoteVideo()
+    func needToShowLocalVideo()
+    func needToHideRemoteVideo()
+    func needToHideLocalVideo()
+    func needToFlip()
+    func setRemoteView(videoView: UIView)
+    func setLocalView(videoView: UIView)
 }
 
 public final class WebSocketWorker: NSObject {
@@ -22,8 +30,9 @@ public final class WebSocketWorker: NSObject {
     
     // MARK: - Private Properties
     
-    private let ipAddress = "192.168.0.103"
+    private let ipAddress = "192.168.0.112"
     private let socket: WebSocket
+    private let cameraSession = CameraSession()
     private let webRTCClient = WebRTCClient()
     private var tryToConnectWebSocket: Timer!
 
@@ -44,6 +53,66 @@ public final class WebSocketWorker: NSObject {
         webRTCClient.mute(isOn: isOn)
     }
     
+    func setSpeakerState(isOn: Bool) {
+        webRTCClient.setSpeakerStates(enabled: isOn)
+    }
+    
+    func setLocalVideoState(
+        isOn: Bool,
+        cameraPosition: AVCaptureDevice.Position,
+        needToAppearLocalVideoScreen: Bool,
+        isJustFlipping: Bool
+    ) {
+        
+        if !isJustFlipping {
+            let signalingMessage = SignalingMessage(
+                type: "videoHide",
+                sessionDescription: nil,
+                candidate: nil
+            )
+            let data = try! JSONEncoder().encode(signalingMessage)
+            let message = String(data: data, encoding: String.Encoding.utf8)!
+            self.socket.write(string: message)
+        }
+        DispatchQueue.global(qos: .background).async {
+            if isOn {
+                self.cameraSession.setupSession()
+            } else {
+                self.cameraSession.stopSession()
+            }
+            
+            DispatchQueue.main.async {
+                self.webRTCClient.setLocalVideoState(isOn: isOn, cameraPosition: cameraPosition) {}
+                if isOn && needToAppearLocalVideoScreen {
+                    self.delegate?.needToShowLocalVideo()
+                } else if !isOn {
+                    self.delegate?.needToHideLocalVideo()
+                } else if isJustFlipping {
+                    self.delegate?.needToFlip()
+                }
+            }
+        }
+    }
+    
+    func sendLocalVideo() {
+        let signalingMessage = SignalingMessage(
+            type: "videoShow",
+            sessionDescription: nil,
+            candidate: nil
+        )
+        let data = try! JSONEncoder().encode(signalingMessage)
+        let message = String(data: data, encoding: String.Encoding.utf8)!
+        self.socket.write(string: message)
+    }
+    
+    func disconnect() {
+        let signalingMessage = SignalingMessage.init(type: "disconnect", sessionDescription: nil, candidate: nil)
+        let data = try! JSONEncoder().encode(signalingMessage)
+        let message = String(data: data, encoding: String.Encoding.utf8)!
+        self.socket.write(string: message)
+        webRTCClient.receiveDisconnect()
+    }
+    
     func sendTapNotification() {
         let signalingMessage = SignalingMessage.init(type: "notificationTapped", sessionDescription: nil, candidate: nil)
         let data = try! JSONEncoder().encode(signalingMessage)
@@ -57,6 +126,7 @@ public final class WebSocketWorker: NSObject {
         webRTCClient.setup()
         super.init()
         webRTCClient.delegate = self
+        cameraSession.delegate = self
         socket.delegate = self
         
         tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
@@ -151,6 +221,14 @@ extension WebSocketWorker: WebSocketDelegate {
                         sdpMid: candidate.sdpMid
                     )
                 )
+            } else if signalingMessage.type == "disconnect" {
+                webRTCClient.receiveDisconnect()
+            } else if signalingMessage.type == "videoShow" {
+                delegate?.needToShowRemoteVideo()
+                webRTCClient.setRemoteVideoNeeded(needed: true)
+            } else if signalingMessage.type == "videoHide" {
+                delegate?.needToHideRemoteVideo()
+                webRTCClient.setRemoteVideoNeeded(needed: false)
             }
         } catch {
             print(error)
@@ -173,5 +251,26 @@ extension WebSocketWorker: WebRTCClientDelegate {
     
     public func didClientConnected(statusChanged: @escaping () -> Void) {
         delegate?.didClientConnected(statusChanged: statusChanged)
+    }
+    
+    public func setRemoteView(view: UIView) {
+        delegate?.setRemoteView(videoView: view)
+    }
+    
+    public func setLocalView(view: UIView) {
+        delegate?.setLocalView(videoView: view)
+    }
+    
+    public func didDisconnect() {
+        delegate?.didDisconnect()
+    }
+}
+
+extension WebSocketWorker: CameraSessionDelegate {
+    func didOutput(_ sampleBuffer: CMSampleBuffer) {
+//        if let cvpixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+//            webRTCClient.captureCurrentFrame(sampleBuffer: cvpixelBuffer)
+//        }
+//        print(sampleBuffer)
     }
 }

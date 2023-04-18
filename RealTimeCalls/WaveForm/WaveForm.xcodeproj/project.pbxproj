@@ -46,6 +46,10 @@
 		518D5E8627F5C85F00B78B98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 518D5E8427F5C85F00B78B98 /* LaunchScreen.storyboard */; };
 		51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6229E82B1200D7B2DD /* StartViewController.swift */; };
 		51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6529E82B4F00D7B2DD /* StartView.swift */; };
+		51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7429EB0A0700D7B2DD /* CameraSession.swift */; };
+		51B9BF7829EB0E2E00D7B2DD /* RemoteVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7729EB0E2E00D7B2DD /* RemoteVideoView.swift */; };
+		51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */; };
+		51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */; };
 		51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */; };
 		51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5029E5B2200085088D /* WebSocketWorker.swift */; };
 		51E48B5329E5B84C0085088D /* SignalingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5229E5B84C0085088D /* SignalingMessage.swift */; };
@@ -96,6 +100,10 @@
 		51B9BF6229E82B1200D7B2DD /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		51B9BF6529E82B4F00D7B2DD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		51B9BF6D29E9846F00D7B2DD /* WaveForm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WaveForm.entitlements; sourceTree = "<group>"; };
+		51B9BF7429EB0A0700D7B2DD /* CameraSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSession.swift; sourceTree = "<group>"; };
+		51B9BF7729EB0E2E00D7B2DD /* RemoteVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVideoView.swift; sourceTree = "<group>"; };
+		51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
+		51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFrameCapturer.swift; sourceTree = "<group>"; };
 		51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		51E48B5029E5B2200085088D /* WebSocketWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketWorker.swift; sourceTree = "<group>"; };
 		51E48B5229E5B84C0085088D /* SignalingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingMessage.swift; sourceTree = "<group>"; };
@@ -127,6 +135,7 @@
 		510E559129CDB06600D6638C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51B9BF7629EB0E1400D7B2DD /* Camera */,
 				510F997C29BD347800B34C72 /* ContentableView.swift */,
 				510E559329CDB15A00D6638C /* Background */,
 				510E559229CDB0D300D6638C /* Liquid */,
@@ -271,12 +280,23 @@
 			path = StartScreenModule;
 			sourceTree = "<group>";
 		};
+		51B9BF7629EB0E1400D7B2DD /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				51B9BF7729EB0E2E00D7B2DD /* RemoteVideoView.swift */,
+				51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		51E48B4D29E5AC8C0085088D /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
 				51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */,
 				51E48B5029E5B2200085088D /* WebSocketWorker.swift */,
 				51E48B5229E5B84C0085088D /* SignalingMessage.swift */,
+				51B9BF7429EB0A0700D7B2DD /* CameraSession.swift */,
+				51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */,
 			);
 			path = WebRTC;
 			sourceTree = "<group>";
@@ -418,6 +438,7 @@
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
 				510F997B29BD10C700B34C72 /* RadialGradientLayer.swift in Sources */,
+				51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */,
 				513F049429CDEA02008E19E7 /* Images.swift in Sources */,
 				513F049629CDEA33008E19E7 /* Texts.swift in Sources */,
 				510F997D29BD347800B34C72 /* ContentableView.swift in Sources */,
@@ -428,10 +449,12 @@
 				518D5E7E27F5C85D00B78B98 /* ViewController.swift in Sources */,
 				51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
+				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
 				513F049829CDEA84008E19E7 /* Fonts.swift in Sources */,
 				518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */,
 				513F049C29CDF096008E19E7 /* CallStatus.swift in Sources */,
 				510F998529BE0D9400B34C72 /* LiquidView.swift in Sources */,
+				51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */,
 				51307E4229C0B99A0080EE05 /* AllStatusView.swift in Sources */,
 				51E48B5329E5B84C0085088D /* SignalingMessage.swift in Sources */,
 				517EFB1F29C336C700DE8C7B /* BottomBar.swift in Sources */,
@@ -447,6 +470,7 @@
 				518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */,
 				517EFB2129C336E400DE8C7B /* BottomButton.swift in Sources */,
 				51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */,
+				51B9BF7829EB0E2E00D7B2DD /* RemoteVideoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,15 +611,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WaveForm/WaveForm.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7UK44XWDUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaveForm/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Want to determine your voice";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -603,6 +630,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eugenilazakovich.WaveForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -616,15 +644,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WaveForm/WaveForm.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7UK44XWDUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaveForm/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Want to determine your voice";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -632,6 +663,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eugenilazakovich.WaveForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

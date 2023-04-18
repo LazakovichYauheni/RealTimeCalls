@@ -10,11 +10,32 @@ import SnapKit
 
 protocol ContentableViewDelegate: AnyObject {
     func muteButtonTapped(isOn: Bool)
+    func closeButtonTapped()
+    func speakerButtonTapped(isOn: Bool)
+    func endCallButtonTapped()
+    func videoButtonTapped(isOn: Bool)
+    func flipButtonTapped(isOn: Bool)
+    func startTapped()
+    func frontCameraSelected()
+    func backCameraSelected()
 }
 
 final class ContentableView: UIView {
     weak var delegate: ContentableViewDelegate?
     // MARK: - Subview Properties
+    
+    private lazy var remoteVideoView: RemoteVideoView = {
+        let view = RemoteVideoView(frame: .zero)
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var localVideoView: LocalVideoView = {
+        let view = LocalVideoView(frame: .zero)
+        view.delegate = self
+        view.isHidden = true
+        return view
+    }()
     
     private let backgroundView = BackgroundView(frame: .zero)
     
@@ -53,6 +74,7 @@ final class ContentableView: UIView {
     
     // MARK: - Private Properties
     
+    private var tappedPoint: CGPoint = CGPoint()
     private var previousStatusView: StatusProtocol?
     private let configurator = CallScreenConfigurator()
     private var configurationParameters: ConfigurationParameters? {
@@ -89,6 +111,14 @@ final class ContentableView: UIView {
         makeConstraints()
     }
     
+    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if tappedPoint.x == .zero {
+            tappedPoint = point
+        }
+        let hitView = super.hitTest(point, with: event)
+        return hitView
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -115,6 +145,80 @@ final class ContentableView: UIView {
         self.status = status
     }
     
+    public func configureRemoteVideoView(view: UIView) {
+        remoteVideoView.configure(videoView: view)
+    }
+    
+    public func configureLocalVideoView(view: UIView) {
+        localVideoView.configure(videoView: view)
+    }
+    
+    public func flipLocalVideoView() {
+        UIView.transition(with: localVideoView, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+    }
+    
+    public func showRemoteVideoView() {
+        remoteVideoView.isHidden = false
+        circleAnim(appear: true, remoteVideoView, duration: 0.24, from: userImageView.center) {}
+    }
+    
+    public func showLocalVideoView() {
+        localVideoView.isHidden = false
+        localVideoView.showButtons()
+        circleAnim(appear: true, localVideoView, duration: 0.24, from: tappedPoint) {}
+    }
+    
+    public func hideRemoteVideoView() {
+        circleAnim(appear: false, remoteVideoView, duration: 0.24, from: userImageView.center) {
+            self.remoteVideoView.isHidden = true
+        }
+    }
+    
+    public func hideLocalVideoView() {
+        bottomBar.reconfigureWithSpeakerButton()
+        self.localVideoView.isHidden = true
+        self.localVideoView.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    public func circleAnim(appear: Bool, _ view: UIView, duration: CFTimeInterval, from point: CGPoint, completion: @escaping () -> Void) {
+        let maskDiameter = CGFloat(sqrtf(powf(Float(view.bounds.width + point.x), 2) + powf(Float(view.bounds.height + point.y), 2)))
+        let mask = CAShapeLayer()
+        let animationId = "path"
+
+        // Make a circular shape.
+        mask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: maskDiameter, height: maskDiameter), cornerRadius: maskDiameter / 2).cgPath
+
+        // Center the shape in the view.
+        mask.position = CGPoint(x: (-maskDiameter ) / 2 + point.x, y: (-maskDiameter) / 2 + point.y)
+
+        // Fill the circle.
+        mask.fillColor = UIColor.black.cgColor
+
+        // Add as a mask to the parent layer.
+        view.layer.mask = mask
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        // Animate.
+        let animation = CABasicAnimation(keyPath: animationId)
+        animation.duration = duration
+        animation.fillMode = .forwards
+        animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
+        animation.isRemovedOnCompletion = false
+        
+        let newPath = UIBezierPath(roundedRect: CGRect(x: maskDiameter / 2, y: maskDiameter / 2, width: 0, height: 0), cornerRadius: 0).cgPath
+
+        // Set start and end values.
+        animation.fromValue = appear ? newPath : mask.path
+        animation.toValue = appear ? mask.path : newPath
+
+        // Start the animation.
+        mask.add(animation, forKey: animationId)
+        CATransaction.commit()
+    }
+    
     // MARK: - Private Methods
     
     private func configure(configurationParameters: ConfigurationParameters) {
@@ -138,6 +242,7 @@ final class ContentableView: UIView {
             
             if status == .ending {
                 networkView.stopAll()
+                bottomBar.showWithCloseButton()
             }
             
         case let .text(text):
@@ -162,8 +267,9 @@ final class ContentableView: UIView {
         addSubview(userImageView)
         addSubview(titleLabel)
         addSubview(statusView)
+        addSubview(remoteVideoView)
         addSubview(bottomBar)
-        
+        addSubview(localVideoView)
     }
     
     private func makeConstraints() {
@@ -205,14 +311,18 @@ final class ContentableView: UIView {
             make.centerX.equalToSuperview()
         }
         
+        remoteVideoView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         bottomBar.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(60)
         }
-    }
-    
-    @objc private func secondTapped() {
-        networkView.tapped()
+        
+        localVideoView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func animateUpscaling() {
@@ -271,10 +381,59 @@ final class ContentableView: UIView {
 
 extension ContentableView: BottomBarDelegate {
     func didTapEndButton() {
+        delegate?.endCallButtonTapped()
         changeCallStatus(status: .ending)
     }
     
     func didMuteButtonTapped(isOn: Bool) {
         delegate?.muteButtonTapped(isOn: isOn)
+    }
+    
+    func didTapCloseButton() {
+        delegate?.closeButtonTapped()
+    }
+    
+    func speakerButtonTapped(isOn: Bool) {
+        delegate?.speakerButtonTapped(isOn: isOn)
+    }
+    
+    func videoButtonTapped(isOn: Bool) {
+        delegate?.videoButtonTapped(isOn: isOn)
+    }
+    
+    func flipButtonTapped(isOn: Bool) {
+        delegate?.flipButtonTapped(isOn: isOn)
+    }
+}
+
+extension ContentableView: LocalVideoViewProtocol {
+    func closeTapped() {
+        delegate?.videoButtonTapped(isOn: false)
+    }
+    
+    func startTapped() {
+        let width = bounds.width / 3.12
+        let height = bounds.height / 4.22
+        
+        UIView.animate(withDuration: 0.8, delay: .zero) {
+            self.localVideoView.snp.remakeConstraints { make in
+                make.bottom.equalToSuperview().inset(200)
+                make.leading.equalToSuperview().priority(.low)
+                make.trailing.equalToSuperview().inset(16)
+                make.width.equalTo(width)
+                make.height.equalTo(height)
+            }
+            self.layoutIfNeeded()
+        }
+        delegate?.startTapped()
+        bottomBar.reconfigureWithFlipButton()
+    }
+    
+    func frontCameraSelected() {
+        delegate?.frontCameraSelected()
+    }
+    
+    func backCameraSelected() {
+        delegate?.backCameraSelected()
     }
 }
