@@ -86,7 +86,7 @@ public final class LiquidLayer: CAShapeLayer {
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = oldPath
         animation.toValue = path.cgPath
-        animation.duration = 0.8
+        animation.duration = 0.6
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         
         animation.delegate = self

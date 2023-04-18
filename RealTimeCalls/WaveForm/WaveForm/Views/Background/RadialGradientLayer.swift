@@ -46,7 +46,7 @@ final class RadialGradientLayer: CAGradientLayer {
         path.apply(transform)
         
         let animation = CAKeyframeAnimation(keyPath: #keyPath(CALayer.position))
-        animation.duration = 7
+        animation.duration = 3.5
         animation.repeatCount = .greatestFiniteMagnitude
         animation.path = path.reversing().cgPath
         animation.calculationMode = .paced

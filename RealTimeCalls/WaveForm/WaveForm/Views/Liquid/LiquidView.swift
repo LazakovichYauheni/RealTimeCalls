@@ -31,7 +31,7 @@ public final class LiquidView: UIView {
     }
     
     func change() {
-        liquidLayer.buildPath(pointsCount: 8)
+        liquidLayer.buildPath(pointsCount: 7)
     }
 }
 

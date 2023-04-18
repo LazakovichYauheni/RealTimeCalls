@@ -28,7 +28,7 @@ public enum Colors {
     public static let secondBackgroundColor = UIColor(red: 229 / 255, green: 129 / 255, blue: 105 / 255, alpha: 1)
     public static let thirdBackgroundColor = UIColor(red: 116 / 255, green: 110 / 255, blue: 215 / 255, alpha: 1)
     
-    public static let whiteColorWithAlpha01 = UIColor.white.withAlphaComponent(0.1)
+    public static let whiteColorWithAlpha01 = UIColor.white.withAlphaComponent(0.16)
     public static let whiteColorWithAlpha028 = UIColor.white.withAlphaComponent(0.28)
     public static let whiteColorWithAlpha020 = UIColor.white.withAlphaComponent(0.2)
 }

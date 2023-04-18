@@ -18,6 +18,7 @@ protocol ContentableViewDelegate: AnyObject {
     func startTapped()
     func frontCameraSelected()
     func backCameraSelected()
+    func setNeedMonitorMicro()
 }
 
 final class ContentableView: UIView {
@@ -42,8 +43,6 @@ final class ContentableView: UIView {
     private lazy var liquidView = LiquidView(frame: .zero)
     
     private lazy var secondLiquidView = LiquidView(frame: .zero)
-    
-    private lazy var thirdLiquidView = LiquidView(frame: .zero)
 
     private lazy var networkView = NetworkView(frame: .zero)
     
@@ -136,7 +135,6 @@ final class ContentableView: UIView {
                     
                     self.liquidView.transform = transform
                     self.secondLiquidView.transform = transform
-                    self.thirdLiquidView.transform = transform
                 })
         }
     }
@@ -246,6 +244,9 @@ final class ContentableView: UIView {
             }
             
         case let .text(text):
+            if text == Texts.statusRequesting {
+                animateImageWhenRequesting()
+            }
             let statusView = StatusView(text: text)
             previousStatusView = statusView
             
@@ -263,7 +264,6 @@ final class ContentableView: UIView {
         addSubview(backgroundView)
         addSubview(liquidView)
         addSubview(secondLiquidView)
-        addSubview(thirdLiquidView)
         addSubview(userImageView)
         addSubview(titleLabel)
         addSubview(statusView)
@@ -284,12 +284,6 @@ final class ContentableView: UIView {
         }
         
         secondLiquidView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-100)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 200, height: 200))
-        }
-
-        thirdLiquidView.snp.makeConstraints { make in
             make.centerY.equalToSuperview().offset(-100)
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 200, height: 200))
@@ -327,17 +321,16 @@ final class ContentableView: UIView {
     
     private func animateUpscaling() {
         UIView.animate(
-            withDuration: 0.3,
+            withDuration: 0.2,
             delay: .zero,
             options: .curveEaseIn,
             animations: {
-                let transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-                let imageTransform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                let transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                let imageTransform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                 
                 self.userImageView.transform = imageTransform
                 self.liquidView.transform = transform
                 self.secondLiquidView.transform = transform
-                self.thirdLiquidView.transform = transform
             }, completion: { completed in
                 if completed {
                     self.animateDownscaling()
@@ -358,7 +351,6 @@ final class ContentableView: UIView {
                 self.userImageView.transform = transform
                 self.liquidView.transform = transform
                 self.secondLiquidView.transform = transform
-                self.thirdLiquidView.transform = transform
             },
             completion: { completed in
                 if completed {
@@ -367,15 +359,26 @@ final class ContentableView: UIView {
             })
     }
     
+    private func animateImageWhenRequesting() {
+        UIView.animate(
+            withDuration: 1.2,
+            delay: .zero,
+            options: [.curveEaseInOut, .autoreverse, .repeat],
+            animations: {
+                let transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                self.userImageView.transform = transform
+            }
+        )
+    }
+    
     private func animateInitialScale() {
-        UIView.animate(withDuration: 0.4, delay: .zero, usingSpringWithDamping: 0.6, initialSpringVelocity: 5, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.2, delay: .zero, usingSpringWithDamping: 0.6, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
             let transform = CGAffineTransform(scaleX: 1, y: 1)
 
             self.userImageView.transform = transform
             self.liquidView.transform = transform
             self.secondLiquidView.transform = transform
-            self.thirdLiquidView.transform = transform
-        }
+        }, completion: { _ in self.delegate?.setNeedMonitorMicro() })
     }
 }
 
@@ -415,7 +418,7 @@ extension ContentableView: LocalVideoViewProtocol {
         let width = bounds.width / 3.12
         let height = bounds.height / 4.22
         
-        UIView.animate(withDuration: 0.8, delay: .zero) {
+        UIView.animate(withDuration: 0.5, delay: .zero) {
             self.localVideoView.snp.remakeConstraints { make in
                 make.bottom.equalToSuperview().inset(200)
                 make.leading.equalToSuperview().priority(.low)

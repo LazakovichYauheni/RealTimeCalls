@@ -27,12 +27,12 @@ class ViewController: UIViewController {
     weak var delegate: ViewControllerRespondable?
     
     let contentableView = ContentableView()
+    var microMonitor: MicrophoneMonitor?
     private var currentCameraPosition: AVCaptureDevice.Position = .back
     
     override func loadView() {
-        let microMonitor = MicrophoneMonitor()
-        microMonitor.delegate = self
         view = contentableView
+        microMonitor = MicrophoneMonitor()
         contentableView.delegate = self
     }
     
@@ -43,22 +43,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         contentableView.changeCallStatus(status: .requesting)
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.contentableView.changeCallStatus(status: .ringing)
-//        }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-//            self.contentableView.changeCallStatus(status: .exchangingKeys)
-//        }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-//            self.contentableView.changeCallStatus(status: .speaking)
-//        }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-//            self.contentableView.changeCallStatus(status: .weakSignalSpeaking)
-//        }
     }
     
     func didClientChecking() {
@@ -192,5 +176,9 @@ extension ViewController: ContentableViewDelegate {
             needToAppearLocalVideoScreen: false,
             isJustFlipping: true
         )
+    }
+    
+    func setNeedMonitorMicro() {
+        microMonitor?.delegate = self
     }
 }
