@@ -53,6 +53,12 @@ public final class BottomBar: UIView {
     
     private lazy var closeButton = BottomCloseButton(frame: .zero)
     
+    private lazy var verticalStack: UIStackView = {
+        let stack = UIStackView(frame: .zero)
+        stack.axis = .vertical
+        return stack
+    }()
+    
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
         stack.axis = .horizontal
@@ -66,8 +72,9 @@ public final class BottomBar: UIView {
         closeButton.delegate = self
         closeButton.isHidden = true
         
-        addSubview(closeButton)
-        addSubview(stackView)
+        addSubview(verticalStack)
+        verticalStack.addArrangedSubview(stackView)
+        verticalStack.addArrangedSubview(closeButton)
         
         speakerButton.delegate = self
         videoButton.delegate = self
@@ -80,15 +87,12 @@ public final class BottomBar: UIView {
         stackView.addArrangedSubview(muteButton)
         stackView.addArrangedSubview(endCallButton)
 
-        stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+        verticalStack.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
         closeButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(32)
-            make.top.equalTo(stackView.snp.bottom).offset(10)
             make.height.equalTo(50)
         }
     }

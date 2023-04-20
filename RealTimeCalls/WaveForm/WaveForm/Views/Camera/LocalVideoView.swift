@@ -135,6 +135,7 @@ extension LocalVideoView: UIPickerViewDataSource {
         let pickerRow = UIView()
         pickerRow.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         let rowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+        rowLabel.font = UIFont.boldSystemFont(ofSize: FontSize.size15)
         rowLabel.textColor = .white
         rowLabel.text = titles[row]
         rowLabel.textAlignment = .center

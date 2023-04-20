@@ -311,7 +311,7 @@ final class ContentableView: UIView {
         
         bottomBar.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(60)
+            make.bottom.equalToSuperview().inset(50)
         }
         
         localVideoView.snp.makeConstraints { make in
