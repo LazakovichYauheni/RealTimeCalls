@@ -8,16 +8,16 @@
 import UIKit
 import SnapKit
 
-public protocol LocalVideoViewProtocol: AnyObject {
-    func closeTapped()
-    func startTapped()
+public protocol LocalVideoViewEventsRespondable: AnyObject {
+    func cancelButtonTapped()
+    func startButtonTapped()
     func frontCameraSelected()
     func backCameraSelected()
 }
 
 final class LocalVideoView: UIView {
-    weak var delegate: LocalVideoViewProtocol?
-    
+
+    private lazy var responder = Weak(firstResponder(of: LocalVideoViewEventsRespondable.self))
     private let titles: [String] = ["FRONT CAMERA", "BACK CAMERA"]
     
     private lazy var closeButton: UIButton = {
@@ -96,14 +96,14 @@ final class LocalVideoView: UIView {
     }
     
     @objc private func closeTapped() {
-        delegate?.closeTapped()
+        responder.object?.cancelButtonTapped()
     }
     
     @objc private func startTapped() {
         startButton.isHidden = true
         closeButton.isHidden = true
         cameraPicker.isHidden = true
-        delegate?.startTapped()
+        responder.object?.startButtonTapped()
     }
 }
 
@@ -111,9 +111,9 @@ extension LocalVideoView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedTitle = titles[row]
         if selectedTitle == "FRONT CAMERA" {
-            delegate?.frontCameraSelected()
+            responder.object?.frontCameraSelected()
         } else if selectedTitle == "BACK CAMERA" {
-            delegate?.backCameraSelected()
+            responder.object?.backCameraSelected()
         }
     }
 }

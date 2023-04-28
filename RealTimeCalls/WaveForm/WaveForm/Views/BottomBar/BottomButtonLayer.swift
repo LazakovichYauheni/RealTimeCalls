@@ -28,9 +28,9 @@ public final class BottomButtonLayer: CAShapeLayer {
     
     func animate(onSuccess: @escaping () -> Void) {
         CATransaction.begin()
-        CATransaction.setCompletionBlock(onSuccess)
         CATransaction.setValue(5, forKey: kCATransactionAnimationDuration)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: .linear))
+        CATransaction.setCompletionBlock(onSuccess)
         mask?.position.x = bounds.maxX + bounds.width / 2
         CATransaction.commit()
     }

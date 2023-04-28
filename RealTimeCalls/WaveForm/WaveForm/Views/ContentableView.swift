@@ -8,48 +8,78 @@
 import UIKit
 import SnapKit
 
-protocol ContentableViewDelegate: AnyObject {
-    func muteButtonTapped(isOn: Bool)
-    func closeButtonTapped()
-    func speakerButtonTapped(isOn: Bool)
-    func endCallButtonTapped()
-    func videoButtonTapped(isOn: Bool)
-    func flipButtonTapped(isOn: Bool)
-    func startTapped()
-    func frontCameraSelected()
-    func backCameraSelected()
-    func setNeedMonitorMicro()
+protocol ContentableViewEventsRespondable: AnyObject {
+    func setNeedToMonitorMicro()
+}
+
+private enum Constants {
+    static let imageCornerRadius = 57.5
+    static let liquidViewVolumeAnimationDuration = 0.05
+    static let liquidViewVolumeConstant: CGFloat = 200
+    static let localVideoViewWidthConstant = 3.12
+    static let localVideoViewHeightConstant = 4.22
+    static let localVideoViewAnimationDuration = 0.5
+    
+    static let localVideoViewSmallBottomConstant = 200
+    static let space16 = 16
+    static let space8 = 8
+    static let space20 = 20
+    static let space50 = 50
+    
+    static let flipCameraAnimationDuration = 0.3
+    static let circleAppearanceAnimationDuration = 0.24
+    static let halfDelimiter: CGFloat = 2
+    static let powConstant: Float = 2
+    
+    static let imageOffset = -100
+    static let imageSize = 115
+    static let liquidViewSize = 200
+    
+    static let upscalingAnimationDuration = 0.2
+    static let upscalingTransformConstant: CGFloat = 1.5
+    static let upscalingImageTransformConstant: CGFloat = 1.2
+    
+    static let downscalingAnimationDuration = 0.2
+    static let downscalingTransformConstant: CGFloat = 0.9
+    static let downscalingDamping: CGFloat = 2
+    static let downscalingVelocity: CGFloat = 5
+    
+    static let requestingAnimationDuration = 1.2
+    static let requestingTransformConstant: CGFloat = 1.05
+    
+    static let initialScaleAnimationDuration = 0.2
+    static let initialScaleTransformConstant: CGFloat = 1
+    static let initialScaleDamping: CGFloat = 0.6
+    static let initialScaleVelocity: CGFloat = 5
 }
 
 final class ContentableView: UIView {
-    weak var delegate: ContentableViewDelegate?
     // MARK: - Subview Properties
     
     private lazy var remoteVideoView: RemoteVideoView = {
-        let view = RemoteVideoView(frame: .zero)
+        let view = RemoteVideoView()
         view.isHidden = true
         return view
     }()
     
     private lazy var localVideoView: LocalVideoView = {
-        let view = LocalVideoView(frame: .zero)
-        view.delegate = self
+        let view = LocalVideoView()
         view.isHidden = true
         return view
     }()
     
-    private let backgroundView = BackgroundView(frame: .zero)
+    private lazy var backgroundView = BackgroundView()
     
-    private lazy var liquidView = LiquidView(frame: .zero)
+    private lazy var liquidView = LiquidView()
     
-    private lazy var secondLiquidView = LiquidView(frame: .zero)
+    private lazy var secondLiquidView = LiquidView()
 
-    private lazy var networkView = NetworkView(frame: .zero)
+    private lazy var networkView = NetworkView()
     
     private lazy var userImageView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 57.5
+        view.layer.cornerRadius = Constants.imageCornerRadius
         view.image = Images.girlImage
         return view
     }()
@@ -69,12 +99,15 @@ final class ContentableView: UIView {
         return statusView
     }()
     
-    private lazy var bottomBar = BottomBar(frame: .zero)
+    private lazy var bottomBar = BottomBar()
     
     // MARK: - Private Properties
     
+    private lazy var responder = Weak(firstResponder(of: ContentableViewEventsRespondable.self))
+    
     private var tappedPoint: CGPoint = CGPoint()
     private var previousStatusView: StatusProtocol?
+    
     private let configurator = CallScreenConfigurator()
     private var configurationParameters: ConfigurationParameters? {
         didSet {
@@ -127,15 +160,19 @@ final class ContentableView: UIView {
     public func updateLiquidSize(value: CGFloat) {
         if status == .speaking || status == .weakSignalSpeaking {
             UIView.animate(
-                withDuration: 0.05,
+                withDuration: Constants.liquidViewVolumeAnimationDuration,
                 delay: .zero,
                 options: .curveLinear,
                 animations: {
-                    let transform = CGAffineTransform(scaleX: value / 200, y: value / 200)
+                    let transform = CGAffineTransform(
+                        scaleX: value / Constants.liquidViewVolumeConstant,
+                        y: value / Constants.liquidViewVolumeConstant
+                    )
                     
                     self.liquidView.transform = transform
                     self.secondLiquidView.transform = transform
-                })
+                }
+            )
         }
     }
     
@@ -151,45 +188,103 @@ final class ContentableView: UIView {
         localVideoView.configure(videoView: view)
     }
     
+    public func reconfigureBottomBarWithFlipButton() {
+        bottomBar.reconfigureWithFlipButton()
+    }
+    
+    public func remakeLocalVideoViewConstraints() {
+        let width = bounds.width / Constants.localVideoViewWidthConstant
+        let height = bounds.height / Constants.localVideoViewHeightConstant
+        
+        UIView.animate(withDuration: Constants.localVideoViewAnimationDuration, delay: .zero) {
+            self.localVideoView.snp.remakeConstraints { make in
+                make.bottom.equalToSuperview().inset(Constants.localVideoViewSmallBottomConstant)
+                make.leading.equalToSuperview().priority(.low)
+                make.trailing.equalToSuperview().inset(Constants.space16)
+                make.width.equalTo(width)
+                make.height.equalTo(height)
+            }
+            self.layoutIfNeeded()
+        }
+    }
+    
     public func flipLocalVideoView() {
-        UIView.transition(with: localVideoView, duration: 0.3, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+        UIView.transition(
+            with: localVideoView,
+            duration: Constants.flipCameraAnimationDuration,
+            options: .transitionFlipFromLeft,
+            animations: nil,
+            completion: nil
+        )
     }
     
     public func showRemoteVideoView() {
         remoteVideoView.isHidden = false
-        circleAnim(appear: true, remoteVideoView, duration: 0.24, from: userImageView.center) {}
+        applyCircleAnimationForVideoView(
+            appear: true,
+            remoteVideoView,
+            duration: Constants.circleAppearanceAnimationDuration,
+            from: userImageView.center
+        ) {}
     }
     
     public func showLocalVideoView() {
         localVideoView.isHidden = false
         localVideoView.showButtons()
-        circleAnim(appear: true, localVideoView, duration: 0.24, from: tappedPoint) {}
+        applyCircleAnimationForVideoView(
+            appear: true,
+            localVideoView,
+            duration: Constants.circleAppearanceAnimationDuration,
+            from: tappedPoint
+        ) {}
     }
     
     public func hideRemoteVideoView() {
-        circleAnim(appear: false, remoteVideoView, duration: 0.24, from: userImageView.center) {
+        applyCircleAnimationForVideoView(
+            appear: false,
+            remoteVideoView,
+            duration: Constants.circleAppearanceAnimationDuration,
+            from: userImageView.center
+        ) {
             self.remoteVideoView.isHidden = true
         }
     }
     
     public func hideLocalVideoView() {
         bottomBar.reconfigureWithSpeakerButton()
-        self.localVideoView.isHidden = true
-        self.localVideoView.snp.remakeConstraints { make in
+        localVideoView.isHidden = true
+        localVideoView.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    public func circleAnim(appear: Bool, _ view: UIView, duration: CFTimeInterval, from point: CGPoint, completion: @escaping () -> Void) {
-        let maskDiameter = CGFloat(sqrtf(powf(Float(view.bounds.width + point.x), 2) + powf(Float(view.bounds.height + point.y), 2)))
+    public func applyCircleAnimationForVideoView(
+        appear: Bool,
+        _ view: UIView,
+        duration: CFTimeInterval,
+        from point: CGPoint,
+        completion: @escaping () -> Void
+    ) {
+        let maskDiameter = CGFloat(
+            sqrtf(
+                powf(Float(view.bounds.width + point.x), Constants.powConstant)
+                + powf(Float(view.bounds.height + point.y), Constants.powConstant)
+            )
+        )
         let mask = CAShapeLayer()
         let animationId = "path"
 
         // Make a circular shape.
-        mask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: maskDiameter, height: maskDiameter), cornerRadius: maskDiameter / 2).cgPath
+        mask.path = UIBezierPath(
+            roundedRect: CGRect(x: .zero, y: .zero, width: maskDiameter, height: maskDiameter),
+            cornerRadius: maskDiameter / Constants.halfDelimiter
+        ).cgPath
 
         // Center the shape in the view.
-        mask.position = CGPoint(x: (-maskDiameter ) / 2 + point.x, y: (-maskDiameter) / 2 + point.y)
+        mask.position = CGPoint(
+            x: (-maskDiameter) / Constants.halfDelimiter + point.x,
+            y: (-maskDiameter) / Constants.halfDelimiter + point.y
+        )
 
         // Fill the circle.
         mask.fillColor = UIColor.black.cgColor
@@ -206,7 +301,15 @@ final class ContentableView: UIView {
         animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
         animation.isRemovedOnCompletion = false
         
-        let newPath = UIBezierPath(roundedRect: CGRect(x: maskDiameter / 2, y: maskDiameter / 2, width: 0, height: 0), cornerRadius: 0).cgPath
+        let newPath = UIBezierPath(
+            roundedRect: CGRect(
+                x: maskDiameter / Constants.halfDelimiter,
+                y: maskDiameter / Constants.halfDelimiter,
+                width: .zero,
+                height: .zero
+            ),
+            cornerRadius: .zero
+        ).cgPath
 
         // Set start and end values.
         animation.fromValue = appear ? newPath : mask.path
@@ -221,8 +324,8 @@ final class ContentableView: UIView {
     
     private func configure(configurationParameters: ConfigurationParameters) {
         backgroundView.changeColors(
-            blobsColors: configurationParameters.background.description.1,
-            backgroundColor: configurationParameters.background.description.0
+            blobsColors: configurationParameters.background.description.blobColors,
+            backgroundColor: configurationParameters.background.description.backgroundColor
         )
         
         switch configurationParameters.statusText {
@@ -259,8 +362,6 @@ final class ContentableView: UIView {
     }
     
     private func initialize() {
-        //maskingView.blur()
-        bottomBar.delegate = self
         addSubview(backgroundView)
         addSubview(liquidView)
         addSubview(secondLiquidView)
@@ -278,30 +379,30 @@ final class ContentableView: UIView {
         }
         
         liquidView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview().offset(Constants.imageOffset)
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 200, height: 200))
+            make.size.equalTo(CGSize(width: Constants.liquidViewSize, height: Constants.liquidViewSize))
         }
         
         secondLiquidView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview().offset(Constants.imageOffset)
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 200, height: 200))
+            make.size.equalTo(CGSize(width: Constants.liquidViewSize, height: Constants.liquidViewSize))
         }
         
         userImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview().offset(Constants.imageOffset)
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 115, height: 115))
+            make.size.equalTo(CGSize(width: Constants.imageSize, height: Constants.imageSize))
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(userImageView.snp.bottom).offset(16)
+            make.top.equalTo(userImageView.snp.bottom).offset(Constants.space16)
             make.leading.trailing.equalToSuperview()
         }
         
         statusView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(Constants.space8)
             make.centerX.equalToSuperview()
         }
         
@@ -310,8 +411,9 @@ final class ContentableView: UIView {
         }
         
         bottomBar.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(50)
+            make.height.equalTo(70)
+            make.bottom.equalToSuperview().inset(Constants.space50)
+            make.leading.trailing.equalToSuperview().inset(Constants.space20)
         }
         
         localVideoView.snp.makeConstraints { make in
@@ -321,12 +423,18 @@ final class ContentableView: UIView {
     
     private func animateUpscaling() {
         UIView.animate(
-            withDuration: 0.2,
+            withDuration: Constants.upscalingAnimationDuration,
             delay: .zero,
             options: .curveEaseIn,
             animations: {
-                let transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                let imageTransform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                let transform = CGAffineTransform(
+                    scaleX: Constants.upscalingTransformConstant,
+                    y: Constants.upscalingTransformConstant
+                )
+                let imageTransform = CGAffineTransform(
+                    scaleX: Constants.upscalingImageTransformConstant,
+                    y: Constants.upscalingImageTransformConstant
+                )
                 
                 self.userImageView.transform = imageTransform
                 self.liquidView.transform = transform
@@ -340,13 +448,16 @@ final class ContentableView: UIView {
     
     private func animateDownscaling() {
         UIView.animate(
-            withDuration: 0.2,
+            withDuration: Constants.downscalingAnimationDuration,
             delay: .zero,
-            usingSpringWithDamping: 2,
-            initialSpringVelocity: 5,
+            usingSpringWithDamping: Constants.downscalingDamping,
+            initialSpringVelocity: Constants.downscalingVelocity,
             options: .curveEaseInOut,
             animations: {
-                let transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                let transform = CGAffineTransform(
+                    scaleX: Constants.downscalingTransformConstant,
+                    y: Constants.downscalingTransformConstant
+                )
 
                 self.userImageView.transform = transform
                 self.liquidView.transform = transform
@@ -361,82 +472,38 @@ final class ContentableView: UIView {
     
     private func animateImageWhenRequesting() {
         UIView.animate(
-            withDuration: 1.2,
+            withDuration: Constants.requestingAnimationDuration,
             delay: .zero,
             options: [.curveEaseInOut, .autoreverse, .repeat],
             animations: {
-                let transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                let transform = CGAffineTransform(
+                    scaleX: Constants.requestingTransformConstant,
+                    y: Constants.requestingTransformConstant
+                )
                 self.userImageView.transform = transform
             }
         )
     }
     
     private func animateInitialScale() {
-        UIView.animate(withDuration: 0.2, delay: .zero, usingSpringWithDamping: 0.6, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
-            let transform = CGAffineTransform(scaleX: 1, y: 1)
+        UIView.animate(
+            withDuration: Constants.initialScaleAnimationDuration,
+            delay: .zero,
+            usingSpringWithDamping: Constants.initialScaleDamping,
+            initialSpringVelocity: Constants.initialScaleVelocity,
+            options: .curveEaseInOut,
+            animations: {
+                let transform = CGAffineTransform(
+                    scaleX: Constants.initialScaleTransformConstant,
+                    y: Constants.initialScaleTransformConstant
+                )
 
-            self.userImageView.transform = transform
-            self.liquidView.transform = transform
-            self.secondLiquidView.transform = transform
-        }, completion: { _ in self.delegate?.setNeedMonitorMicro() })
-    }
-}
-
-extension ContentableView: BottomBarDelegate {
-    func didTapEndButton() {
-        delegate?.endCallButtonTapped()
-        changeCallStatus(status: .ending)
-    }
-    
-    func didMuteButtonTapped(isOn: Bool) {
-        delegate?.muteButtonTapped(isOn: isOn)
-    }
-    
-    func didTapCloseButton() {
-        delegate?.closeButtonTapped()
-    }
-    
-    func speakerButtonTapped(isOn: Bool) {
-        delegate?.speakerButtonTapped(isOn: isOn)
-    }
-    
-    func videoButtonTapped(isOn: Bool) {
-        delegate?.videoButtonTapped(isOn: isOn)
-    }
-    
-    func flipButtonTapped(isOn: Bool) {
-        delegate?.flipButtonTapped(isOn: isOn)
-    }
-}
-
-extension ContentableView: LocalVideoViewProtocol {
-    func closeTapped() {
-        delegate?.videoButtonTapped(isOn: false)
-    }
-    
-    func startTapped() {
-        let width = bounds.width / 3.12
-        let height = bounds.height / 4.22
-        
-        UIView.animate(withDuration: 0.5, delay: .zero) {
-            self.localVideoView.snp.remakeConstraints { make in
-                make.bottom.equalToSuperview().inset(200)
-                make.leading.equalToSuperview().priority(.low)
-                make.trailing.equalToSuperview().inset(16)
-                make.width.equalTo(width)
-                make.height.equalTo(height)
+                self.userImageView.transform = transform
+                self.liquidView.transform = transform
+                self.secondLiquidView.transform = transform
+            }, completion: { _ in
+                self.responder.object?.setNeedToMonitorMicro()
             }
-            self.layoutIfNeeded()
-        }
-        delegate?.startTapped()
-        bottomBar.reconfigureWithFlipButton()
-    }
-    
-    func frontCameraSelected() {
-        delegate?.frontCameraSelected()
-    }
-    
-    func backCameraSelected() {
-        delegate?.backCameraSelected()
+        )
     }
 }

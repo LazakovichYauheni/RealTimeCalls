@@ -1,5 +1,5 @@
 //
-//  UIBezierPath+Extension.swift
+//  UIBezierPath+Extensions.swift
 //  WaveForm
 //
 //  Created by Eugeni Lazakovich on 12.03.23.

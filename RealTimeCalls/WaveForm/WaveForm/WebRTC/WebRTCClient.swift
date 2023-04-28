@@ -9,7 +9,7 @@ import Foundation
 import WebRTC
 import ReplayKit
 
-public protocol WebRTCClientDelegate: NSObject {
+public protocol WebRTCClientOutputProtocol: NSObject {
     func didGenerateCandidate(iceCandidate: RTCIceCandidate)
     func didClientChecking()
     func didClientConnected(statusChanged: @escaping () -> Void)
@@ -28,12 +28,14 @@ public final class WebRTCClient: NSObject {
     private var remoteRenderView: RTCEAGLVideoView!
     private var remoteVideoTrack: RTCVideoTrack!
     
+    private var rtcAudioSession = RTCAudioSession.sharedInstance()
+    
     deinit {
         peerConnectionFactory = nil
         peerConnection = nil
     }
 
-    weak var delegate: WebRTCClientDelegate?
+    weak var delegate: WebRTCClientOutputProtocol?
     
     func mute(isOn: Bool) {
         localAudioTrack.isEnabled = !isOn
@@ -79,6 +81,7 @@ public final class WebRTCClient: NSObject {
         )
         localAudioTrack = createAudioTrack()
         localVideoTrack = createVideoTrack()
+        setAudioSessionState(isEnabled: false)
         localAudioTrack.isEnabled = false
         localVideoTrack.isEnabled = false
         
@@ -168,7 +171,19 @@ public final class WebRTCClient: NSObject {
     private func setupPeerConnection() -> RTCPeerConnection {
         let rtcConf = RTCConfiguration()
         rtcConf.sdpSemantics = RTCSdpSemantics.unifiedPlan
-        rtcConf.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302"])]
+        rtcConf.iceServers = [
+            RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302"]),
+            RTCIceServer(
+                urlStrings: ["turn:relay1.expressturn.com:3478"],
+                username: "ef3A2NVZP9LYWOE1DA",
+                credential: "Em6MLhImGp09mUhi"
+            )
+//            RTCIceServer(
+//                urlStrings: ["turn:34.125.10.47:3478"],
+//                username: "kovich",
+//                credential: "kovich123"
+//            )
+        ]
         let mediaConstraints = RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)
         let pc = self.peerConnectionFactory.peerConnection(with: rtcConf, constraints: mediaConstraints, delegate: nil)
         return pc
@@ -229,6 +244,7 @@ public final class WebRTCClient: NSObject {
     
     private func disconnect() {
         peerConnection?.close()
+        setAudioSessionState(isEnabled: false)
         localAudioTrack.isEnabled = false
         localVideoTrack.isEnabled = false
         captureLocalVideo(cameraPositon: .back, isOn: false, completion: {})
@@ -241,7 +257,7 @@ public final class WebRTCClient: NSObject {
             
             let devicies = RTCCameraVideoCapturer.captureDevices()
             devicies.forEach { (device) in
-                if device.position ==  cameraPositon{
+                if device.position == cameraPositon{
                     targetDevice = device
                 }
             }
@@ -257,14 +273,26 @@ public final class WebRTCClient: NSObject {
             }
             
             if isOn {
-                capturer.startCapture(with: targetDevice!,
-                                      format: targetFormat!,
-                                      fps: 60)
+                capturer.startCapture(
+                    with: targetDevice!,
+                    format: targetFormat!,
+                    fps: 60
+                )
                 completion()
             } else {
                 capturer.stopCapture()
             }
         }
+    }
+    
+    private func setAudioSessionState(isEnabled: Bool) {
+        rtcAudioSession.lockForConfiguration()
+        do {
+            try rtcAudioSession.setActive(isEnabled)
+        } catch let error {
+            debugPrint("Couldn't force audio to speaker: \(error)")
+        }
+        rtcAudioSession.unlockForConfiguration()
     }
 }
 
@@ -284,25 +312,34 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         case .closed:
             print("closed")
             self.peerConnection = nil
-            delegate?.didDisconnect()
+            DispatchQueue.main.async {
+                self.delegate?.didDisconnect()
+                self.setAudioSessionState(isEnabled: false)
+            }
         case .checking:
             print("checking")
-            delegate?.didClientChecking()
-            delegate?.setRemoteView(view: remoteRenderView)
-            delegate?.setLocalView(view: localRenderView)
+            DispatchQueue.main.async {
+                self.delegate?.didClientChecking()
+                self.delegate?.setRemoteView(view: self.remoteRenderView)
+                self.delegate?.setLocalView(view: self.localRenderView)
+            }
         case .completed:
             print("completed")
         case .connected:
             print("connected")
-            delegate?.didClientConnected(
-                statusChanged: {
-                    self.localAudioTrack.isEnabled = true
-                }
-            )
+            DispatchQueue.main.async {
+                self.delegate?.didClientConnected(
+                    statusChanged: {
+                        self.setAudioSessionState(isEnabled: true)
+                        self.localAudioTrack.isEnabled = true
+                    }
+                )
+            }
         case .count:
             print("count")
         case .disconnected:
             print("disconnected")
+            self.setAudioSessionState(isEnabled: false)
         case .failed:
             print("failed")
         case .new:
@@ -313,7 +350,9 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     public func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {}
     
     public func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        delegate?.didGenerateCandidate(iceCandidate: candidate)
+        DispatchQueue.main.async {
+            self.delegate?.didGenerateCandidate(iceCandidate: candidate)
+        }
     }
     
     public func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) { }

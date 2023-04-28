@@ -14,7 +14,7 @@
 		510F997D29BD347800B34C72 /* ContentableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F997C29BD347800B34C72 /* ContentableView.swift */; };
 		510F998529BE0D9400B34C72 /* LiquidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F998429BE0D9400B34C72 /* LiquidView.swift */; };
 		510F998729BE10E400B34C72 /* LiquidLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F998629BE10E400B34C72 /* LiquidLayer.swift */; };
-		510F998A29BE1B6B00B34C72 /* UIBezierPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F998929BE1B6B00B34C72 /* UIBezierPath+Extension.swift */; };
+		510F998A29BE1B6B00B34C72 /* UIBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F998929BE1B6B00B34C72 /* UIBezierPath+Extensions.swift */; };
 		510F998C29BE1E7E00B34C72 /* CGPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510F998B29BE1E7E00B34C72 /* CGPath+Extensions.swift */; };
 		51307E3529C07DDE0080EE05 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51307E3429C07DDE0080EE05 /* Media.xcassets */; };
 		51307E3729C0963D0080EE05 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51307E3629C0963D0080EE05 /* UIView+Extensions.swift */; };
@@ -41,7 +41,7 @@
 		517EFB2529C4AC9600DE8C7B /* BottomCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517EFB2429C4AC9600DE8C7B /* BottomCloseButton.swift */; };
 		518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518D5E7927F5C85D00B78B98 /* AppDelegate.swift */; };
 		518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518D5E7B27F5C85D00B78B98 /* SceneDelegate.swift */; };
-		518D5E7E27F5C85D00B78B98 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518D5E7D27F5C85D00B78B98 /* ViewController.swift */; };
+		518D5E7E27F5C85D00B78B98 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518D5E7D27F5C85D00B78B98 /* CallViewController.swift */; };
 		518D5E8327F5C85F00B78B98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518D5E8227F5C85F00B78B98 /* Assets.xcassets */; };
 		518D5E8627F5C85F00B78B98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 518D5E8427F5C85F00B78B98 /* LaunchScreen.storyboard */; };
 		51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6229E82B1200D7B2DD /* StartViewController.swift */; };
@@ -50,6 +50,7 @@
 		51B9BF7829EB0E2E00D7B2DD /* RemoteVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7729EB0E2E00D7B2DD /* RemoteVideoView.swift */; };
 		51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */; };
 		51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */; };
+		51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */; };
 		51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */; };
 		51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5029E5B2200085088D /* WebSocketWorker.swift */; };
 		51E48B5329E5B84C0085088D /* SignalingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5229E5B84C0085088D /* SignalingMessage.swift */; };
@@ -65,7 +66,7 @@
 		510F997C29BD347800B34C72 /* ContentableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentableView.swift; sourceTree = "<group>"; };
 		510F998429BE0D9400B34C72 /* LiquidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidView.swift; sourceTree = "<group>"; };
 		510F998629BE10E400B34C72 /* LiquidLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidLayer.swift; sourceTree = "<group>"; };
-		510F998929BE1B6B00B34C72 /* UIBezierPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Extension.swift"; sourceTree = "<group>"; };
+		510F998929BE1B6B00B34C72 /* UIBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Extensions.swift"; sourceTree = "<group>"; };
 		510F998B29BE1E7E00B34C72 /* CGPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+Extensions.swift"; sourceTree = "<group>"; };
 		51307E3429C07DDE0080EE05 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		51307E3629C0963D0080EE05 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -93,7 +94,7 @@
 		518D5E7627F5C85D00B78B98 /* WaveForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaveForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		518D5E7927F5C85D00B78B98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		518D5E7B27F5C85D00B78B98 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		518D5E7D27F5C85D00B78B98 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		518D5E7D27F5C85D00B78B98 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		518D5E8227F5C85F00B78B98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		518D5E8527F5C85F00B78B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		518D5E8727F5C85F00B78B98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		51B9BF7729EB0E2E00D7B2DD /* RemoteVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVideoView.swift; sourceTree = "<group>"; };
 		51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFrameCapturer.swift; sourceTree = "<group>"; };
+		51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		51E48B5029E5B2200085088D /* WebSocketWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketWorker.swift; sourceTree = "<group>"; };
 		51E48B5229E5B84C0085088D /* SignalingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingMessage.swift; sourceTree = "<group>"; };
@@ -191,10 +193,11 @@
 		510F998829BE1B5400B34C72 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				510F998929BE1B6B00B34C72 /* UIBezierPath+Extension.swift */,
+				510F998929BE1B6B00B34C72 /* UIBezierPath+Extensions.swift */,
 				510F998B29BE1E7E00B34C72 /* CGPath+Extensions.swift */,
 				51307E3629C0963D0080EE05 /* UIView+Extensions.swift */,
 				51307E3829C0997C0080EE05 /* CALayer+Extensions.swift */,
+				51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -240,10 +243,10 @@
 		518D5E7827F5C85D00B78B98 /* WaveForm */ = {
 			isa = PBXGroup;
 			children = (
+				51D3927F29F6DE62003E8E84 /* Utils */,
 				51B9BF6D29E9846F00D7B2DD /* WaveForm.entitlements */,
 				51B9BF6429E82B3B00D7B2DD /* StartScreenModule */,
 				51B9BF6129E82AFE00D7B2DD /* ViewControllers */,
-				510E559629CDB3E700D6638C /* MicrophoneMonitor.swift */,
 				51E48B4D29E5AC8C0085088D /* WebRTC */,
 				510F998829BE1B5400B34C72 /* Extensions */,
 				510E559129CDB06600D6638C /* Views */,
@@ -253,12 +256,6 @@
 				518D5E8427F5C85F00B78B98 /* LaunchScreen.storyboard */,
 				518D5E8727F5C85F00B78B98 /* Info.plist */,
 				51307E3429C07DDE0080EE05 /* Media.xcassets */,
-				513F049129CDE8A4008E19E7 /* Colors.swift */,
-				513F049329CDEA02008E19E7 /* Images.swift */,
-				513F049529CDEA33008E19E7 /* Texts.swift */,
-				513F049729CDEA84008E19E7 /* Fonts.swift */,
-				513F049B29CDF096008E19E7 /* CallStatus.swift */,
-				513F049D29CDF200008E19E7 /* CallScreenConfigurator.swift */,
 			);
 			path = WaveForm;
 			sourceTree = "<group>";
@@ -266,7 +263,7 @@
 		51B9BF6129E82AFE00D7B2DD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				518D5E7D27F5C85D00B78B98 /* ViewController.swift */,
+				518D5E7D27F5C85D00B78B98 /* CallViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +284,20 @@
 				51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		51D3927F29F6DE62003E8E84 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				510E559629CDB3E700D6638C /* MicrophoneMonitor.swift */,
+				513F049B29CDF096008E19E7 /* CallStatus.swift */,
+				513F049D29CDF200008E19E7 /* CallScreenConfigurator.swift */,
+				513F049129CDE8A4008E19E7 /* Colors.swift */,
+				513F049329CDEA02008E19E7 /* Images.swift */,
+				513F049529CDEA33008E19E7 /* Texts.swift */,
+				513F049729CDEA84008E19E7 /* Fonts.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		51E48B4D29E5AC8C0085088D /* WebRTC */ = {
@@ -434,6 +445,7 @@
 				510F997529BB4E2600B34C72 /* BaseLayer.swift in Sources */,
 				513F049E29CDF200008E19E7 /* CallScreenConfigurator.swift in Sources */,
 				51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */,
+				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
 				517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */,
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
@@ -446,7 +458,7 @@
 				510F998729BE10E400B34C72 /* LiquidLayer.swift in Sources */,
 				517EFB2329C33A5400DE8C7B /* BottomButtonLayer.swift in Sources */,
 				510F998C29BE1E7E00B34C72 /* CGPath+Extensions.swift in Sources */,
-				518D5E7E27F5C85D00B78B98 /* ViewController.swift in Sources */,
+				518D5E7E27F5C85D00B78B98 /* CallViewController.swift in Sources */,
 				51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
 				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
@@ -462,7 +474,7 @@
 				510E559729CDB3E700D6638C /* MicrophoneMonitor.swift in Sources */,
 				513F049229CDE8A4008E19E7 /* Colors.swift in Sources */,
 				51307E3729C0963D0080EE05 /* UIView+Extensions.swift in Sources */,
-				510F998A29BE1B6B00B34C72 /* UIBezierPath+Extension.swift in Sources */,
+				510F998A29BE1B6B00B34C72 /* UIBezierPath+Extensions.swift in Sources */,
 				51307E3E29C0AA3A0080EE05 /* DotsView.swift in Sources */,
 				510F997929BD0D8600B34C72 /* BackgroundView.swift in Sources */,
 				51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */,

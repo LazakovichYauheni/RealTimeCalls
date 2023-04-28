@@ -13,15 +13,14 @@ import AVFoundation
 
 public final class StartViewController: UIViewController {
     
-    private let startView = StartView(frame: .zero)
+    private let startView = StartView()
     
     private var worker: WebSocketWorker!
     
-    private var vc = ViewController()
+    private var callViewController = CallViewController()
     
     public override func loadView() {
         view = startView
-        startView.delegate = self
     }
     
     public override func viewDidLoad() {
@@ -29,20 +28,22 @@ public final class StartViewController: UIViewController {
         worker = WebSocketWorker()
         worker.delegate = self
     }
+    
+    public override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 }
 
-extension StartViewController: StartViewDelegate {
+extension StartViewController: StartViewEventsRespondable {
     public func didCallButtonTapped() {
         worker.sendNotification()
-        let contentViewController = ViewController()
+        let contentViewController = CallViewController()
         contentViewController.delegate = self
-        vc = contentViewController
+        callViewController = contentViewController
         contentViewController.modalPresentationStyle = .overFullScreen
         present(contentViewController, animated: true)
     }
 }
 
-extension StartViewController: WebSocketWorkerDelegate {
+extension StartViewController: WebSocketWorkerOutputProtocol {
     public func didNeedToShowNotification() {
         DispatchQueue.main.async {
             let banner = FloatingNotificationBanner(title: "Incomming Call", subtitle: "Second device", style: .success)
@@ -51,9 +52,9 @@ extension StartViewController: WebSocketWorkerDelegate {
             banner.onTap = { [weak self] in
                 guard let self = self else { return }
                 self.worker.sendTapNotification()
-                let contentViewController = ViewController()
+                let contentViewController = CallViewController()
                 contentViewController.delegate = self
-                self.vc = contentViewController
+                self.callViewController = contentViewController
                 contentViewController.modalPresentationStyle = .overFullScreen
                 self.present(contentViewController, animated: true)
             }
@@ -62,47 +63,49 @@ extension StartViewController: WebSocketWorkerDelegate {
     }
     
     public func didClientChecking() {
-        vc.didClientChecking()
+        callViewController.didClientChecking()
     }
     
     public func didClientConnected(statusChanged: @escaping () -> Void) {
-        vc.didClientConnected(statusChanged: statusChanged)
+        callViewController.didClientConnected(statusChanged: statusChanged)
     }
     
     public func didDisconnect() {
-        vc.didDisconnect()
+        callViewController.didDisconnect()
     }
     
     public func needToShowRemoteVideo() {
-        vc.showRemoteVideo()
+        callViewController.showRemoteVideo()
     }
     
     public func needToShowLocalVideo() {
-        vc.showLocalVideo()
+        callViewController.showLocalVideo()
     }
     
     public func needToHideRemoteVideo() {
-        vc.hideRemoteVideo()
+        callViewController.hideRemoteVideo()
     }
     
     public func needToHideLocalVideo() {
-        vc.hideLocalVideo()
+        callViewController.hideLocalVideo()
     }
     
     public func needToFlip() {
-        vc.flip()
+        callViewController.flip()
     }
     
     public func setRemoteView(videoView: UIView) {
-        vc.setRemoteView(videoView: videoView)
+        callViewController.setRemoteView(videoView: videoView)
     }
     
     public func setLocalView(videoView: UIView) {
-        vc.setLocalView(videoView: videoView)
+        callViewController.setLocalView(videoView: videoView)
     }
 }
 
-extension StartViewController: ViewControllerRespondable {
+// MARK: - CallViewControllerOutputProtocol
+
+extension StartViewController: CallViewControllerOutputProtocol {
     func muteButtonTapped(isOn: Bool) {
         worker.mute(isOn: isOn)
     }

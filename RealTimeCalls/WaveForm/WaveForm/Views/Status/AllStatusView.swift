@@ -36,14 +36,14 @@ public final class AllStatusView: UIView {
         newView.snp.makeConstraints { make in
             make.top.bottom.centerX.equalToSuperview()
         }
-        
-        newView.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: 9))
-        
+
+        newView.transform = (CGAffineTransform(scaleX: 0.8, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: 9))
+
         UIView.animate(withDuration: 0.2, delay: .zero, options: .curveLinear, animations: {
             newView.transform = .identity
             newView.alpha = 1
             statusView.alpha = 0
-            statusView.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: -9))
+            statusView.transform = (CGAffineTransform(scaleX: 0.8, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: -9))
         }, completion: { _ in
             statusView.removeFromSuperview()
             guard let newView = newView as? StatusProtocol else { return }

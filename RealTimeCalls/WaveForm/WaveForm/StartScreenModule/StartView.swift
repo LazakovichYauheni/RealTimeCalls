@@ -7,13 +7,12 @@
 
 import SnapKit
 
-public protocol StartViewDelegate: AnyObject {
+public protocol StartViewEventsRespondable: AnyObject {
     func didCallButtonTapped()
 }
 
 public final class StartView: UIView {
-    weak var delegate: StartViewDelegate?
-    // MARK: - Private Properties
+    // MARK: - Subview Properties
     
     private lazy var callButton: UIButton = {
         let button = UIButton()
@@ -21,6 +20,12 @@ public final class StartView: UIView {
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Private Properties
+    
+    private lazy var responder = Weak(firstResponder(of: StartViewEventsRespondable.self))
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,6 +43,6 @@ public final class StartView: UIView {
     }
     
     @objc private func buttonTapped() {
-        delegate?.didCallButtonTapped()
+        responder.object?.didCallButtonTapped()
     }
 }

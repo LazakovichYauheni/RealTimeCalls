@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public protocol BottomBarDelegate: AnyObject {
+public protocol BottomBarEventsRespondable: AnyObject {
     func didTapEndButton()
     func didMuteButtonTapped(isOn: Bool)
     func didTapCloseButton()
@@ -18,7 +18,7 @@ public protocol BottomBarDelegate: AnyObject {
 }
 
 public final class BottomBar: UIView {
-    weak var delegate: BottomBarDelegate?
+    private lazy var responder = Weak(firstResponder(of: BottomBarEventsRespondable.self))
     
     private lazy var speakerButton = BottomButton(
         image: Images.speakerImage,
@@ -53,12 +53,6 @@ public final class BottomBar: UIView {
     
     private lazy var closeButton = BottomCloseButton(frame: .zero)
     
-    private lazy var verticalStack: UIStackView = {
-        let stack = UIStackView(frame: .zero)
-        stack.axis = .vertical
-        return stack
-    }()
-    
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(frame: .zero)
         stack.axis = .horizontal
@@ -71,10 +65,10 @@ public final class BottomBar: UIView {
         
         closeButton.delegate = self
         closeButton.isHidden = true
+        closeButton.alpha = .zero
         
-        addSubview(verticalStack)
-        verticalStack.addArrangedSubview(stackView)
-        verticalStack.addArrangedSubview(closeButton)
+        addSubview(stackView)
+        addSubview(closeButton)
         
         speakerButton.delegate = self
         videoButton.delegate = self
@@ -86,15 +80,11 @@ public final class BottomBar: UIView {
         stackView.addArrangedSubview(videoButton)
         stackView.addArrangedSubview(muteButton)
         stackView.addArrangedSubview(endCallButton)
-
-        verticalStack.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
-        }
-        
-        closeButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-        }
+    }
+    
+    override public func layoutSubviews() {
+        stackView.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY, width: self.bounds.width, height: 70)
+        closeButton.frame = CGRect(x: self.bounds.maxX + 32, y: self.bounds.minY, width: self.bounds.width, height: 50)
     }
     
     required init?(coder: NSCoder) {
@@ -102,11 +92,14 @@ public final class BottomBar: UIView {
     }
     
     public func showWithCloseButton() {
-        
+        self.closeButton.isHidden = false
+
         UIView.animate(withDuration: 0.4, delay: .zero, animations: {
-            self.stackView.isHidden = true
-            self.closeButton.isHidden = false
+            self.closeButton.alpha = 1
+            self.stackView.alpha = .zero
+            self.closeButton.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY, width: self.bounds.width, height: 50)
         }, completion: { _ in
+            self.stackView.isHidden = true
             self.closeButton.animate()
         })
     }
@@ -132,15 +125,15 @@ extension BottomBar: BottomButtonDelegate {
     public func bottomButtonTapped(type: BottomButtonType, isOn: Bool) {
         switch type {
         case .speaker:
-            delegate?.speakerButtonTapped(isOn: isOn)
+            responder.object?.speakerButtonTapped(isOn: isOn)
         case .video:
-            delegate?.videoButtonTapped(isOn: isOn)
+            responder.object?.videoButtonTapped(isOn: isOn)
         case .mute:
-            delegate?.didMuteButtonTapped(isOn: isOn)
+            responder.object?.didMuteButtonTapped(isOn: isOn)
         case .end:
-            delegate?.didTapEndButton()
+            responder.object?.didTapEndButton()
         case .flip:
-            delegate?.flipButtonTapped(isOn: isOn)
+            responder.object?.flipButtonTapped(isOn: isOn)
         case .defaultType:
             return
         }
@@ -149,6 +142,6 @@ extension BottomBar: BottomButtonDelegate {
 
 extension BottomBar: BottomCloseButtonDelegate {
     func tapped() {
-        delegate?.didTapCloseButton()
+        responder.object?.didTapCloseButton()
     }
 }

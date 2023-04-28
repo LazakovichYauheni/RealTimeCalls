@@ -71,8 +71,10 @@ public final class BottomCloseButton: UIView {
     }
     
     func animate() {
-        secondLayer.animate() {
-            self.delegate?.tapped()
+        DispatchQueue.main.async {
+            self.secondLayer.animate() {
+                self.delegate?.tapped()
+            }
         }
     }
     

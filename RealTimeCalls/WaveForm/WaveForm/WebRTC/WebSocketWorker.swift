@@ -9,7 +9,7 @@ import Foundation
 import Starscream
 import WebRTC
 
-public protocol WebSocketWorkerDelegate: AnyObject {
+public protocol WebSocketWorkerOutputProtocol: AnyObject {
     func didNeedToShowNotification()
     func didClientChecking()
     func didClientConnected(statusChanged: @escaping () -> Void)
@@ -26,27 +26,46 @@ public protocol WebSocketWorkerDelegate: AnyObject {
 public final class WebSocketWorker: NSObject {
     // MARK: - Public Properties
     
-    weak var delegate: WebSocketWorkerDelegate?
+    weak var delegate: WebSocketWorkerOutputProtocol?
     
     // MARK: - Private Properties
     
-    private let ipAddress = "192.168.0.112"
+    private let localWebSocketAddress = "192.168.0.103"
+    private let socketHostAddress = "wss://signaling-server-0rug.onrender.com"
     private let socket: WebSocket
     private let cameraSession = CameraSession()
     private let webRTCClient = WebRTCClient()
     private var tryToConnectWebSocket: Timer!
+    
+    // MARK: - Init
+    
+    public override init() {
+        //socket = WebSocket(url: URL(string: socketHostAddress)!)
+        socket = WebSocket(url: URL(string: "ws://" + localWebSocketAddress + ":8080/")!)
+        
+        webRTCClient.setup()
+        super.init()
+        webRTCClient.delegate = self
+        cameraSession.delegate = self
+        socket.delegate = self
+        
+        tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
+            if self.socket.isConnected {
+                return
+            }
 
-    func call() {
-        webRTCClient.connect(onSuccess: { (offerSDP: RTCSessionDescription) -> Void in
-            self.sendSDP(sessionDescription: offerSDP)
+            self.socket.connect()
         })
     }
     
+    // MARK: - Public Methods
+    
     func sendNotification() {
-        let signalingMessage = SignalingMessage.init(type: "notification", sessionDescription: nil, candidate: nil)
-        let data = try! JSONEncoder().encode(signalingMessage)
-        let message = String(data: data, encoding: String.Encoding.utf8)!
-        self.socket.write(string: message)
+        sendSocketMessage(with: "notification")
+    }
+    
+    func sendTapNotification() {
+        sendSocketMessage(with: "notificationTapped")
     }
     
     func mute(isOn: Bool) {
@@ -65,14 +84,7 @@ public final class WebSocketWorker: NSObject {
     ) {
         
         if !isJustFlipping {
-            let signalingMessage = SignalingMessage(
-                type: "videoHide",
-                sessionDescription: nil,
-                candidate: nil
-            )
-            let data = try! JSONEncoder().encode(signalingMessage)
-            let message = String(data: data, encoding: String.Encoding.utf8)!
-            self.socket.write(string: message)
+            sendSocketMessage(with: "videoHide")
         }
         DispatchQueue.global(qos: .background).async {
             if isOn {
@@ -95,47 +107,24 @@ public final class WebSocketWorker: NSObject {
     }
     
     func sendLocalVideo() {
-        let signalingMessage = SignalingMessage(
-            type: "videoShow",
-            sessionDescription: nil,
-            candidate: nil
-        )
-        let data = try! JSONEncoder().encode(signalingMessage)
-        let message = String(data: data, encoding: String.Encoding.utf8)!
-        self.socket.write(string: message)
+        sendSocketMessage(with: "videoShow")
     }
     
     func disconnect() {
-        let signalingMessage = SignalingMessage.init(type: "disconnect", sessionDescription: nil, candidate: nil)
-        let data = try! JSONEncoder().encode(signalingMessage)
-        let message = String(data: data, encoding: String.Encoding.utf8)!
-        self.socket.write(string: message)
-        webRTCClient.receiveDisconnect()
+        sendSocketMessage(with: "disconnect")
     }
     
-    func sendTapNotification() {
-        let signalingMessage = SignalingMessage.init(type: "notificationTapped", sessionDescription: nil, candidate: nil)
-        let data = try! JSONEncoder().encode(signalingMessage)
-        let message = String(data: data, encoding: String.Encoding.utf8)!
-        self.socket.write(string: message)
-    }
-    
-    public override init() {
-        socket = WebSocket(url: URL(string: "ws://" + ipAddress + ":8080/")!)
-        
-        webRTCClient.setup()
-        super.init()
-        webRTCClient.delegate = self
-        cameraSession.delegate = self
-        socket.delegate = self
-        
-        tryToConnectWebSocket = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-            if self.socket.isConnected {
-                return
-            }
-
-            self.socket.connect()
+    private func call() {
+        webRTCClient.connect(onSuccess: { (offerSDP: RTCSessionDescription) -> Void in
+            self.sendSDP(sessionDescription: offerSDP)
         })
+    }
+    
+    private func sendSocketMessage(with type: String) {
+        let signalingMessage = SignalingMessage.init(type: type, sessionDescription: nil, candidate: nil)
+        let data = try! JSONEncoder().encode(signalingMessage)
+        let message = String(data: data, encoding: String.Encoding.utf8)!
+        self.socket.write(string: message)
     }
     
     private func sendSDP(sessionDescription: RTCSessionDescription) {
@@ -176,26 +165,25 @@ public final class WebSocketWorker: NSObject {
     }
 }
 
+// MARK: - WebSocketDelegate
+
 extension WebSocketWorker: WebSocketDelegate {
     public func websocketDidConnect(socket: Starscream.WebSocketClient) {
         print("socket connected")
     }
     
-    public func websocketDidDisconnect(socket: Starscream.WebSocketClient, error: Error?) {
-        print("socket disconnected")
-    }
+    public func websocketDidDisconnect(socket: Starscream.WebSocketClient, error: Error?) {}
     
     public func websocketDidReceiveMessage(socket: Starscream.WebSocketClient, text: String) {
-        print("message received")
-        
         do {
             let signalingMessage = try JSONDecoder().decode(SignalingMessage.self, from: text.data(using: .utf8)!)
             
-            if signalingMessage.type == "notification" {
+            switch signalingMessage.type {
+            case "notification":
                 delegate?.didNeedToShowNotification()
-            } else if signalingMessage.type == "notificationTapped" {
+            case "notificationTapped":
                 call()
-            } else if signalingMessage.type == "offer" {
+            case "offer":
                 webRTCClient.receiveOffer(
                     offerSDP: RTCSessionDescription(
                         type: .offer,
@@ -205,14 +193,14 @@ extension WebSocketWorker: WebSocketDelegate {
                         self.sendSDP(sessionDescription: answerSDP)
                     }
                 )
-            } else if signalingMessage.type == "answer" {
+            case "answer":
                 webRTCClient.receiveAnswer(
                     answerSDP: RTCSessionDescription(
                         type: .answer,
                         sdp: (signalingMessage.sessionDescription?.sdp)!
                     )
                 )
-            } else if signalingMessage.type == "candidate" {
+            case "candidate":
                 let candidate = signalingMessage.candidate!
                 webRTCClient.receiveCandidate(
                     candidate: RTCIceCandidate(
@@ -221,26 +209,28 @@ extension WebSocketWorker: WebSocketDelegate {
                         sdpMid: candidate.sdpMid
                     )
                 )
-            } else if signalingMessage.type == "disconnect" {
+            case "disconnect":
                 webRTCClient.receiveDisconnect()
-            } else if signalingMessage.type == "videoShow" {
+            case "videoShow":
                 delegate?.needToShowRemoteVideo()
                 webRTCClient.setRemoteVideoNeeded(needed: true)
-            } else if signalingMessage.type == "videoHide" {
+            case "videoHide":
                 delegate?.needToHideRemoteVideo()
                 webRTCClient.setRemoteVideoNeeded(needed: false)
+            default:
+                return
             }
         } catch {
             print(error)
         }
     }
     
-    public func websocketDidReceiveData(socket: Starscream.WebSocketClient, data: Data) {
-        print("data received")
-    }
+    public func websocketDidReceiveData(socket: Starscream.WebSocketClient, data: Data) {}
 }
 
-extension WebSocketWorker: WebRTCClientDelegate {
+// MARK: - WebRTCClientOutputProtocol
+
+extension WebSocketWorker: WebRTCClientOutputProtocol {
     public func didGenerateCandidate(iceCandidate: RTCIceCandidate) {
         sendCandidate(iceCandidate: iceCandidate)
     }

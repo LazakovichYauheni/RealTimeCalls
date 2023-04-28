@@ -21,7 +21,7 @@ public enum CallBackground {
     case purpleMagenta(backgroundColor: UIColor, blobsColors: [UIColor])
     case orangeRed(backgroundColor: UIColor, blobsColors: [UIColor])
     
-    var description: (UIColor, [UIColor]) {
+    var description: (backgroundColor: UIColor, blobColors: [UIColor]) {
         switch self {
         case let .blueYellow(backgroundColor, blobsColors):
             return (backgroundColor, blobsColors)

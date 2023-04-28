@@ -10,7 +10,7 @@ import SnapKit
 import SwiftUI
 import AVFoundation
 
-protocol ViewControllerRespondable: AnyObject {
+protocol CallViewControllerOutputProtocol: AnyObject {
     func muteButtonTapped(isOn: Bool)
     func speakerButtonTapped(isOn: Bool)
     func closeButtonTapped()
@@ -23,17 +23,27 @@ protocol ViewControllerRespondable: AnyObject {
     func startTapped()
 }
 
-class ViewController: UIViewController {
-    weak var delegate: ViewControllerRespondable?
+
+private enum Constants {
+    static let microphoneVolumeConstant: CGFloat = 200
+}
+
+final class CallViewController: UIViewController {
+    // MARK: - Public Properties
     
-    let contentableView = ContentableView()
-    var microMonitor: MicrophoneMonitor?
+    weak var delegate: CallViewControllerOutputProtocol?
+    
+    // MARK: - Private Properties
+    
+    private let contentableView = ContentableView()
+    private var microMonitor: MicrophoneMonitor?
     private var currentCameraPosition: AVCaptureDevice.Position = .back
+    
+    // MARK: - Init
     
     override func loadView() {
         view = contentableView
         microMonitor = MicrophoneMonitor()
-        contentableView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -45,106 +55,82 @@ class ViewController: UIViewController {
         contentableView.changeCallStatus(status: .requesting)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
+    
+    // MARK: - Public Methods
+    
     func didClientChecking() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.contentableView.changeCallStatus(status: .ringing)
-        }
+        contentableView.changeCallStatus(status: .ringing)
     }
     
     func didClientConnected(statusChanged: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            self.contentableView.changeCallStatus(status: .speaking)
-            statusChanged()
-        }
+        contentableView.changeCallStatus(status: .speaking)
+        statusChanged()
     }
     
     func didDisconnect() {
         /// DISPATCH руинит катку (дисмисс при анимации closeButton сразу срабатывает)
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.contentableView.changeCallStatus(status: .ending)
-        }
+        //}
     }
     
     func showRemoteVideo() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-            self.contentableView.showRemoteVideoView()
-        }
+        contentableView.showRemoteVideoView()
     }
     
     func showLocalVideo() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-            self.contentableView.showLocalVideoView()
-        }
+        contentableView.showLocalVideoView()
     }
     
     func hideRemoteVideo() {
-        DispatchQueue.main.async {
-            self.contentableView.hideRemoteVideoView()
-        }
+        contentableView.hideRemoteVideoView()
     }
     
     func hideLocalVideo() {
-        DispatchQueue.main.async {
-            self.contentableView.hideLocalVideoView()
-        }
+        contentableView.hideLocalVideoView()
     }
     
     func flip() {
-        DispatchQueue.main.async {
-            self.contentableView.flipLocalVideoView()
-        }
+        contentableView.flipLocalVideoView()
     }
     
     func setRemoteView(videoView: UIView) {
-        DispatchQueue.main.async {
-            self.contentableView.configureRemoteVideoView(view: videoView)
-        }
+        contentableView.configureRemoteVideoView(view: videoView)
     }
     
     func setLocalView(videoView: UIView) {
-        DispatchQueue.main.async {
-            self.contentableView.configureLocalVideoView(view: videoView)
-        }
+        contentableView.configureLocalVideoView(view: videoView)
     }
 }
 
-extension ViewController: MicrophoneEventsDelegate {
+// MARK: - MicrophoneEventsDelegate
+
+extension CallViewController: MicrophoneEventsDelegate {
     func didLevelChanged(value: CGFloat) {
-        if value >= 200 {
+        if value >= Constants.microphoneVolumeConstant {
             contentableView.updateLiquidSize(value: value)
         }
     }
 }
 
-extension ViewController: ContentableViewDelegate {
-    func muteButtonTapped(isOn: Bool) {
-        delegate?.muteButtonTapped(isOn: isOn)
-    }
-    
-    func closeButtonTapped() {
-        dismiss(animated: true)
-    }
-    
-    func speakerButtonTapped(isOn: Bool) {
-        delegate?.speakerButtonTapped(isOn: isOn)
-    }
-    
-    func endCallButtonTapped() {
-        delegate?.closeButtonTapped()
-    }
-    
-    func videoButtonTapped(isOn: Bool) {
+// MARK: - LocalVideoViewEventsRespondable
+
+extension CallViewController: LocalVideoViewEventsRespondable {
+    func cancelButtonTapped() {
         currentCameraPosition = .front
         delegate?.videoButtonTapped(
-            isOn: isOn,
+            isOn: false,
             cameraPosition: .front,
             needToAppearLocalVideoScreen: true,
             isJustFlipping: false
         )
     }
     
-    func startTapped() {
+    func startButtonTapped() {
+        contentableView.remakeLocalVideoViewConstraints()
         delegate?.startTapped()
+        contentableView.reconfigureBottomBarWithFlipButton()
     }
     
     func frontCameraSelected() {
@@ -166,6 +152,37 @@ extension ViewController: ContentableViewDelegate {
             isJustFlipping: false
         )
     }
+}
+
+// MARK: - BottomBarEventsRespondable
+
+extension CallViewController: BottomBarEventsRespondable {
+    func didTapEndButton() {
+        delegate?.closeButtonTapped()
+        contentableView.changeCallStatus(status: .ending)
+    }
+    
+    func didMuteButtonTapped(isOn: Bool) {
+        delegate?.muteButtonTapped(isOn: isOn)
+    }
+    
+    func didTapCloseButton() {
+        dismiss(animated: true)
+    }
+    
+    func speakerButtonTapped(isOn: Bool) {
+        delegate?.speakerButtonTapped(isOn: isOn)
+    }
+    
+    func videoButtonTapped(isOn: Bool) {
+        currentCameraPosition = .front
+        delegate?.videoButtonTapped(
+            isOn: isOn,
+            cameraPosition: .front,
+            needToAppearLocalVideoScreen: true,
+            isJustFlipping: false
+        )
+    }
     
     func flipButtonTapped(isOn: Bool) {
         let position: AVCaptureDevice.Position = currentCameraPosition == .back ? .front : .back
@@ -177,8 +194,12 @@ extension ViewController: ContentableViewDelegate {
             isJustFlipping: true
         )
     }
-    
-    func setNeedMonitorMicro() {
+}
+
+// MARK: - ContentableViewEventsRespondable
+
+extension CallViewController: ContentableViewEventsRespondable {
+    func setNeedToMonitorMicro() {
         microMonitor?.delegate = self
     }
 }
