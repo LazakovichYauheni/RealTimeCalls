@@ -27,8 +27,11 @@ public final class WebRTCClient: NSObject {
     private var localRenderView: RTCEAGLVideoView!
     private var remoteRenderView: RTCEAGLVideoView!
     private var remoteVideoTrack: RTCVideoTrack!
-    
-    private var rtcAudioSession = RTCAudioSession.sharedInstance()
+
+    public override init() {
+        super.init()
+        setAudioSessionState(isEnabled: false)
+    }
     
     deinit {
         peerConnectionFactory = nil
@@ -81,14 +84,13 @@ public final class WebRTCClient: NSObject {
         )
         localAudioTrack = createAudioTrack()
         localVideoTrack = createVideoTrack()
-        setAudioSessionState(isEnabled: false)
         localAudioTrack.isEnabled = false
         localVideoTrack.isEnabled = false
         
         setupRenderViews()
     }
     
-    func connect(onSuccess: @escaping (RTCSessionDescription) -> Void){
+    func connect(onSuccess: @escaping (RTCSessionDescription) -> Void) {
         initializaPeerConnection()
         makeOffer(onSuccess: onSuccess)
     }
@@ -99,7 +101,7 @@ public final class WebRTCClient: NSObject {
             initializaPeerConnection()
         }
         
-        peerConnection!.setRemoteDescription(offerSDP) { (err) in
+        peerConnection?.setRemoteDescription(offerSDP) { (err) in
             if let error = err {
                 print("failed to set remote offer SDP")
                 print(error)
@@ -112,7 +114,7 @@ public final class WebRTCClient: NSObject {
     }
     
     func receiveAnswer(answerSDP: RTCSessionDescription) {
-        peerConnection!.setRemoteDescription(answerSDP) { (err) in
+        peerConnection?.setRemoteDescription(answerSDP) { (err) in
             if let error = err {
                 print("failed to set remote answer SDP")
                 print(error)
@@ -122,7 +124,7 @@ public final class WebRTCClient: NSObject {
     }
     
     func receiveCandidate(candidate: RTCIceCandidate) {
-        peerConnection!.add(candidate)
+        peerConnection?.add(candidate)
     }
     
     func receiveDisconnect() {
@@ -131,11 +133,12 @@ public final class WebRTCClient: NSObject {
     
     private func initializaPeerConnection() {
         peerConnection = setupPeerConnection()
-        peerConnection!.delegate = self
+        peerConnection?.delegate = self
         
         peerConnection?.add(localAudioTrack, streamIds: ["stream0"])
         peerConnection?.add(localVideoTrack, streamIds: ["stream0"])
         remoteVideoTrack = peerConnection?.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
+        setAudioSessionState(isEnabled: false)
     }
     
     private func createAudioTrack() -> RTCAudioTrack {
@@ -178,11 +181,6 @@ public final class WebRTCClient: NSObject {
                 username: "ef3A2NVZP9LYWOE1DA",
                 credential: "Em6MLhImGp09mUhi"
             )
-//            RTCIceServer(
-//                urlStrings: ["turn:34.125.10.47:3478"],
-//                username: "kovich",
-//                credential: "kovich123"
-//            )
         ]
         let mediaConstraints = RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: nil)
         let pc = self.peerConnectionFactory.peerConnection(with: rtcConf, constraints: mediaConstraints, delegate: nil)
@@ -202,7 +200,7 @@ public final class WebRTCClient: NSObject {
             
             if let offerSDP = sdp {
                 print("make offer, created local sdp")
-                self.peerConnection!.setLocalDescription(offerSDP) { (err) in
+                self.peerConnection?.setLocalDescription(offerSDP) { (err) in
                     if let error = err {
                         print("error with set local offer sdp")
                         print(error)
@@ -216,7 +214,7 @@ public final class WebRTCClient: NSObject {
     }
     
     private func makeAnswer(onCreateAnswer: @escaping (RTCSessionDescription) -> Void) {
-        peerConnection!.answer(for: RTCMediaConstraints(
+        peerConnection?.answer(for: RTCMediaConstraints(
             mandatoryConstraints: nil,
             optionalConstraints: nil)
         ) { (answerSessionDescription, err) in
@@ -228,7 +226,8 @@ public final class WebRTCClient: NSObject {
         
             print("succeed to create local answer SDP")
             if let answerSDP = answerSessionDescription {
-                self.peerConnection!.setLocalDescription(answerSDP) { (err) in
+                self.setAudioSessionState(isEnabled: false)
+                self.peerConnection?.setLocalDescription(answerSDP) { (err) in
                     if let error = err {
                         print("failed to set local ansewr SDP")
                         print(error)
@@ -244,7 +243,7 @@ public final class WebRTCClient: NSObject {
     
     private func disconnect() {
         peerConnection?.close()
-        setAudioSessionState(isEnabled: false)
+        peerConnection = nil
         localAudioTrack.isEnabled = false
         localVideoTrack.isEnabled = false
         captureLocalVideo(cameraPositon: .back, isOn: false, completion: {})
@@ -286,13 +285,12 @@ public final class WebRTCClient: NSObject {
     }
     
     private func setAudioSessionState(isEnabled: Bool) {
-        rtcAudioSession.lockForConfiguration()
         do {
-            try rtcAudioSession.setActive(isEnabled)
-        } catch let error {
-            debugPrint("Couldn't force audio to speaker: \(error)")
-        }
-        rtcAudioSession.unlockForConfiguration()
+            RTCAudioSession.sharedInstance().useManualAudio = true
+            RTCAudioSession.sharedInstance().isAudioEnabled = isEnabled
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            try AVAudioSession.sharedInstance().setActive(isEnabled)
+        } catch let error {}
     }
 }
 
@@ -311,13 +309,13 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         switch newState {
         case .closed:
             print("closed")
-            self.peerConnection = nil
+            setAudioSessionState(isEnabled: false)
             DispatchQueue.main.async {
                 self.delegate?.didDisconnect()
-                self.setAudioSessionState(isEnabled: false)
             }
         case .checking:
             print("checking")
+            setAudioSessionState(isEnabled: false)
             DispatchQueue.main.async {
                 self.delegate?.didClientChecking()
                 self.delegate?.setRemoteView(view: self.remoteRenderView)
@@ -327,10 +325,10 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
             print("completed")
         case .connected:
             print("connected")
+            setAudioSessionState(isEnabled: true)
             DispatchQueue.main.async {
                 self.delegate?.didClientConnected(
                     statusChanged: {
-                        self.setAudioSessionState(isEnabled: true)
                         self.localAudioTrack.isEnabled = true
                     }
                 )
@@ -339,7 +337,7 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
             print("count")
         case .disconnected:
             print("disconnected")
-            self.setAudioSessionState(isEnabled: false)
+            setAudioSessionState(isEnabled: false)
         case .failed:
             print("failed")
         case .new:
@@ -373,7 +371,7 @@ extension WebRTCClient: RTCVideoViewDelegate {
 //            parentView = localView
 //        }
 //
-//        if videoView.isEqual(remoteRenderView!){
+//        if videoView.isEqual(remoteRenderView!) {
 //            print("remote video size changed to: ", size)
 //            renderView = remoteRenderView
 //            parentView = remoteView

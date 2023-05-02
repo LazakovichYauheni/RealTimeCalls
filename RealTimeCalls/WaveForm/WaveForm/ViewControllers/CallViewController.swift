@@ -43,7 +43,6 @@ final class CallViewController: UIViewController {
     
     override func loadView() {
         view = contentableView
-        microMonitor = MicrophoneMonitor()
     }
     
     override func viewDidLoad() {
@@ -64,6 +63,7 @@ final class CallViewController: UIViewController {
     }
     
     func didClientConnected(statusChanged: @escaping () -> Void) {
+        microMonitor = MicrophoneMonitor()
         contentableView.changeCallStatus(status: .speaking)
         statusChanged()
     }
@@ -72,6 +72,9 @@ final class CallViewController: UIViewController {
         /// DISPATCH руинит катку (дисмисс при анимации closeButton сразу срабатывает)
         //DispatchQueue.main.async {
             self.contentableView.changeCallStatus(status: .ending)
+        do {
+            try microMonitor?.audioSession.setActive(false)
+        } catch {}
         //}
     }
     

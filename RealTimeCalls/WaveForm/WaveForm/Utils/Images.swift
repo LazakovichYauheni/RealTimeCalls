@@ -13,5 +13,5 @@ public enum Images {
     static let videoImage = UIImage(named: "video") ?? UIImage()
     static let muteImage = UIImage(named: "mute") ?? UIImage()
     static let endCallImage = UIImage(named: "endCall") ?? UIImage()
-    static let statusEndImage = UIImage(named: "flip") ?? UIImage()
+    static let statusEndImage = UIImage(named: "call") ?? UIImage()
 }

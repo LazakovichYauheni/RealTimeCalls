@@ -40,8 +40,8 @@ public final class WebSocketWorker: NSObject {
     // MARK: - Init
     
     public override init() {
-        //socket = WebSocket(url: URL(string: socketHostAddress)!)
-        socket = WebSocket(url: URL(string: "ws://" + localWebSocketAddress + ":8080/")!)
+        socket = WebSocket(url: URL(string: socketHostAddress)!)
+        //socket = WebSocket(url: URL(string: "ws://" + localWebSocketAddress + ":8080/")!)
         
         webRTCClient.setup()
         super.init()

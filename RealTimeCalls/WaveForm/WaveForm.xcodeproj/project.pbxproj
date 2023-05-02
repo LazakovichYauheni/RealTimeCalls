@@ -51,6 +51,8 @@
 		51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */; };
 		51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */; };
 		51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */; };
+		51D3928329FC2AAD003E8E84 /* RateCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928229FC2AAC003E8E84 /* RateCallView.swift */; };
+		51D3928629FC3579003E8E84 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928529FC3579003E8E84 /* StarView.swift */; };
 		51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */; };
 		51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5029E5B2200085088D /* WebSocketWorker.swift */; };
 		51E48B5329E5B84C0085088D /* SignalingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E48B5229E5B84C0085088D /* SignalingMessage.swift */; };
@@ -106,6 +108,8 @@
 		51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFrameCapturer.swift; sourceTree = "<group>"; };
 		51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
+		51D3928229FC2AAC003E8E84 /* RateCallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCallView.swift; sourceTree = "<group>"; };
+		51D3928529FC3579003E8E84 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		51E48B4E29E5AC9D0085088D /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		51E48B5029E5B2200085088D /* WebSocketWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketWorker.swift; sourceTree = "<group>"; };
 		51E48B5229E5B84C0085088D /* SignalingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingMessage.swift; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 		510E559129CDB06600D6638C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51D3928429FC356B003E8E84 /* RateCall */,
 				51B9BF7629EB0E1400D7B2DD /* Camera */,
 				510F997C29BD347800B34C72 /* ContentableView.swift */,
 				510E559329CDB15A00D6638C /* Background */,
@@ -300,6 +305,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		51D3928429FC356B003E8E84 /* RateCall */ = {
+			isa = PBXGroup;
+			children = (
+				51D3928229FC2AAC003E8E84 /* RateCallView.swift */,
+				51D3928529FC3579003E8E84 /* StarView.swift */,
+			);
+			path = RateCall;
+			sourceTree = "<group>";
+		};
 		51E48B4D29E5AC8C0085088D /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +461,7 @@
 				51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */,
 				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
 				517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */,
+				51D3928629FC3579003E8E84 /* StarView.swift in Sources */,
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
 				510F997B29BD10C700B34C72 /* RadialGradientLayer.swift in Sources */,
@@ -477,6 +492,7 @@
 				510F998A29BE1B6B00B34C72 /* UIBezierPath+Extensions.swift in Sources */,
 				51307E3E29C0AA3A0080EE05 /* DotsView.swift in Sources */,
 				510F997929BD0D8600B34C72 /* BackgroundView.swift in Sources */,
+				51D3928329FC2AAD003E8E84 /* RateCallView.swift in Sources */,
 				51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */,
 				517EFB1A29C3270300DE8C7B /* TimerView.swift in Sources */,
 				518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */,

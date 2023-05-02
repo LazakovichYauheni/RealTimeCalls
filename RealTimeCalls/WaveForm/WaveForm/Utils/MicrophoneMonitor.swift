@@ -16,8 +16,9 @@ class MicrophoneMonitor: ObservableObject {
     private var audioRecorder: AVAudioRecorder
     private var timer: Timer?
     
+    let audioSession = AVAudioSession.sharedInstance()
+    
     init() {
-        let audioSession = AVAudioSession.sharedInstance()
         if audioSession.recordPermission != .granted {
             audioSession.requestRecordPermission { (isGranted) in
                 if !isGranted {

@@ -98,12 +98,12 @@ public final class NetworkView: UIView, StatusProtocol {
         }
         
         endCallImageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 15, height: 15))
+            make.size.equalTo(CGSize(width: 20, height: 20))
         }
         
         timerView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(statusImageStackView.snp.trailing).offset(10)
+            make.leading.equalTo(statusImageStackView.snp.trailing).offset(5)
         }
         
         containerView.snp.makeConstraints { make in

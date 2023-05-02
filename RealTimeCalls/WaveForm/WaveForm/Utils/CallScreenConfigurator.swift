@@ -12,7 +12,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .purpleMagenta(backgroundColor: Colors.thirdBackgroundColor, blobsColors: Colors.thirdBlobsColors),
             statusText: .text(Texts.statusRequesting),
-            isWeakToastNeeded: false
+            isWeakToastNeeded: false,
+            isRateCallNeeded: false
         )
     }
     
@@ -20,7 +21,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .purpleMagenta(backgroundColor: Colors.thirdBackgroundColor, blobsColors: Colors.thirdBlobsColors),
             statusText: .text(Texts.statusRinging),
-            isWeakToastNeeded: false
+            isWeakToastNeeded: false,
+            isRateCallNeeded: false
         )
     }
     
@@ -28,7 +30,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .purpleMagenta(backgroundColor: Colors.thirdBackgroundColor, blobsColors: Colors.thirdBlobsColors),
             statusText: .text(Texts.statusExchangingKeys),
-            isWeakToastNeeded: false
+            isWeakToastNeeded: false,
+            isRateCallNeeded: false
         )
     }
     
@@ -36,7 +39,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .blueYellow(backgroundColor: Colors.firstBackgroundColor, blobsColors: Colors.firstBlobColors),
             statusText: .network,
-            isWeakToastNeeded: false
+            isWeakToastNeeded: false,
+            isRateCallNeeded: false
         )
     }
     
@@ -44,7 +48,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .orangeRed(backgroundColor: Colors.secondBackgroundColor, blobsColors: Colors.secondBlobsColors),
             statusText: .network,
-            isWeakToastNeeded: true
+            isWeakToastNeeded: true,
+            isRateCallNeeded: false
         )
     }
     
@@ -52,7 +57,8 @@ public final class CallScreenConfigurator {
         ConfigurationParameters(
             background: .purpleMagenta(backgroundColor: Colors.thirdBackgroundColor, blobsColors: Colors.thirdBlobsColors),
             statusText: .network,
-            isWeakToastNeeded: false
+            isWeakToastNeeded: false,
+            isRateCallNeeded: true
         )
     }
 }

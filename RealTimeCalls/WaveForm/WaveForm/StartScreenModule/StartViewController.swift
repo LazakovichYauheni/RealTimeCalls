@@ -115,6 +115,12 @@ extension StartViewController: CallViewControllerOutputProtocol {
     }
     
     func closeButtonTapped() {
+        worker.setLocalVideoState(
+            isOn: false,
+            cameraPosition: .back,
+            needToAppearLocalVideoScreen: false,
+            isJustFlipping: false
+        )
         worker.disconnect()
     }
     

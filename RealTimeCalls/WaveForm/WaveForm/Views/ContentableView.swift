@@ -23,8 +23,9 @@ private enum Constants {
     static let localVideoViewSmallBottomConstant = 200
     static let space16 = 16
     static let space8 = 8
-    static let space20 = 20
+    static let space20: CGFloat = 20
     static let space50 = 50
+    static let space30 = 30
     
     static let flipCameraAnimationDuration = 0.3
     static let circleAppearanceAnimationDuration = 0.24
@@ -100,6 +101,13 @@ final class ContentableView: UIView {
     }()
     
     private lazy var bottomBar = BottomBar()
+    
+    private lazy var rateCallView: RateCallView = {
+        let rateView = RateCallView()
+        rateView.alpha = .zero
+        rateView.isHidden = true
+        return rateView
+    }()
     
     // MARK: - Private Properties
     
@@ -344,6 +352,7 @@ final class ContentableView: UIView {
             if status == .ending {
                 networkView.stopAll()
                 bottomBar.showWithCloseButton()
+                showRateCallView()
             }
             
         case let .text(text):
@@ -369,6 +378,7 @@ final class ContentableView: UIView {
         addSubview(titleLabel)
         addSubview(statusView)
         addSubview(remoteVideoView)
+        addSubview(rateCallView)
         addSubview(bottomBar)
         addSubview(localVideoView)
     }
@@ -410,10 +420,19 @@ final class ContentableView: UIView {
             make.edges.equalToSuperview()
         }
         
+        rateCallView.snp.makeConstraints { make in
+            make.bottom.equalTo(bottomBar.snp.top).offset(
+                UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? .zero == .zero
+                ? -25
+                : -66
+            )
+            make.leading.trailing.equalToSuperview().inset(30)
+        }
+        
         bottomBar.snp.makeConstraints { make in
             make.height.equalTo(70)
-            make.bottom.equalToSuperview().inset(Constants.space50)
-            make.leading.trailing.equalToSuperview().inset(Constants.space20)
+            make.bottom.equalTo(safeAreaInsets.bottom).inset(Constants.space20 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? .zero))
+            make.leading.trailing.equalToSuperview().inset(Constants.space30)
         }
         
         localVideoView.snp.makeConstraints { make in
@@ -505,5 +524,12 @@ final class ContentableView: UIView {
                 self.responder.object?.setNeedToMonitorMicro()
             }
         )
+    }
+    
+    private func showRateCallView() {
+        UIView.animate(withDuration: 0.4, delay: .zero, animations: {
+            self.rateCallView.alpha = 1
+            self.rateCallView.isHidden = false
+        })
     }
 }

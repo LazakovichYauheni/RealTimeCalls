@@ -42,4 +42,5 @@ public struct ConfigurationParameters {
     let background: CallBackground
     let statusText: CallStatusType
     let isWeakToastNeeded: Bool
+    let isRateCallNeeded: Bool
 }
