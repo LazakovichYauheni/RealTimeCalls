@@ -108,6 +108,7 @@ public final class WebSocketWorker: NSObject {
     
     func sendLocalVideo() {
         sendSocketMessage(with: "videoShow")
+        webRTCClient.changeLocalVideoSize()
     }
     
     func disconnect() {

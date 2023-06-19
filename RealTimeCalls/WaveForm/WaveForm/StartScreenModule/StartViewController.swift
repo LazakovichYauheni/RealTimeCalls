@@ -41,6 +41,11 @@ extension StartViewController: StartViewEventsRespondable {
         contentViewController.modalPresentationStyle = .overFullScreen
         present(contentViewController, animated: true)
     }
+    
+    public func didSecondButtonTapped() {
+        let loginController = LoginAssembly().assemble()
+        navigationController?.pushViewController(loginController, animated: true)
+    }
 }
 
 extension StartViewController: WebSocketWorkerOutputProtocol {

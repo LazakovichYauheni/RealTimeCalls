@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Texts {
-    static let callingName = "Emma Walters"
+    static let callingName = "Вероника Сонная"
     static let statusResponding = "Responding"
     static let statusRequesting = "Requesting"
     static let statusRinging = "Ringing"

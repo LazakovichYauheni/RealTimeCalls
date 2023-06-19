@@ -201,19 +201,19 @@ final class ContentableView: UIView {
     }
     
     public func remakeLocalVideoViewConstraints() {
-        let width = bounds.width / Constants.localVideoViewWidthConstant
-        let height = bounds.height / Constants.localVideoViewHeightConstant
-        
-        UIView.animate(withDuration: Constants.localVideoViewAnimationDuration, delay: .zero) {
-            self.localVideoView.snp.remakeConstraints { make in
-                make.bottom.equalToSuperview().inset(Constants.localVideoViewSmallBottomConstant)
-                make.leading.equalToSuperview().priority(.low)
-                make.trailing.equalToSuperview().inset(Constants.space16)
-                make.width.equalTo(width)
-                make.height.equalTo(height)
-            }
-            self.layoutIfNeeded()
-        }
+//        let width = bounds.width / Constants.localVideoViewWidthConstant
+//        let height = bounds.height / Constants.localVideoViewHeightConstant
+//        
+//        UIView.animate(withDuration: Constants.localVideoViewAnimationDuration, delay: .zero) {
+//            self.localVideoView.snp.remakeConstraints { make in
+//                make.bottom.equalToSuperview().inset(Constants.localVideoViewSmallBottomConstant)
+//                make.leading.equalToSuperview().priority(.low)
+//                make.trailing.equalToSuperview().inset(Constants.space16)
+//                make.width.equalTo(width)
+//                make.height.equalTo(height)
+//            }
+//            self.layoutIfNeeded()
+//        }
     }
     
     public func flipLocalVideoView() {

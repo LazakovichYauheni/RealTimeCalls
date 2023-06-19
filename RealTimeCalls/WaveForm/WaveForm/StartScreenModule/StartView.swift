@@ -9,6 +9,7 @@ import SnapKit
 
 public protocol StartViewEventsRespondable: AnyObject {
     func didCallButtonTapped()
+    func didSecondButtonTapped()
 }
 
 public final class StartView: UIView {
@@ -21,6 +22,8 @@ public final class StartView: UIView {
         return button
     }()
     
+    private lazy var testButton = TestButton(frame: .zero)
+    
     // MARK: - Private Properties
     
     private lazy var responder = Weak(firstResponder(of: StartViewEventsRespondable.self))
@@ -29,11 +32,21 @@ public final class StartView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 129 / 255, green: 107 / 255, blue: 214 / 255, alpha: 1)
+        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        testButton.setTitle("BUTTON", for: .normal)
+        testButton.addTarget(self, action: #selector(secButtonTapped), for: .touchUpInside)
+        //testButton.isEnabled = false
         addSubview(callButton)
+        addSubview(testButton)
         callButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(100)
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(60)
+        }
+        
+        testButton.snp.makeConstraints { make in
+            make.top.equalTo(callButton.snp.bottom).offset(50)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(60)
         }
     }
@@ -44,5 +57,9 @@ public final class StartView: UIView {
     
     @objc private func buttonTapped() {
         responder.object?.didCallButtonTapped()
+    }
+    
+    @objc private func secButtonTapped() {
+        responder.object?.didSecondButtonTapped()
     }
 }

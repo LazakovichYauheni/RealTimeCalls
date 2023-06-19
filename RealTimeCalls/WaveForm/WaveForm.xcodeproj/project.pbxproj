@@ -33,6 +33,31 @@
 		513F049829CDEA84008E19E7 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049729CDEA84008E19E7 /* Fonts.swift */; };
 		513F049C29CDF096008E19E7 /* CallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049B29CDF096008E19E7 /* CallStatus.swift */; };
 		513F049E29CDF200008E19E7 /* CallScreenConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049D29CDF200008E19E7 /* CallScreenConfigurator.swift */; };
+		5160611C2A406F2A004FEE54 /* FloatingTextFieldMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160611B2A406F2A004FEE54 /* FloatingTextFieldMask.swift */; };
+		5164CCF62A33785F0091052E /* TestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CCF52A33785F0091052E /* TestButton.swift */; };
+		5164CCF82A337ABC0091052E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CCF72A337ABC0091052E /* UIImage+Extensions.swift */; };
+		5164CCFB2A37369E0091052E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CCFA2A37369E0091052E /* LoginViewController.swift */; };
+		5164CCFD2A3736A70091052E /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CCFC2A3736A70091052E /* LoginInteractor.swift */; };
+		5164CCFF2A3736AE0091052E /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CCFE2A3736AE0091052E /* LoginPresenter.swift */; };
+		5164CD012A3736B60091052E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD002A3736B60091052E /* LoginView.swift */; };
+		5164CD032A3736CE0091052E /* LoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD022A3736CE0091052E /* LoginAssembly.swift */; };
+		5164CD0C2A3751C20091052E /* GraphikLCG-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD062A3751C10091052E /* GraphikLCG-MediumItalic.otf */; };
+		5164CD0D2A3751C20091052E /* GraphikLCG-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD072A3751C10091052E /* GraphikLCG-RegularItalic.otf */; };
+		5164CD0E2A3751C20091052E /* GraphikLCG-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD082A3751C10091052E /* GraphikLCG-Light.otf */; };
+		5164CD0F2A3751C20091052E /* GraphikLCG-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD092A3751C10091052E /* GraphikLCG-Medium.otf */; };
+		5164CD102A3751C20091052E /* GraphikLCG-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD0A2A3751C10091052E /* GraphikLCG-Regular.otf */; };
+		5164CD112A3751C20091052E /* GraphikLCG-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5164CD0B2A3751C20091052E /* GraphikLCG-Bold.otf */; };
+		5164CD132A3756D70091052E /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD122A3756D70091052E /* UIViewController+Extensions.swift */; };
+		5164CD152A3758130091052E /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD142A3758130091052E /* FilterView.swift */; };
+		5164CD172A3774F30091052E /* FieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD162A3774F30091052E /* FieldsView.swift */; };
+		5164CD192A3775300091052E /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD182A3775300091052E /* FloatingTextField.swift */; };
+		5164CD1B2A377F010091052E /* FloatingTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD1A2A377F010091052E /* FloatingTextFieldView.swift */; };
+		5164CD1D2A3780D20091052E /* FloatingTextFieldTextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD1C2A3780D20091052E /* FloatingTextFieldTextFormatter.swift */; };
+		5164CD1F2A3781240091052E /* FloatingTextFieldTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD1E2A3781240091052E /* FloatingTextFieldTextProcessor.swift */; };
+		5164CD212A37828A0091052E /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD202A37828A0091052E /* Collection+Extensions.swift */; };
+		5164CD232A37831E0091052E /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD222A37831E0091052E /* String+Extensions.swift */; };
+		5164CD252A3783550091052E /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD242A3783550091052E /* UITextField+Extensions.swift */; };
+		5164CD272A3889160091052E /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164CD262A3889160091052E /* PrimaryButton.swift */; };
 		517EFB1A29C3270300DE8C7B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517EFB1929C3270300DE8C7B /* TimerView.swift */; };
 		517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517EFB1B29C32D4B00DE8C7B /* ToastView.swift */; };
 		517EFB1F29C336C700DE8C7B /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517EFB1E29C336C700DE8C7B /* BottomBar.swift */; };
@@ -87,6 +112,31 @@
 		513F049729CDEA84008E19E7 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		513F049B29CDF096008E19E7 /* CallStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallStatus.swift; sourceTree = "<group>"; };
 		513F049D29CDF200008E19E7 /* CallScreenConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallScreenConfigurator.swift; sourceTree = "<group>"; };
+		5160611B2A406F2A004FEE54 /* FloatingTextFieldMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextFieldMask.swift; sourceTree = "<group>"; };
+		5164CCF52A33785F0091052E /* TestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestButton.swift; sourceTree = "<group>"; };
+		5164CCF72A337ABC0091052E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		5164CCFA2A37369E0091052E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5164CCFC2A3736A70091052E /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		5164CCFE2A3736AE0091052E /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		5164CD002A3736B60091052E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5164CD022A3736CE0091052E /* LoginAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAssembly.swift; sourceTree = "<group>"; };
+		5164CD062A3751C10091052E /* GraphikLCG-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-MediumItalic.otf"; sourceTree = "<group>"; };
+		5164CD072A3751C10091052E /* GraphikLCG-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-RegularItalic.otf"; sourceTree = "<group>"; };
+		5164CD082A3751C10091052E /* GraphikLCG-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Light.otf"; sourceTree = "<group>"; };
+		5164CD092A3751C10091052E /* GraphikLCG-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Medium.otf"; sourceTree = "<group>"; };
+		5164CD0A2A3751C10091052E /* GraphikLCG-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Regular.otf"; sourceTree = "<group>"; };
+		5164CD0B2A3751C20091052E /* GraphikLCG-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Bold.otf"; sourceTree = "<group>"; };
+		5164CD122A3756D70091052E /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		5164CD142A3758130091052E /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		5164CD162A3774F30091052E /* FieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsView.swift; sourceTree = "<group>"; };
+		5164CD182A3775300091052E /* FloatingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
+		5164CD1A2A377F010091052E /* FloatingTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextFieldView.swift; sourceTree = "<group>"; };
+		5164CD1C2A3780D20091052E /* FloatingTextFieldTextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextFieldTextFormatter.swift; sourceTree = "<group>"; };
+		5164CD1E2A3781240091052E /* FloatingTextFieldTextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextFieldTextProcessor.swift; sourceTree = "<group>"; };
+		5164CD202A37828A0091052E /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
+		5164CD222A37831E0091052E /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		5164CD242A3783550091052E /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		5164CD262A3889160091052E /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		517EFB1929C3270300DE8C7B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		517EFB1B29C32D4B00DE8C7B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		517EFB1E29C336C700DE8C7B /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
@@ -203,6 +253,11 @@
 				51307E3629C0963D0080EE05 /* UIView+Extensions.swift */,
 				51307E3829C0997C0080EE05 /* CALayer+Extensions.swift */,
 				51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */,
+				5164CCF72A337ABC0091052E /* UIImage+Extensions.swift */,
+				5164CD122A3756D70091052E /* UIViewController+Extensions.swift */,
+				5164CD202A37828A0091052E /* Collection+Extensions.swift */,
+				5164CD222A37831E0091052E /* String+Extensions.swift */,
+				5164CD242A3783550091052E /* UITextField+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -214,6 +269,41 @@
 				51307E3D29C0AA3A0080EE05 /* DotsView.swift */,
 			);
 			path = Dots;
+			sourceTree = "<group>";
+		};
+		5164CCF92A37368F0091052E /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				5164CD292A388E8E0091052E /* Views */,
+				5164CD022A3736CE0091052E /* LoginAssembly.swift */,
+				5164CCFC2A3736A70091052E /* LoginInteractor.swift */,
+				5164CCFE2A3736AE0091052E /* LoginPresenter.swift */,
+				5164CCFA2A37369E0091052E /* LoginViewController.swift */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		5164CD282A388E710091052E /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				5164CD1A2A377F010091052E /* FloatingTextFieldView.swift */,
+				5164CD182A3775300091052E /* FloatingTextField.swift */,
+				5164CD1C2A3780D20091052E /* FloatingTextFieldTextFormatter.swift */,
+				5164CD1E2A3781240091052E /* FloatingTextFieldTextProcessor.swift */,
+				5164CD262A3889160091052E /* PrimaryButton.swift */,
+				5160611B2A406F2A004FEE54 /* FloatingTextFieldMask.swift */,
+			);
+			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		5164CD292A388E8E0091052E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5164CD002A3736B60091052E /* LoginView.swift */,
+				5164CD162A3774F30091052E /* FieldsView.swift */,
+				5164CD142A3758130091052E /* FilterView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		517EFB1D29C336B800DE8C7B /* BottomBar */ = {
@@ -248,6 +338,8 @@
 		518D5E7827F5C85D00B78B98 /* WaveForm */ = {
 			isa = PBXGroup;
 			children = (
+				5164CD282A388E710091052E /* CommonUI */,
+				5164CCF92A37368F0091052E /* LoginModule */,
 				51D3927F29F6DE62003E8E84 /* Utils */,
 				51B9BF6D29E9846F00D7B2DD /* WaveForm.entitlements */,
 				51B9BF6429E82B3B00D7B2DD /* StartScreenModule */,
@@ -278,6 +370,7 @@
 			children = (
 				51B9BF6229E82B1200D7B2DD /* StartViewController.swift */,
 				51B9BF6529E82B4F00D7B2DD /* StartView.swift */,
+				5164CCF52A33785F0091052E /* TestButton.swift */,
 			);
 			path = StartScreenModule;
 			sourceTree = "<group>";
@@ -294,6 +387,12 @@
 		51D3927F29F6DE62003E8E84 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5164CD0B2A3751C20091052E /* GraphikLCG-Bold.otf */,
+				5164CD082A3751C10091052E /* GraphikLCG-Light.otf */,
+				5164CD092A3751C10091052E /* GraphikLCG-Medium.otf */,
+				5164CD062A3751C10091052E /* GraphikLCG-MediumItalic.otf */,
+				5164CD0A2A3751C10091052E /* GraphikLCG-Regular.otf */,
+				5164CD072A3751C10091052E /* GraphikLCG-RegularItalic.otf */,
 				510E559629CDB3E700D6638C /* MicrophoneMonitor.swift */,
 				513F049B29CDF096008E19E7 /* CallStatus.swift */,
 				513F049D29CDF200008E19E7 /* CallScreenConfigurator.swift */,
@@ -399,8 +498,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				518D5E8627F5C85F00B78B98 /* LaunchScreen.storyboard in Resources */,
+				5164CD0C2A3751C20091052E /* GraphikLCG-MediumItalic.otf in Resources */,
+				5164CD0D2A3751C20091052E /* GraphikLCG-RegularItalic.otf in Resources */,
+				5164CD0E2A3751C20091052E /* GraphikLCG-Light.otf in Resources */,
+				5164CD102A3751C20091052E /* GraphikLCG-Regular.otf in Resources */,
 				518D5E8327F5C85F00B78B98 /* Assets.xcassets in Resources */,
 				51307E3529C07DDE0080EE05 /* Media.xcassets in Resources */,
+				5164CD0F2A3751C20091052E /* GraphikLCG-Medium.otf in Resources */,
+				5164CD112A3751C20091052E /* GraphikLCG-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,36 +564,54 @@
 				510F997529BB4E2600B34C72 /* BaseLayer.swift in Sources */,
 				513F049E29CDF200008E19E7 /* CallScreenConfigurator.swift in Sources */,
 				51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */,
+				5164CD1D2A3780D20091052E /* FloatingTextFieldTextFormatter.swift in Sources */,
 				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
 				517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */,
 				51D3928629FC3579003E8E84 /* StarView.swift in Sources */,
+				5164CCFF2A3736AE0091052E /* LoginPresenter.swift in Sources */,
+				5164CD012A3736B60091052E /* LoginView.swift in Sources */,
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
+				5164CD272A3889160091052E /* PrimaryButton.swift in Sources */,
 				510F997B29BD10C700B34C72 /* RadialGradientLayer.swift in Sources */,
 				51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */,
 				513F049429CDEA02008E19E7 /* Images.swift in Sources */,
+				5164CCFB2A37369E0091052E /* LoginViewController.swift in Sources */,
 				513F049629CDEA33008E19E7 /* Texts.swift in Sources */,
+				5164CCF82A337ABC0091052E /* UIImage+Extensions.swift in Sources */,
 				510F997D29BD347800B34C72 /* ContentableView.swift in Sources */,
 				51307E4B29C0DFBA0080EE05 /* BaseNetworkView.swift in Sources */,
 				510F998729BE10E400B34C72 /* LiquidLayer.swift in Sources */,
+				5164CD132A3756D70091052E /* UIViewController+Extensions.swift in Sources */,
 				517EFB2329C33A5400DE8C7B /* BottomButtonLayer.swift in Sources */,
 				510F998C29BE1E7E00B34C72 /* CGPath+Extensions.swift in Sources */,
+				5160611C2A406F2A004FEE54 /* FloatingTextFieldMask.swift in Sources */,
 				518D5E7E27F5C85D00B78B98 /* CallViewController.swift in Sources */,
 				51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */,
+				5164CD232A37831E0091052E /* String+Extensions.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
 				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
 				513F049829CDEA84008E19E7 /* Fonts.swift in Sources */,
 				518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */,
+				5164CD192A3775300091052E /* FloatingTextField.swift in Sources */,
+				5164CCFD2A3736A70091052E /* LoginInteractor.swift in Sources */,
 				513F049C29CDF096008E19E7 /* CallStatus.swift in Sources */,
+				5164CD152A3758130091052E /* FilterView.swift in Sources */,
 				510F998529BE0D9400B34C72 /* LiquidView.swift in Sources */,
+				5164CD1B2A377F010091052E /* FloatingTextFieldView.swift in Sources */,
 				51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */,
+				5164CD032A3736CE0091052E /* LoginAssembly.swift in Sources */,
 				51307E4229C0B99A0080EE05 /* AllStatusView.swift in Sources */,
+				5164CD252A3783550091052E /* UITextField+Extensions.swift in Sources */,
 				51E48B5329E5B84C0085088D /* SignalingMessage.swift in Sources */,
 				517EFB1F29C336C700DE8C7B /* BottomBar.swift in Sources */,
 				51307E3C29C0A9AE0080EE05 /* DotLayer.swift in Sources */,
 				510E559729CDB3E700D6638C /* MicrophoneMonitor.swift in Sources */,
+				5164CD1F2A3781240091052E /* FloatingTextFieldTextProcessor.swift in Sources */,
+				5164CCF62A33785F0091052E /* TestButton.swift in Sources */,
 				513F049229CDE8A4008E19E7 /* Colors.swift in Sources */,
 				51307E3729C0963D0080EE05 /* UIView+Extensions.swift in Sources */,
+				5164CD172A3774F30091052E /* FieldsView.swift in Sources */,
 				510F998A29BE1B6B00B34C72 /* UIBezierPath+Extensions.swift in Sources */,
 				51307E3E29C0AA3A0080EE05 /* DotsView.swift in Sources */,
 				510F997929BD0D8600B34C72 /* BackgroundView.swift in Sources */,
@@ -498,6 +621,7 @@
 				518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */,
 				517EFB2129C336E400DE8C7B /* BottomButton.swift in Sources */,
 				51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */,
+				5164CD212A37828A0091052E /* Collection+Extensions.swift in Sources */,
 				51B9BF7829EB0E2E00D7B2DD /* RemoteVideoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>GraphikLCG-RegularItalic.otf</string>
+		<string>GraphikLCG-Regular.otf</string>
+		<string>GraphikLCG-MediumItalic.otf</string>
+		<string>GraphikLCG-Medium.otf</string>
+		<string>GraphikLCG-Light.otf</string>
+		<string>GraphikLCG-Bold.otf</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) camera use</string>
 	<key>UIApplicationSceneManifest</key>

@@ -292,6 +292,14 @@ public final class WebRTCClient: NSObject {
             try AVAudioSession.sharedInstance().setActive(isEnabled)
         } catch let error {}
     }
+    
+    func changeLocalVideoSize() {
+        let localVideoViewWidthConstant = 3.12
+        let localVideoViewHeightConstant = 4.22
+        let width = UIScreen.main.bounds.width / localVideoViewWidthConstant
+        let height = UIScreen.main.bounds.height / localVideoViewHeightConstant
+        localRenderView.setSize(CGSize(width: width, height: height))
+    }
 }
 
 // MARK: - RTCPeerConnectionDelegate
@@ -362,6 +370,12 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
 
 extension WebRTCClient: RTCVideoViewDelegate {
     public func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
+        let ratio = size.width / size.height
+        localRenderView.snp.remakeConstraints { make in
+            make.width.equalTo(size.width)
+            make.height.equalTo(size.height)
+            make.center.equalToSuperview()
+        }
 //        let isLandScape = size.width < size.height
 //        var renderView: RTCEAGLVideoView?
 //        var parentView: UIView?
