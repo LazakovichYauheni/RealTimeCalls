@@ -13,7 +13,7 @@ public final class TimerView: UIView {
        let uiLabel = UILabel()
         uiLabel.textColor = .white
         uiLabel.textAlignment = .center
-        uiLabel.font = uiLabel.font.withSize(FontSize.size15)
+        uiLabel.font = Fonts.Regular.regular15
         return uiLabel
     }()
     

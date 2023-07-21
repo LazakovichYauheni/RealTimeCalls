@@ -12,7 +12,7 @@ public final class StatusView: UIView, StatusProtocol {
     private lazy var titleLabel: CubeLabel = {
         let label = CubeLabel()
         label.textColor = .white
-        label.font = label.font.withSize(FontSize.size15)
+        label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         return label
     }()

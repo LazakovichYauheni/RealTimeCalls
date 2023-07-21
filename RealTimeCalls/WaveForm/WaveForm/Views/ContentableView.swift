@@ -88,7 +88,7 @@ final class ContentableView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = label.font.withSize(FontSize.size25)
+        label.font = Fonts.Regular.regular25
         label.textAlignment = .center
         label.text = Texts.callingName
         return label

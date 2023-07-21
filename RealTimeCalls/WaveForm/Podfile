@@ -8,6 +8,8 @@ target 'WaveForm' do
   pod 'Starscream', '~> 3.0.2'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'GoogleWebRTC'
+  pod 'Alamofire'
+  pod 'KeychainAccess', '~> 4.2.0'
   # Pods for WaveForm
 
 end

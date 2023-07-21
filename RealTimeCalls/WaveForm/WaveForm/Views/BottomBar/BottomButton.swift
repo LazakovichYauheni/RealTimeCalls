@@ -38,7 +38,7 @@ public final class BottomButton: UIView {
     
     private lazy var title: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(FontSize.size12)
+        label.font = Fonts.Regular.regular12
         label.textAlignment = .center
         label.textColor = .white
         return label

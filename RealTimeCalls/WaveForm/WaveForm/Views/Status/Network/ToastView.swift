@@ -13,7 +13,7 @@ public final class ToastView: UIView {
        let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
-        label.font = label.font.withSize(FontSize.size15)
+        label.font = Fonts.Regular.regular15
         label.text = "Weak network signal"
         label.lineBreakMode = .byWordWrapping
         return label

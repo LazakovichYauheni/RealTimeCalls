@@ -12,7 +12,7 @@ final class RateCallView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: FontSize.size15)
+        label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         label.text = "Rate This Call"
         return label
@@ -21,7 +21,7 @@ final class RateCallView: UIView {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = label.font.withSize(FontSize.size15)
+        label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         label.text = "Please rate the quality of this call"
         return label
