@@ -105,6 +105,13 @@
 		51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */; };
 		51C951FC2A65929F001C59FB /* TransitionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C951FB2A65929F001C59FB /* TransitionPresenter.swift */; };
 		51C951FE2A6594E7001C59FB /* SnapshotTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C951FD2A6594E7001C59FB /* SnapshotTransition.swift */; };
+		51CA56932A6ABB86004088CC /* AllContactsAssemby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA56922A6ABB86004088CC /* AllContactsAssemby.swift */; };
+		51CA56952A6ABC38004088CC /* AllContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA56942A6ABC38004088CC /* AllContactsInteractor.swift */; };
+		51CA56972A6ABC62004088CC /* AllContactsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA56962A6ABC62004088CC /* AllContactsPresenter.swift */; };
+		51CA56992A6ABC89004088CC /* AllContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA56982A6ABC89004088CC /* AllContactsViewController.swift */; };
+		51CA569B2A6ABCCA004088CC /* AllContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA569A2A6ABCCA004088CC /* AllContactsView.swift */; };
+		51CA569D2A6ABD39004088CC /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA569C2A6ABD39004088CC /* ContactTableViewCell.swift */; };
+		51CA569F2A6ADCEF004088CC /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA569E2A6ADCEF004088CC /* AlertView.swift */; };
 		51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */; };
 		51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */; };
 		51D3928329FC2AAD003E8E84 /* RateCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928229FC2AAC003E8E84 /* RateCallView.swift */; };
@@ -220,6 +227,13 @@
 		51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		51C951FB2A65929F001C59FB /* TransitionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionPresenter.swift; sourceTree = "<group>"; };
 		51C951FD2A6594E7001C59FB /* SnapshotTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTransition.swift; sourceTree = "<group>"; };
+		51CA56922A6ABB86004088CC /* AllContactsAssemby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsAssemby.swift; sourceTree = "<group>"; };
+		51CA56942A6ABC38004088CC /* AllContactsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsInteractor.swift; sourceTree = "<group>"; };
+		51CA56962A6ABC62004088CC /* AllContactsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresenter.swift; sourceTree = "<group>"; };
+		51CA56982A6ABC89004088CC /* AllContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsViewController.swift; sourceTree = "<group>"; };
+		51CA569A2A6ABCCA004088CC /* AllContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsView.swift; sourceTree = "<group>"; };
+		51CA569C2A6ABD39004088CC /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		51CA569E2A6ADCEF004088CC /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		51D3198229EE9F6D00A8BBAD /* CustomFrameCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFrameCapturer.swift; sourceTree = "<group>"; };
 		51D3928029F6DEA8003E8E84 /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		51D3928229FC2AAC003E8E84 /* RateCallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCallView.swift; sourceTree = "<group>"; };
@@ -389,10 +403,11 @@
 				5164CD182A3775300091052E /* FloatingTextField.swift */,
 				5164CD1C2A3780D20091052E /* FloatingTextFieldTextFormatter.swift */,
 				5164CD1E2A3781240091052E /* FloatingTextFieldTextProcessor.swift */,
-				5164CD262A3889160091052E /* PrimaryButton.swift */,
 				5160611B2A406F2A004FEE54 /* FloatingTextFieldMask.swift */,
+				5164CD262A3889160091052E /* PrimaryButton.swift */,
 				51E228032A45C178003A6960 /* ImageFillerView.swift */,
 				51E228052A45E182003A6960 /* PagingCollectionViewLayout.swift */,
+				51CA569E2A6ADCEF004088CC /* AlertView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -516,6 +531,7 @@
 		51AB9ABF2A697CD800D26A4F /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				51CA56902A6ABB53004088CC /* AllContacts */,
 				51A642112A61AEBD00792D74 /* UserDetailsScreenModule */,
 				5182718A2A45ADD7003E7A29 /* MainScreenModule */,
 				5164CCF92A37368F0091052E /* LoginModule */,
@@ -561,6 +577,27 @@
 				51B9BF7929EB13A400D7B2DD /* LocalVideoView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		51CA56902A6ABB53004088CC /* AllContacts */ = {
+			isa = PBXGroup;
+			children = (
+				51CA56912A6ABB7B004088CC /* Views */,
+				51CA56922A6ABB86004088CC /* AllContactsAssemby.swift */,
+				51CA56942A6ABC38004088CC /* AllContactsInteractor.swift */,
+				51CA56962A6ABC62004088CC /* AllContactsPresenter.swift */,
+				51CA56982A6ABC89004088CC /* AllContactsViewController.swift */,
+			);
+			path = AllContacts;
+			sourceTree = "<group>";
+		};
+		51CA56912A6ABB7B004088CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				51CA569A2A6ABCCA004088CC /* AllContactsView.swift */,
+				51CA569C2A6ABD39004088CC /* ContactTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		51D3927F29F6DE62003E8E84 /* Utils */ = {
@@ -630,8 +667,6 @@
 			dependencies = (
 			);
 			name = WaveForm;
-			packageProductDependencies = (
-			);
 			productName = WaveForm;
 			productReference = 518D5E7627F5C85D00B78B98 /* WaveForm.app */;
 			productType = "com.apple.product-type.application";
@@ -660,8 +695,6 @@
 				Base,
 			);
 			mainGroup = 518D5E6D27F5C85D00B78B98;
-			packageReferences = (
-			);
 			productRefGroup = 518D5E7727F5C85D00B78B98 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -749,6 +782,7 @@
 				5164CD1D2A3780D20091052E /* FloatingTextFieldTextFormatter.swift in Sources */,
 				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
 				516061342A409C3E004FEE54 /* RequestManager.swift in Sources */,
+				51CA56932A6ABB86004088CC /* AllContactsAssemby.swift in Sources */,
 				517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */,
 				51D3928629FC3579003E8E84 /* StarView.swift in Sources */,
 				518D12F82A66CC620090EAF3 /* TransitionDismisser.swift in Sources */,
@@ -758,7 +792,9 @@
 				51A6421C2A61B0B900792D74 /* UserDetailsScreenPresenter.swift in Sources */,
 				51A642102A61AE5900792D74 /* TransitionManager.swift in Sources */,
 				5164CD012A3736B60091052E /* LoginView.swift in Sources */,
+				51CA569B2A6ABCCA004088CC /* AllContactsView.swift in Sources */,
 				51C951FE2A6594E7001C59FB /* SnapshotTransition.swift in Sources */,
+				51CA56992A6ABC89004088CC /* AllContactsViewController.swift in Sources */,
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
 				5164CD272A3889160091052E /* PrimaryButton.swift in Sources */,
@@ -777,6 +813,7 @@
 				51307E4B29C0DFBA0080EE05 /* BaseNetworkView.swift in Sources */,
 				510F998729BE10E400B34C72 /* LiquidLayer.swift in Sources */,
 				516061262A409C31004FEE54 /* Contact.swift in Sources */,
+				51CA56952A6ABC38004088CC /* AllContactsInteractor.swift in Sources */,
 				51E228062A45E182003A6960 /* PagingCollectionViewLayout.swift in Sources */,
 				5164CD132A3756D70091052E /* UIViewController+Extensions.swift in Sources */,
 				517EFB2329C33A5400DE8C7B /* BottomButtonLayer.swift in Sources */,
@@ -785,17 +822,20 @@
 				5160611C2A406F2A004FEE54 /* FloatingTextFieldMask.swift in Sources */,
 				518D5E7E27F5C85D00B78B98 /* CallViewController.swift in Sources */,
 				51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */,
+				51CA569D2A6ABD39004088CC /* ContactTableViewCell.swift in Sources */,
 				5164CD232A37831E0091052E /* String+Extensions.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
 				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
 				513F049829CDEA84008E19E7 /* Fonts.swift in Sources */,
 				516061362A409C3E004FEE54 /* ApiService.swift in Sources */,
+				51CA56972A6ABC62004088CC /* AllContactsPresenter.swift in Sources */,
 				518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */,
 				5164CD192A3775300091052E /* FloatingTextField.swift in Sources */,
 				5164CCFD2A3736A70091052E /* LoginInteractor.swift in Sources */,
 				51812C762A5325D600D2C7DE /* MainScreenContactView.swift in Sources */,
 				51A6421A2A61B07800792D74 /* UserDetailsScreenInteractor.swift in Sources */,
 				513F049C29CDF096008E19E7 /* CallStatus.swift in Sources */,
+				51CA569F2A6ADCEF004088CC /* AlertView.swift in Sources */,
 				51E228042A45C178003A6960 /* ImageFillerView.swift in Sources */,
 				5164CD152A3758130091052E /* FilterView.swift in Sources */,
 				518271872A447CA9003E7A29 /* TokenDTO.swift in Sources */,

@@ -15,6 +15,20 @@ public struct DefaultFillerViewStyle: ImageFillerViewStyle {
     public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
 }
 
+public struct SmallFillerViewStyle: ImageFillerViewStyle {
+    public static var imageSize: CGSize { .init(width: 24, height: 24) }
+    public static var imageInsets: CGFloat { 8 }
+    public static var radius: CGFloat { 8 }
+    public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
+}
+
+public struct SmallGreenFillerViewStyle: ImageFillerViewStyle {
+    public static var imageSize: CGSize { .init(width: 24, height: 24) }
+    public static var imageInsets: CGFloat { 8 }
+    public static var radius: CGFloat { 8 }
+    public static var backgroundColor: UIColor { .green.withAlphaComponent(0.2) }
+}
+
 public struct MediumFillerViewStyle: ImageFillerViewStyle {
     public static var imageSize: CGSize { .init(width: 32, height: 32) }
     public static var imageInsets: CGFloat { 10 }

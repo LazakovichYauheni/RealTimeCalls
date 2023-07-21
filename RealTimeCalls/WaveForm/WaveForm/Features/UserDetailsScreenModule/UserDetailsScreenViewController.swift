@@ -23,19 +23,6 @@ final class UserDetailsScreenViewController: UIViewController {
         super.viewDidLoad()
         interactor.obtainInitialState()
         navigationController?.setNavigationBarHidden(true, animated: false)
-//        title = "Welcome"
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//        setNavigationBarTint(
-//            with: UIViewController.NavigationBarConfiguration(
-//                tintColor: .black,
-//                barTintColor: UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1),
-//                textColor: .black,
-//                isTranslucent: false,
-//                backgroundImage: UIImage(),
-//                shadowImage: UIImage()
-//            ),
-//            coordinatedTransition: false
-//        )
     }
     
     public init(

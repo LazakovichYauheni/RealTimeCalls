@@ -9,7 +9,7 @@ import UIKit
 
 protocol MainScreenViewEventsRespondable {
     func didItemTapped(index: Int, cell: MainScreenCollectionViewCell)
-    func didAddContactsTapped()
+    func didAllContactsTapped()
 }
 
 public final class MainScreenView: UIView {
@@ -58,6 +58,7 @@ public final class MainScreenView: UIView {
         let label = UILabel()
         label.font = Fonts.Regular.regular18
         label.textColor = UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1)
+        label.isUserInteractionEnabled = true
         label.text = "All"
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(allContactsTapped)))
         return label
@@ -144,7 +145,7 @@ public final class MainScreenView: UIView {
     }
     
     @objc private func allContactsTapped() {
-        responder.object?.didAddContactsTapped()
+        responder.object?.didAllContactsTapped()
     }
 }
 

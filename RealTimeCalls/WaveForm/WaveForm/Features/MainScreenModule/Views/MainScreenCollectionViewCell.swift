@@ -273,7 +273,7 @@ extension MainScreenCollectionViewCell {
         let callImage: UIImage
         let isNeedToShowBorder: Bool
         let backgroundColor: UIColor
-        let tableBackground: UIColor
+        let buttonBackground: UIColor
     }
     
     func configure(with viewModel: ViewModel) {

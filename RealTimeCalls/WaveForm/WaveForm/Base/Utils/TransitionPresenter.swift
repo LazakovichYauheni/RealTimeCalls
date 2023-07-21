@@ -31,8 +31,15 @@ class TransitionPresenter: NSObject, UIViewControllerTransitioningDelegate {
     ) -> UIViewControllerAnimatedTransitioning? {
         transition.direction = .present
         transition.duration = duration
-        transition.mainScreenCell = (source as? MainScreenViewController)?.currentCell as? MainScreenCollectionViewCell
-        transition.userDetailsScreenView = (presented as? UserDetailsScreenViewController)?.view as? UserDetailsScreenView
+        if let mainScreenVC = source as? MainScreenViewController {
+            transition.fromView = mainScreenVC.currentCell
+        }
+        
+        if let contactsVC = source as? AllContactsViewController {
+            transition.fromView = contactsVC.currentCell
+        }
+        
+        transition.toView = (presented as? UserDetailsScreenViewController)?.view as? UserDetailsScreenView
         return transition
     }
     

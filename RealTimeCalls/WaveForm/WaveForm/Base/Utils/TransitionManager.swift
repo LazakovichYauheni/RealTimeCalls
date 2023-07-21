@@ -6,8 +6,12 @@ final class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
         case dismiss
     }
     
-    weak var mainScreenCell: MainScreenCollectionViewCell?
-    weak var userDetailsScreenView: UserDetailsScreenView?
+//    weak var mainScreenCell: MainScreenCollectionViewCell?
+//    weak var userDetailsScreenView: UserDetailsScreenView?
+    
+    weak var fromView: UIView?
+    weak var toView: UIView?
+    
     var direction = Direction.present
     var duration: TimeInterval = 0.5
     var animate: (@escaping () -> Void) -> Void = { $0() }
@@ -18,53 +22,93 @@ final class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let mainScreenCell = mainScreenCell,
-            let userDetailsScreenView = userDetailsScreenView
+            let fromView = fromView,
+            let toView = toView
         else {
             transitionContext.completeTransition(false)
             return
         }
         
-        if userDetailsScreenView.superview == nil {
-            transitionContext.containerView.addSubview(userDetailsScreenView)
-            userDetailsScreenView.frame = transitionContext.containerView.bounds
+        if toView.superview == nil {
+            transitionContext.containerView.addSubview(toView)
+            toView.frame = transitionContext.containerView.bounds
         }
         
         var transition: SnapshotTransition? = nil
         switch direction {
         case .present:
-            mainScreenCell.callIconView.setIconVisibilityAnimated(isHidden: true)
-            transition = SnapshotTransition(
-                from: mainScreenCell,
-                to: userDetailsScreenView,
-                in: transitionContext.containerView,
-                childTransitions: [
-                    (from: mainScreenCell.iconImageView, to: userDetailsScreenView.iconImageView),
-                    (from: mainScreenCell.titleLabel, to: userDetailsScreenView.titleLabel),
-                    (from: mainScreenCell.descriptionLabel, to: userDetailsScreenView.descriptionLabel),
-                    (from: mainScreenCell.callIconView, to: userDetailsScreenView.contentView)
-                ],
-                duration: duration
-            )
+            if
+                let cell = fromView as? MainScreenCollectionViewCell,
+                let detailsScreenView = toView as? UserDetailsScreenView {
+                cell.callIconView.setIconVisibilityAnimated(isHidden: true)
+                
+                transition = SnapshotTransition(
+                    from: cell,
+                    to: detailsScreenView,
+                    in: transitionContext.containerView,
+                    childTransitions: [
+                        (from: cell.iconImageView, to: detailsScreenView.iconImageView),
+                        (from: cell.titleLabel, to: detailsScreenView.titleLabel),
+                        (from: cell.descriptionLabel, to: detailsScreenView.descriptionLabel),
+                        (from: cell.callIconView, to: detailsScreenView.contentView)
+                    ],
+                    duration: duration
+                )
+            } else if
+                let cell = fromView as? ContactTableViewCell,
+                let detailsScreenView = toView as? UserDetailsScreenView {
+                transition = SnapshotTransition(
+                    from: cell,
+                    to: detailsScreenView,
+                    in: transitionContext.containerView,
+                    childTransitions: [
+                        (from: cell.iconImageView, to: detailsScreenView.iconImageView),
+                        (from: cell.titleLabel, to: detailsScreenView.titleLabel),
+                        (from: cell.descriptionLabel, to: detailsScreenView.descriptionLabel),
+                    ],
+                    duration: duration
+                )
+            }
             transition?.animationCompletion = {
                 transitionContext.completeTransition(true)
             }
         case .dismiss:
-            transition = SnapshotTransition(
-                from: userDetailsScreenView,
-                to: mainScreenCell,
-                in: transitionContext.containerView,
-                childTransitions: [
-                    (from: userDetailsScreenView.iconImageView, to: mainScreenCell.iconImageView),
-                    (from: userDetailsScreenView.titleLabel, to: mainScreenCell.titleLabel),
-                    (from: userDetailsScreenView.descriptionLabel, to: mainScreenCell.descriptionLabel),
-                    (from: userDetailsScreenView.contentView, to: mainScreenCell.callIconView)
-                ],
-                duration: duration
-            )
-            transition?.animationCompletion = {
-                mainScreenCell.callIconView.setIconVisibilityAnimated(isHidden: false)
-                transitionContext.completeTransition(true)
+            if
+                let cell = fromView as? MainScreenCollectionViewCell,
+                let detailsScreenView = toView as? UserDetailsScreenView {
+                transition = SnapshotTransition(
+                    from: detailsScreenView,
+                    to: cell,
+                    in: transitionContext.containerView,
+                    childTransitions: [
+                        (from: detailsScreenView.iconImageView, to: cell.iconImageView),
+                        (from: detailsScreenView.titleLabel, to: cell.titleLabel),
+                        (from: detailsScreenView.descriptionLabel, to: cell.descriptionLabel),
+                        (from: detailsScreenView.contentView, to: cell.callIconView)
+                    ],
+                    duration: duration
+                )
+                transition?.animationCompletion = {
+                    cell.callIconView.setIconVisibilityAnimated(isHidden: false)
+                    transitionContext.completeTransition(true)
+                }
+            } else if
+                let cell = fromView as? ContactTableViewCell,
+                let detailsScreenView = toView as? UserDetailsScreenView {
+                transition = SnapshotTransition(
+                    from: detailsScreenView,
+                    to: cell,
+                    in: transitionContext.containerView,
+                    childTransitions: [
+                        (from: detailsScreenView.iconImageView, to: cell.iconImageView),
+                        (from: detailsScreenView.titleLabel, to: cell.titleLabel),
+                        (from: detailsScreenView.descriptionLabel, to: cell.descriptionLabel),
+                    ],
+                    duration: duration
+                )
+                transition?.animationCompletion = {
+                    transitionContext.completeTransition(true)
+                }
             }
         }
         

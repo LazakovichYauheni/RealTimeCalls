@@ -24,4 +24,8 @@ extension MainScreenInteractor {
     func obtainInitialState() {
         presenter.present(user: user)
     }
+    
+    func obtainAllContacts() {
+        presenter.presentAll(contacts: user.contacts)
+    }
 }

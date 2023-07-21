@@ -19,13 +19,13 @@ public final class MainScreenViewController: UIViewController {
     private var viewModels: [MainScreenCollectionViewCell.ViewModel] = []
     private let presenter = TransitionPresenter()
     
-    private lazy var addContactButton: UIBarButtonItem = {
+    private lazy var notificationButton: UIBarButtonItem = {
         let imageView = UIImageView()
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 32, height: 32))
+            make.size.equalTo(CGSize(width: 24, height: 24))
         }
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addUser)))
-        imageView.image = UIImage(named: "add")?.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(notificationTapped)))
+        imageView.image = UIImage(named: "alert")?.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
         
         let item = UIBarButtonItem(customView: imageView)
         return item
@@ -45,7 +45,7 @@ public final class MainScreenViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = "Welcome"
-        navigationItem.setRightBarButton(addContactButton, animated: false)
+        navigationItem.setRightBarButton(notificationButton, animated: false)
         navigationItem.setHidesBackButton(true, animated: false)
         navigationController?.setNavigationBarHidden(false, animated: true)
         setNavigationBarTint(
@@ -68,7 +68,7 @@ public final class MainScreenViewController: UIViewController {
 
     required init?(coder: NSCoder) { nil }
     
-    @objc private func addUser() {
+    @objc private func notificationTapped() {
         
     }
 }
@@ -77,6 +77,11 @@ extension MainScreenViewController {
     func display(viewModel: MainScreenView.ViewModel) {
         viewModels = viewModel.cellViewModels
         contentView.configure(viewModel: viewModel)
+    }
+    
+    func displayAllContactsScreen(contacts: [Contact]) {
+        let viewController = AllContactsAssemby().assemble(contacts: contacts)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -88,7 +93,7 @@ extension MainScreenViewController: MainScreenViewEventsRespondable {
         presenter.present(cellData, from: self, duration: 0.35)
     }
     
-    func didAddContactsTapped() {
-        
+    func didAllContactsTapped() {
+        interactor.obtainAllContacts()
     }
 }

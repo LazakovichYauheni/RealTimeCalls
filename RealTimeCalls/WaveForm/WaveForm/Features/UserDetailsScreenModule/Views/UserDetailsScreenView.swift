@@ -13,15 +13,13 @@ public final class UserDetailsScreenView: UIView {
 
     public lazy var iconImageView: UIImageView = {
         let image = UIImageView()
-        image.clipsToBounds = true
-        //image.layer.cornerRadius = 50
         image.contentMode = .scaleAspectFill
         return image
     }()
     
     private lazy var textContainerView = UIView()
     
-    public lazy var titleLabel: UILabel = {
+    private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium24
         label.textColor = .white

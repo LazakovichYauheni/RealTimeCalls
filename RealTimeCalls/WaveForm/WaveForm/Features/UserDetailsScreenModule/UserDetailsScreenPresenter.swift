@@ -32,7 +32,7 @@ extension UserDetailsScreenPresenter {
                 name: data.name,
                 lastName: data.lastName,
                 backgroundColor: data.backgroundColor,
-                actionButtonViewModels: makeActionViewModels(backgroudColor: data.tableBackground)
+                actionButtonViewModels: makeActionViewModels(backgroudColor: data.buttonBackground)
             )
         )
     }

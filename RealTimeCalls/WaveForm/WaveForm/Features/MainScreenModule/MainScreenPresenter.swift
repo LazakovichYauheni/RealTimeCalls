@@ -21,7 +21,7 @@ public final class MainScreenPresenter {
                 callImage: UIImage(named: "call") ?? UIImage(),
                 isNeedToShowBorder: false,
                 backgroundColor: UIColor(hue: randomValue, saturation: 0.44, brightness: 0.76, alpha: 1),
-                tableBackground: UIColor(hue: randomValue, saturation: 0.44, brightness: 0.59, alpha: 1)
+                buttonBackground: UIColor(hue: randomValue, saturation: 0.44, brightness: 0.59, alpha: 1)
             )
         }
     }
@@ -36,5 +36,9 @@ extension MainScreenPresenter {
                 secondRecentContactViewModel: MainScreenContactView.ViewModel(name: "Emma")
             )
         )
+    }
+    
+    func presentAll(contacts: [Contact]) {
+        viewController?.displayAllContactsScreen(contacts: contacts)
     }
 }
