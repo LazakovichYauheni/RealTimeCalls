@@ -20,7 +20,7 @@ public final class FieldsView: UIView {
         return stack
     }()
     
-    private lazy var emailTextFieldView: FloatingTextFieldView = {
+    private lazy var usernameTextFieldView: FloatingTextFieldView = {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = 12
@@ -54,7 +54,7 @@ public final class FieldsView: UIView {
     
     private func addSubviews() {
         addSubview(stack)
-        stack.addArrangedSubview(emailTextFieldView)
+        stack.addArrangedSubview(usernameTextFieldView)
         stack.addArrangedSubview(passwordTextFieldView)
     }
     
@@ -63,7 +63,7 @@ public final class FieldsView: UIView {
             make.edges.equalToSuperview()
         }
         
-        emailTextFieldView.snp.makeConstraints { make in
+        usernameTextFieldView.snp.makeConstraints { make in
             make.height.equalTo(56)
         }
         
@@ -78,14 +78,14 @@ extension FieldsView {
         let textFieldViewModels: [FloatingTextFieldView.ViewModel]
     }
     func configure(viewModel: FieldsView.ViewModel) {
-        emailTextFieldView.configure(with: viewModel.textFieldViewModels[0])
+        usernameTextFieldView.configure(with: viewModel.textFieldViewModels[0])
         passwordTextFieldView.configure(with: viewModel.textFieldViewModels[1])
         
         if viewModel.textFieldViewModels[0].isInvalidInput {
-            emailTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
-            emailTextFieldView.layer.borderWidth = 1
+            usernameTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
+            usernameTextFieldView.layer.borderWidth = 1
         } else {
-            emailTextFieldView.layer.borderWidth = .zero
+            usernameTextFieldView.layer.borderWidth = .zero
         }
     }
 }

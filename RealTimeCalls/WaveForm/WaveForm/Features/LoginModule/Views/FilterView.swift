@@ -32,7 +32,7 @@ public final class FilterView: UIView {
         label.font = Fonts.Medium.medium13
         label.textColor = .black
         label.textAlignment = .center
-        label.text = "Email"
+        label.text = "Username"
         return label
     }()
     

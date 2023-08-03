@@ -718,7 +718,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					518D5E7527F5C85D00B78B98 = {
@@ -1067,7 +1067,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7UK44XWDUK;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "[\"arm64\"]";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaveForm/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";
@@ -1102,6 +1102,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7UK44XWDUK;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WaveForm/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";

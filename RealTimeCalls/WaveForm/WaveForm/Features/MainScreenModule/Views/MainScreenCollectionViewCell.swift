@@ -7,7 +7,6 @@ private enum Constants {
     static let layerShadowOffset: CGSize = CGSize(width: .zero, height: 6) 
 }
 
-/// Ячейка для карточки партнера с возможностью активации
 public final class MainScreenCollectionViewCell: UICollectionViewCell {
     public lazy var randomHue = CGFloat.random(in: (0...1))
     
