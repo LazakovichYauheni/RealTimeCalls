@@ -6,9 +6,9 @@ public final class AllContactsPresenter {
     private func makeViewModels(contacts: [Contact]) -> [ContactTableViewCell.ViewModel] {
         contacts.compactMap { contact in
             ContactTableViewCell.ViewModel(
-                image: UIImage(named: "girl") ?? UIImage(),
-                title: contact.username ?? "",
-                description: contact.username ?? ""
+                image: Images.girlImage,
+                title: contact.firstName,
+                description: contact.firstName
             )
         }
     }

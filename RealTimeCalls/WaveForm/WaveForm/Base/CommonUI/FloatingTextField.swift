@@ -7,8 +7,6 @@ import UIKit
 private enum Constants {
     /// Коэффициент увеличения текста
     static let scale: CGFloat = 1.154
-    /// Дефолтный коэффициент увеличения текста
-    static let defaultScale: CGFloat = 1
     ///  Коэффициент увеличения  шрифта
     static let titleFontScale: CGFloat = 0.7
     /// Длительность анимации перехода для плейсхолдера
@@ -17,26 +15,12 @@ private enum Constants {
     static let titleRectXCoordinate: CGFloat = 16
     /// Y координата плейсхолдера
     static let titleRectYCoordinate: CGFloat = 6
-    /// Формат маски
-    static let mask: Character = "X"
-    /// Строка без символов
-    static let empty = ""
-    /// Регулярное выражение, которое удаляет лишние символы и пробелы из маскированной строки
-    static let textRegex = "[A-Z0-9-.]+"
-    /// Пустая строка
-    static let emptyString = ""
-    /// Тип маски openbonus
-    static let openBonusMask = "Openbonus"
     /// Сдвиг текстового блока по горизонтали
     static let xOffset: CGFloat = 16
     /// Сдвиг текстового блока по вертикали
     static let yOffset: CGFloat = 10
     /// Константа для увеличения высоты шрифта
     static let additionalFontHeight: CGFloat = 9
-    /// Отступ слева для дополнительной картинки в плейсхолдере
-    static let leftTitleLabelPadding: CGFloat = 4
-    /// Отступ от baseLine для картинки в плейсхолдере
-    static let additionalImageOffset: CGFloat = -2
 }
 
 private struct StringStyle {
@@ -78,6 +62,7 @@ public final class FloatingTextField: UITextField {
         label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
         return label
     }()
+    
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
@@ -88,12 +73,12 @@ public final class FloatingTextField: UITextField {
     // MARK: - Private Properties
 
     private let titleStyles: [FieldState: TitleConfig] = [
-        .collapsed: .init(
-            style: .init(font: Fonts.Regular.regular13),
+        .collapsed: TitleConfig(
+            style: StringStyle(font: Fonts.Regular.regular13),
             scaleTransform: CGAffineTransform(scaleX: Constants.scale, y: Constants.scale)
         ),
-        .expanded: .init(
-            style: .init(font: Fonts.Regular.regular13),
+        .expanded: TitleConfig(
+            style: StringStyle(font: Fonts.Regular.regular13),
             scaleTransform: .identity
         )
     ]
@@ -177,16 +162,6 @@ public final class FloatingTextField: UITextField {
     // MARK: - Private Methods
 
     private func commonInit() {
-//        bonMotStyle = TextStyles.body(weight: .normal)
-//            .byAdding(
-//                .color(Style.textFieldColor),
-//                .lineBreakMode(
-//                    .byTruncatingTail
-//                )
-//            )
-//        tintColor = theme.background.blueColor
-//        keyboardType = TextFieldConfig.textFieldKeyboardType
-//        isUserInteractionEnabled = TextFieldConfig.isUserInteractionEnabled
         addSubviews()
     }
 
@@ -325,10 +300,6 @@ extension FloatingTextField {
         }
 
         placeholderLabel.text = viewModel.placeholder
-
-//        let titleStyle = (viewModel.text?.isEmpty ?? true) ? titleStyles[.collapsed] : titleStyles[.expanded]
-//        updateStyle(fieldStyle: titleStyle)
-        
         guard !isFirstResponder else { return }
         drawViewsForRect(self.frame)
     }

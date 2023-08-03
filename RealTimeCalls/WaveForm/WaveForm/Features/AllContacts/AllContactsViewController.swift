@@ -10,10 +10,10 @@ final class AllContactsViewController: UIViewController {
     private lazy var addUserButton: UIBarButtonItem = {
         let imageView = UIImageView()
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 24, height: 24))
+            make.size.equalTo(spacer.space24)
         }
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addUser)))
-        imageView.image = UIImage(named: "add")?.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
+        imageView.image = Images.addImage.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
         
         let item = UIBarButtonItem(customView: imageView)
         return item
@@ -67,11 +67,11 @@ extension AllContactsViewController {
     func displayContactDetails(contact: Contact) {
         transitionPresenter.present(
             .init(
-                name: contact.username ?? "",
-                lastName: contact.username ?? "",
-                infoMessage: contact.username ?? "",
-                image: UIImage(named: "girl") ?? UIImage(),
-                callImage: UIImage(named: "call") ?? UIImage(),
+                name: contact.firstName,
+                lastName: contact.firstName,
+                infoMessage: contact.firstName,
+                image: Images.girlImage,
+                callImage:Images.girlImage,
                 isNeedToShowBorder: false,
                 backgroundColor: UIColor(hue: 0.5, saturation: 0.44, brightness: 0.76, alpha: 1),
                 buttonBackground: UIColor(hue: 0.5, saturation: 0.44, brightness: 0.59, alpha: 1)

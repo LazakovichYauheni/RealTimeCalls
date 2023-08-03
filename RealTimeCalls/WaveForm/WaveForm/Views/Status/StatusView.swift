@@ -48,8 +48,8 @@ public final class StatusView: UIView, StatusProtocol {
         
         dotsView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
-            make.width.equalTo(10)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(spacer.space4)
+            make.width.equalTo(spacer.space10)
         }
     }
 }

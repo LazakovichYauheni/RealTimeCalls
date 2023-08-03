@@ -26,8 +26,6 @@ extension UserDetailsScreenInteractor {
         presenter.present(data: data)
     }
     
-    func obtainSelectedCell(index: Int) {
-        
-    }
+    func obtainSelectedCell(index: Int) {}
 }
 

@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var headerViewHeight: CGFloat { 300 }
+}
+
 protocol UserDetailsScreenEventsRespondable: AnyObject {
     func didCloseButtonTapped()
     func didSelectCell(index: Int)
@@ -13,6 +17,7 @@ public final class UserDetailsScreenView: UIView {
 
     public lazy var iconImageView: UIImageView = {
         let image = UIImageView()
+        image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
         return image
     }()
@@ -35,7 +40,7 @@ public final class UserDetailsScreenView: UIView {
     
     private(set) lazy var contentView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = spacer.space16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
@@ -89,15 +94,15 @@ public final class UserDetailsScreenView: UIView {
     private func makeConstraints() {
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(300)
+            make.height.equalTo(spacer.headerViewHeight)
         }
         iconImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         textContainerView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(40)
-            make.leading.equalToSuperview().inset(24)
+            make.bottom.equalToSuperview().inset(spacer.space40)
+            make.leading.equalToSuperview().inset(spacer.space24)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -105,23 +110,23 @@ public final class UserDetailsScreenView: UIView {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space4)
             make.bottom.leading.trailing.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).inset(20)
+            make.top.equalTo(headerView.snp.bottom).inset(spacer.space20)
             make.bottom.leading.trailing.equalToSuperview()
         }
         
         buttonsStackView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview().inset(32)
+            make.top.leading.trailing.equalToSuperview().inset(spacer.space32)
         }
         
         closeButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(40)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(60)
+            make.bottom.equalToSuperview().inset(spacer.space40)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.height.equalTo(spacer.space60)
         }
     }
     

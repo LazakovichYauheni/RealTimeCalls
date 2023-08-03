@@ -18,7 +18,7 @@ public final class BaseNetworkLayer: CAShapeLayer {
         
         layerHeight = height
         fillColor = color.cgColor
-        cornerRadius = 2
+        cornerRadius = spacer.space2
     }
     
     required init?(coder: NSCoder) {
@@ -29,7 +29,7 @@ public final class BaseNetworkLayer: CAShapeLayer {
         super.layoutSublayers()
         
         let rect = CGRect(x: .zero, y: .zero, width: self.bounds.width, height: layerHeight)
-        let bez = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+        let bez = UIBezierPath(roundedRect: rect, cornerRadius: spacer.space2)
         path = bez.cgPath
     }
     
@@ -42,7 +42,7 @@ public final class BaseNetworkLayer: CAShapeLayer {
             y: .zero,
             width: self.bounds.width,
             height: height
-        ), cornerRadius: 2)
+        ), cornerRadius: spacer.space2)
         
         let animation = CABasicAnimation(keyPath: "path")
         animation.beginTime = 0

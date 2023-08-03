@@ -64,8 +64,8 @@ public final class AllContactsView: UIView {
         }
         
         alertView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom).offset(32)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(tableView.snp.bottom).offset(spacer.space32)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
             make.bottom.greaterThanOrEqualToSuperview()
         }
     }
@@ -82,7 +82,7 @@ extension AllContactsView {
         tableViewModels = viewModel.tableViewModels
         alertView.configure(
             with: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
-                icon: UIImage(named: "call") ?? UIImage(),
+                icon: Images.endCallImage,
                 title: "Privet",
                 description: "Drug",
                 actions: [

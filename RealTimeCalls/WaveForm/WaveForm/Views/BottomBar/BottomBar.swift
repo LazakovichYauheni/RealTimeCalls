@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var closeButtonHeight: CGFloat { 50 }
+    var stackViewHeight: CGFloat { 70 }
+}
+
 public protocol BottomBarEventsRespondable: AnyObject {
     func didTapEndButton()
     func didMuteButtonTapped(isOn: Bool)
@@ -83,8 +88,18 @@ public final class BottomBar: UIView {
     }
     
     override public func layoutSubviews() {
-        stackView.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY, width: self.bounds.width, height: 70)
-        closeButton.frame = CGRect(x: self.bounds.maxX + 32, y: self.bounds.minY, width: self.bounds.width, height: 50)
+        stackView.frame = CGRect(
+            x: self.bounds.minX,
+            y: self.bounds.minY,
+            width: self.bounds.width,
+            height: spacer.stackViewHeight
+        )
+        closeButton.frame = CGRect(
+            x: self.bounds.maxX + spacer.space32,
+            y: self.bounds.minY,
+            width: self.bounds.width,
+            height: spacer.closeButtonHeight
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -97,7 +112,12 @@ public final class BottomBar: UIView {
         UIView.animate(withDuration: 0.4, delay: .zero, animations: {
             self.closeButton.alpha = 1
             self.stackView.alpha = .zero
-            self.closeButton.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY, width: self.bounds.width, height: 50)
+            self.closeButton.frame = CGRect(
+                x: self.bounds.minX,
+                y: self.bounds.minY,
+                width: self.bounds.width,
+                height: self.spacer.closeButtonHeight
+            )
         }, completion: { _ in
             self.stackView.isHidden = true
             self.closeButton.animate()

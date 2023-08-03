@@ -35,7 +35,6 @@ public final class StartView: UIView {
         backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
         testButton.setTitle("BUTTON", for: .normal)
         testButton.addTarget(self, action: #selector(secButtonTapped), for: .touchUpInside)
-        //testButton.isEnabled = false
         addSubview(callButton)
         addSubview(testButton)
         callButton.snp.makeConstraints { make in

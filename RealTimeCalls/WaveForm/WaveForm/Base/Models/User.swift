@@ -23,6 +23,8 @@ public struct User {
     public let lastName: String?
     public let phoneNumber: String
     public let contacts: [Contact]
+    public let recentContacts: [RecentContact]
+    public let favoritesContacts: [Contact]
 
     public init(dto: UserDTO) {
         id = dto.id
@@ -32,5 +34,7 @@ public struct User {
         lastName = dto.lastName
         phoneNumber = dto.phoneNumber
         contacts = dto.contacts.compactMap { Contact(dto: $0) }
+        recentContacts = dto.recentContacts.compactMap { RecentContact(dto: $0) }
+        favoritesContacts = contacts.filter { $0.isFavorite }
     }
 }

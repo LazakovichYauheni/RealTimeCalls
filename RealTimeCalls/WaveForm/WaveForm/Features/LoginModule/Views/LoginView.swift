@@ -131,64 +131,60 @@ public final class LoginView: UIView {
     
     private func makeConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(0)
-            make.trailing.equalToSuperview().inset(0)
+            make.edges.equalToSuperview()
         }
         
         containerView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-            make.width.equalToSuperview()
+            make.edges.width.equalToSuperview()
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(32)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(spacer.space32)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(32)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space32)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         filterView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(56)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(56)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(spacer.space56)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.height.equalTo(spacer.space56)
         }
         
         fieldsView.snp.makeConstraints { make in
-            make.top.equalTo(filterView.snp.bottom).offset(42)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(filterView.snp.bottom).offset(spacer.space42)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         loginButton.snp.makeConstraints { make in
-            make.top.equalTo(fieldsView.snp.bottom).offset(56)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(60)
+            make.top.equalTo(fieldsView.snp.bottom).offset(spacer.space56)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.height.equalTo(spacer.space60)
         }
         
         orLabel.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(loginButton.snp.bottom).offset(spacer.space16)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         googleLabel.snp.makeConstraints { make in
-            make.top.equalTo(orLabel.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(orLabel.snp.bottom).offset(spacer.space16)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         googleButton.snp.makeConstraints { make in
-            make.top.equalTo(googleLabel.snp.bottom).offset(30)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(60)
+            make.top.equalTo(googleLabel.snp.bottom).offset(spacer.space30)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.height.equalTo(spacer.space60)
         }
         
         container.snp.makeConstraints { make in
-            make.top.equalTo(googleButton.snp.bottom).offset(16)
+            make.top.equalTo(googleButton.snp.bottom).offset(spacer.space16)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(60)
+            make.bottom.equalToSuperview().inset(spacer.space60)
         }
         
         dontHaveAccLabel.snp.makeConstraints { make in
@@ -197,7 +193,7 @@ public final class LoginView: UIView {
         
         signUpButton.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(dontHaveAccLabel.snp.trailing).offset(2)
+            make.leading.equalTo(dontHaveAccLabel.snp.trailing).offset(spacer.space2)
         }
     }
     

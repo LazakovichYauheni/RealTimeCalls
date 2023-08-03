@@ -17,6 +17,7 @@ extension CGPath {
         let unsafeBody = unsafeBitCast(body, to: UnsafeMutableRawPointer.self)
         self.apply(info: unsafeBody, function: unsafeBitCast(callback, to: CGPathApplierFunction.self))
     }
+    
     func getPathElementsPoints() -> [CGPoint] {
         var arrayPoints : [CGPoint]! = [CGPoint]()
         self.forEach { element in
@@ -34,6 +35,7 @@ extension CGPath {
         }
         return arrayPoints
     }
+    
     func getPathElementsPointsAndTypes() -> ([CGPoint],[CGPathElementType]) {
         var arrayPoints : [CGPoint]! = [CGPoint]()
         var arrayTypes : [CGPathElementType]! = [CGPathElementType]()
@@ -60,6 +62,6 @@ extension CGPath {
             default: break
             }
         }
-        return (arrayPoints,arrayTypes)
+        return (arrayPoints, arrayTypes)
     }
 }

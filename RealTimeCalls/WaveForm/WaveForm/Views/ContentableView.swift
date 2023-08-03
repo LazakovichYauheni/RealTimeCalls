@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space50: CGFloat { 50 }
+    var bottomBarHeight: CGFloat { 70 }
+}
+
 protocol ContentableViewEventsRespondable: AnyObject {
     func setNeedToMonitorMicro()
 }
@@ -16,17 +21,7 @@ private enum Constants {
     static let imageCornerRadius = 57.5
     static let liquidViewVolumeAnimationDuration = 0.05
     static let liquidViewVolumeConstant: CGFloat = 200
-    static let localVideoViewWidthConstant = 3.12
-    static let localVideoViewHeightConstant = 4.22
-    static let localVideoViewAnimationDuration = 0.5
-    
-    static let localVideoViewSmallBottomConstant = 200
-    static let space16 = 16
-    static let space8 = 8
-    static let space20: CGFloat = 20
-    static let space50 = 50
-    static let space30 = 30
-    
+
     static let flipCameraAnimationDuration = 0.3
     static let circleAppearanceAnimationDuration = 0.24
     static let halfDelimiter: CGFloat = 2
@@ -407,12 +402,12 @@ final class ContentableView: UIView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(userImageView.snp.bottom).offset(Constants.space16)
+            make.top.equalTo(userImageView.snp.bottom).offset(spacer.space16)
             make.leading.trailing.equalToSuperview()
         }
         
         statusView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(Constants.space8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space8)
             make.centerX.equalToSuperview()
         }
         
@@ -426,13 +421,13 @@ final class ContentableView: UIView {
                 ? -25
                 : -66
             )
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(spacer.space30)
         }
         
         bottomBar.snp.makeConstraints { make in
-            make.height.equalTo(70)
-            make.bottom.equalTo(safeAreaInsets.bottom).inset(Constants.space20 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? .zero))
-            make.leading.trailing.equalToSuperview().inset(Constants.space30)
+            make.height.equalTo(spacer.bottomBarHeight)
+            make.bottom.equalTo(safeAreaInsets.bottom).inset(spacer.space20 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? .zero))
+            make.leading.trailing.equalToSuperview().inset(spacer.space30)
         }
         
         localVideoView.snp.makeConstraints { make in

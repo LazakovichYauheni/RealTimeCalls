@@ -70,7 +70,6 @@ class SnapshotTransition {
     }
 
     func addKeyframes() {
-        
         let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) {
             self.toSnapshot?.alpha = 1
             self.fromSnapshot?.alpha = 0

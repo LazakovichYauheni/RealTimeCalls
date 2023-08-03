@@ -13,7 +13,7 @@ final class StarView: UIView {
 
     private lazy var starImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "star")
+        imageView.image = Images.starImage
         return imageView
     }()
     

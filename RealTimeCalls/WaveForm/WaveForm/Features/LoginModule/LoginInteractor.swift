@@ -116,12 +116,12 @@ extension LoginInteractor {
         switch id {
         case "0":
             if isEmailSelected {
-                emailText = ""
+                emailText = .empty
             } else {
-                phoneText = ""
+                phoneText = .empty
             }
         case "1":
-            passwordText = ""
+            passwordText = .empty
         default:
             return
         }

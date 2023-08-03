@@ -19,6 +19,8 @@ public struct UserDTO {
     public let lastName: String?
     public let phoneNumber: String
     public let contacts: [ContactDTO]
+    public let recentContacts: [RecentContactDTO]
+    public let favoritesContacts: [ContactDTO]?
 }
 
 extension UserDTO: Codable {
@@ -30,27 +32,7 @@ extension UserDTO: Codable {
         case lastName
         case contacts
         case phoneNumber
+        case recentContacts
+        case favoritesContacts
     }
-
-//    public init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        let id = try container.decode(String.self, forKey: CodingKeys.id)
-//        let username = try container.decode(String.self, forKey: CodingKeys.username)
-//        let password = try container.decode(String.self, forKey: CodingKeys.password)
-//        let firstName = try? container.decode(String.self, forKey: CodingKeys.firstName)
-//        let lastName = try? container.decode(String.self, forKey: CodingKeys.lastName)
-//        let contacts = try container.decode([ContactDTO].self, forKey: CodingKeys.contacts)
-//
-//        self.init(
-//            id: id,
-//            username: username,
-//            password: password,
-//            firstName: firstName,
-//            lastName: lastName,
-//            contacts: contacts
-//        )
-//    }
-
-    //public func encode(to _: Encoder) throws {}
 }

@@ -15,7 +15,7 @@ public protocol FilterViewEventsRespondable {
 public final class FilterView: UIView {
     private lazy var selectedContainer: UIView = {
         let container = UIView()
-        container.layer.cornerRadius = 12
+        container.layer.cornerRadius = spacer.space12
         container.backgroundColor = .white
         return container
     }()
@@ -57,7 +57,7 @@ public final class FilterView: UIView {
     }
     
     private func initialize() {
-        layer.cornerRadius = 12
+        layer.cornerRadius = spacer.space12
         backgroundColor = UIColor(red: 216 / 255, green: 226 / 255, blue: 235 / 255, alpha: 1)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didViewTapped)))
         addSubviews()
@@ -73,11 +73,11 @@ public final class FilterView: UIView {
     
     private func makeConstraints() {
         horizontalStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(6)
+            make.edges.equalToSuperview().inset(spacer.space6)
         }
         
         selectedContainer.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(6)
+            make.top.bottom.equalToSuperview().inset(spacer.space6)
         }
     }
     
@@ -114,7 +114,7 @@ extension FilterView {
                     self.selectedContainer.snp.remakeConstraints { make in
                         make.top.bottom.equalToSuperview().inset(6)
                         make.trailing.equalToSuperview().inset(6)
-                        make.width.equalTo((self.frame.width / 2) - 6)
+                        make.width.equalTo((self.frame.width / 2) - self.spacer.space6)
                     }
                     self.layoutIfNeeded()
                 }
@@ -125,15 +125,15 @@ extension FilterView {
                     self.selectedContainer.snp.remakeConstraints { make in
                         make.top.bottom.equalToSuperview().inset(6)
                         make.leading.equalToSuperview().inset(6)
-                        make.width.equalTo((self.frame.width / 2) - 6)
+                        make.width.equalTo((self.frame.width / 2) - self.spacer.space6)
                     }
                     self.layoutIfNeeded()
                 }
             }
         } else {
             selectedContainer.snp.makeConstraints { make in
-                make.leading.equalToSuperview().inset(6)
-                make.width.equalTo((frame.width / 2) - 6)
+                make.leading.equalToSuperview().inset(spacer.space6)
+                make.width.equalTo((frame.width / 2) - spacer.space6)
             }
         }
     }

@@ -22,10 +22,10 @@ public final class MainScreenViewController: UIViewController {
     private lazy var notificationButton: UIBarButtonItem = {
         let imageView = UIImageView()
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 24, height: 24))
+            make.size.equalTo(spacer.space24)
         }
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(notificationTapped)))
-        imageView.image = UIImage(named: "alert")?.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
+        imageView.image = Images.addImage.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
         
         let item = UIBarButtonItem(customView: imageView)
         return item

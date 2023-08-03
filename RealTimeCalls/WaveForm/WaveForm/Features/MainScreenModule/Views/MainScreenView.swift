@@ -7,6 +7,15 @@
 
 import UIKit
 
+private enum Constants {
+    static let numerOfSections: Int = 1
+}
+
+private extension Spacer {
+    var space44: CGFloat { 44 }
+    var itemSize: CGSize { CGSize(width: 226, height: 326) }
+}
+
 protocol MainScreenViewEventsRespondable {
     func didItemTapped(index: Int, cell: MainScreenCollectionViewCell)
     func didAllContactsTapped()
@@ -34,8 +43,13 @@ public final class MainScreenView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = PagingCollectionViewLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: .zero, left: UIScreen.main.bounds.width / 2 - 226 / 2, bottom: .zero, right: UIScreen.main.bounds.width / 2 - 226 / 2)
-        layout.itemSize = CGSize(width: 226, height: 326)
+        layout.sectionInset = UIEdgeInsets(
+            top: .zero,
+            left: UIScreen.main.bounds.width / 2 - spacer.itemSize.width / 2,
+            bottom: .zero,
+            right: UIScreen.main.bounds.width / 2 - spacer.itemSize.width / 2
+        )
+        layout.itemSize = spacer.itemSize
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.dataSource = self
         collection.delegate = self
@@ -99,48 +113,44 @@ public final class MainScreenView: UIView {
     
     private func makeConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(0)
-            make.bottom.equalToSuperview().inset(0)
-            make.leading.equalToSuperview().inset(0)
-            make.trailing.equalToSuperview().inset(0)
+            make.edges.equalToSuperview()
         }
         
         containerView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-            make.width.equalToSuperview()
+            make.edges.width.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(32)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(spacer.space32)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space24)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(326)
+            make.height.equalTo(spacer.itemSize.height)
         }
         
         recentLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(44)
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.lessThanOrEqualTo(allContactsLabel.snp.leading).offset(16)
+            make.top.equalTo(collectionView.snp.bottom).offset(spacer.space44)
+            make.leading.equalToSuperview().inset(spacer.space16)
+            make.trailing.lessThanOrEqualTo(allContactsLabel.snp.leading).offset(spacer.space16)
         }
         
         allContactsLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(16).priority(.high)
+            make.trailing.equalToSuperview().inset(spacer.space16).priority(.high)
             make.centerY.equalTo(recentLabel)
         }
         
         firstRecentContact.snp.makeConstraints { make in
-            make.top.equalTo(recentLabel.snp.bottom).offset(40)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(recentLabel.snp.bottom).offset(spacer.space40)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         secondRecentContact.snp.makeConstraints { make in
-            make.top.equalTo(firstRecentContact.snp.bottom).offset(16)
+            make.top.equalTo(firstRecentContact.snp.bottom).offset(spacer.space16)
             make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
     }
     
@@ -165,7 +175,7 @@ extension MainScreenView {
 
 extension MainScreenView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 226, height: 326)
+        return spacer.itemSize
     }
 }
 
@@ -203,7 +213,7 @@ extension MainScreenView: UICollectionViewDelegate {
 
 extension MainScreenView: UICollectionViewDataSource {
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        Constants.numerOfSections
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space15: CGFloat { 15 }
+}
+
 public final class ToastView: UIView {
     private lazy var label: UILabel = {
        let label = UILabel()
@@ -24,10 +28,10 @@ public final class ToastView: UIView {
         
         addSubview(label)
         backgroundColor = Colors.whiteColorWithAlpha020
-        layer.cornerRadius = 15
+        layer.cornerRadius = spacer.space15
         label.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(6)
-            make.leading.trailing.equalToSuperview().inset(12)
+            make.top.bottom.equalToSuperview().inset(spacer.space6)
+            make.leading.trailing.equalToSuperview().inset(spacer.space12)
         }
     }
     

@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space14: CGFloat { 14 }
+}
+
 /// View для заполнения иконок с фоном
 public final class UserDetailsActionView: UIView {
     // MARK: - Subview Properties
@@ -47,7 +51,7 @@ public final class UserDetailsActionView: UIView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(iconImageView.snp.bottom).offset(14)
+            make.top.equalTo(iconImageView.snp.bottom).offset(spacer.space14)
             make.bottom.leading.trailing.equalToSuperview()
         }
     }

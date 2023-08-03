@@ -14,4 +14,9 @@ public enum Images {
     static let muteImage = UIImage(named: "mute") ?? UIImage()
     static let endCallImage = UIImage(named: "endCall") ?? UIImage()
     static let statusEndImage = UIImage(named: "call") ?? UIImage()
+    static let closeImage = UIImage(named: "closeButton") ?? UIImage()
+    static let loaderImage = UIImage(named: "loader") ?? UIImage()
+    static let addImage = UIImage(named: "add") ?? UIImage()
+    static let starImage = UIImage(named: "star") ?? UIImage()
+    static let maskStarImage = UIImage(named: "maskStar") ?? UIImage()
 }

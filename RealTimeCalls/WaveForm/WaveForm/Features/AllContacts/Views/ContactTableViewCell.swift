@@ -7,12 +7,16 @@
 
 import UIKit
 
+private extension Spacer {
+    var space22: CGFloat { 22 }
+}
+
 final class ContactTableViewCell: UITableViewCell {
     
     private(set) lazy var containerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = spacer.space16
         view.backgroundColor = .white
         return view
     }()
@@ -20,7 +24,7 @@ final class ContactTableViewCell: UITableViewCell {
     private(set) lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = spacer.space20
         return imageView
     }()
     
@@ -66,20 +70,20 @@ final class ContactTableViewCell: UITableViewCell {
     
     private func makeConstraints() {
         containerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.bottom.equalToSuperview().inset(spacer.space8)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         iconImageView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(22)
-            make.leading.equalToSuperview().inset(16)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.top.bottom.equalToSuperview().inset(spacer.space22)
+            make.leading.equalToSuperview().inset(spacer.space16)
+            make.size.equalTo(spacer.space40)
         }
         
         textContainer.snp.makeConstraints { make in
             make.centerY.equalTo(iconImageView)
-            make.leading.equalTo(iconImageView.snp.trailing).offset(20)
-            make.trailing.equalToSuperview().inset(16)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(spacer.space20)
+            make.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -88,7 +92,7 @@ final class ContactTableViewCell: UITableViewCell {
         
         descriptionLabel.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space4)
         }
     }
 }

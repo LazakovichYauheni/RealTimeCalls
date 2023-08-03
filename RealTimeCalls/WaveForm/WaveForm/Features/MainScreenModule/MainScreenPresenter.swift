@@ -14,11 +14,11 @@ public final class MainScreenPresenter {
         return contacts.compactMap { contact in
             let randomValue = CGFloat.random(in: (0...1))
             return MainScreenCollectionViewCell.ViewModel(
-                name: contact.username ?? "",
+                name: contact.firstName,
                 lastName: "Cell",
                 infoMessage: "loh",
-                image: UIImage(named: "girl") ?? UIImage(),
-                callImage: UIImage(named: "call") ?? UIImage(),
+                image: Images.girlImage,
+                callImage: Images.statusEndImage,
                 isNeedToShowBorder: false,
                 backgroundColor: UIColor(hue: randomValue, saturation: 0.44, brightness: 0.76, alpha: 1),
                 buttonBackground: UIColor(hue: randomValue, saturation: 0.44, brightness: 0.59, alpha: 1)

@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 import AVFoundation
 
 protocol CallViewControllerOutputProtocol: AnyObject {

@@ -9,6 +9,11 @@ import UIKit
 import SnapKit
 import QuartzCore
 
+private extension Spacer {
+    var space25: CGFloat { 25 }
+    var imageSize: CGSize { CGSize(width: 50, height: 50) }
+}
+
 public enum BottomButtonType {
     case speaker
     case video
@@ -51,10 +56,11 @@ public final class BottomButton: UIView {
         self.isFlippable = isFlippable
         title.text = name
         imageIconView.clipsToBounds = true
-        imageIconView.layer.cornerRadius = 25
+        imageIconView.layer.cornerRadius = spacer.space25
         let tintedImage = generateTintedImage(image: image, color: .white, backgroundColor: Colors.whiteColorWithAlpha020)
         imageIconView.image = tintedImage
         
+        /// ???
         imageIconView.alpha = 1.0
         imageIconView.layer.animateAlpha(from: 0.4, to: 1.0, duration: 0.2)
         imageIconView.alpha = 1.0
@@ -64,12 +70,12 @@ public final class BottomButton: UIView {
         addSubview(imageIconView)
         imageIconView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.size.equalTo(CGSize(width: 50, height: 50))
+            make.size.equalTo(spacer.imageSize)
         }
         
         title.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
-            make.top.equalTo(imageIconView.snp.bottom).offset(4)
+            make.top.equalTo(imageIconView.snp.bottom).offset(spacer.space4)
         }
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
     }
@@ -140,9 +146,6 @@ public final class BottomButton: UIView {
         }
     }
 }
-
-
-
 
 extension CALayer {
     func animateAlpha(from: CGFloat, to: CGFloat, duration: Double, delay: Double = 0.0, timingFunction: String = CAMediaTimingFunctionName.easeInEaseOut.rawValue, mediaTimingFunction: CAMediaTimingFunction? = nil, removeOnCompletion: Bool = true, completion: ((Bool) -> ())? = nil) {

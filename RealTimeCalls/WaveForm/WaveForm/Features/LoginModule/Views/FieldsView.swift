@@ -16,14 +16,14 @@ public final class FieldsView: UIView {
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = 20
+        stack.spacing = spacer.space20
         return stack
     }()
     
     private lazy var emailTextFieldView: FloatingTextFieldView = {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
-        textFieldView.layer.cornerRadius = 12
+        textFieldView.layer.cornerRadius = spacer.space12
         textFieldView.backgroundColor = .white
         return textFieldView
     }()
@@ -31,7 +31,7 @@ public final class FieldsView: UIView {
     private lazy var passwordTextFieldView: FloatingTextFieldView = {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
-        textFieldView.layer.cornerRadius = 12
+        textFieldView.layer.cornerRadius = spacer.space12
         textFieldView.backgroundColor = .white
         return textFieldView
     }()
@@ -64,11 +64,11 @@ public final class FieldsView: UIView {
         }
         
         emailTextFieldView.snp.makeConstraints { make in
-            make.height.equalTo(56)
+            make.height.equalTo(spacer.space56)
         }
         
         passwordTextFieldView.snp.makeConstraints { make in
-            make.height.equalTo(56)
+            make.height.equalTo(spacer.space56)
         }
     }
 }

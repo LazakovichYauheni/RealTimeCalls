@@ -7,7 +7,7 @@ public final class MainScreenContactView: UIView {
 
     private lazy var iconImageView: UIImageView = {
         let image = UIImageView()
-        image.layer.cornerRadius = 30
+        image.layer.cornerRadius = spacer.space30
         return image
     }()
     
@@ -36,7 +36,7 @@ public final class MainScreenContactView: UIView {
         addSubviews()
         makeConstraints()
         backgroundColor = .white
-        layer.cornerRadius = 16
+        layer.cornerRadius = spacer.space16
     }
 
     private func addSubviews() {
@@ -46,14 +46,14 @@ public final class MainScreenContactView: UIView {
 
     private func makeConstraints() {
         iconImageView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(40)
-            make.leading.equalToSuperview().inset(16)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.top.bottom.equalToSuperview().inset(spacer.space40)
+            make.leading.equalToSuperview().inset(spacer.space16)
+            make.size.equalTo(spacer.space40)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(iconImageView.snp.trailing).offset(20)
-            make.trailing.equalToSuperview().inset(16)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(spacer.space20)
+            make.trailing.equalToSuperview().inset(spacer.space16)
             make.centerY.equalTo(iconImageView)
         }
     }

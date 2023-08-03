@@ -17,7 +17,7 @@ public final class BottomButtonLayer: CAShapeLayer {
     public init(color: UIColor) {
         super.init()
         fillColor = color.cgColor
-        cornerRadius = 30
+        cornerRadius = spacer.space30
     }
     
     override public func layoutSublayers() {

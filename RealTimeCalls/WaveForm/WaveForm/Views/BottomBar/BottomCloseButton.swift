@@ -37,7 +37,7 @@ public final class BottomCloseButton: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         clipsToBounds = true
-        layer.cornerRadius = 16
+        layer.cornerRadius = spacer.space16
         backgroundColor = UIColor.white.withAlphaComponent(0.2)
         
         addSubview(backgroundLabel)
@@ -66,7 +66,7 @@ public final class BottomCloseButton: UIView {
         maskLayer.frame = bounds
         maskLayer.path = UIBezierPath(
             roundedRect: CGRect(x: .zero, y: .zero, width: bounds.width, height: bounds.height),
-            cornerRadius: 4
+            cornerRadius: spacer.space4
         ).cgPath
     }
     

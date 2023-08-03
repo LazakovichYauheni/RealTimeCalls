@@ -63,7 +63,11 @@ extension StartViewController: WebSocketWorkerOutputProtocol {
                 contentViewController.modalPresentationStyle = .overFullScreen
                 self.present(contentViewController, animated: true)
             }
-            banner.show(cornerRadius: 12, shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04), shadowBlurRadius: 16)
+            banner.show(
+                cornerRadius: self.spacer.space12,
+                shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04),
+                shadowBlurRadius: self.spacer.space16
+            )
         }
     }
     

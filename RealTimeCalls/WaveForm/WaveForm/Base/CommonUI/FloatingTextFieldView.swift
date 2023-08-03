@@ -2,20 +2,6 @@
 
 import UIKit
 
-// MARK: - Constants
-
-private enum Constants {
-    static let space40: CGFloat = 40
-    /// Высота текстфилда
-    static let space60: CGFloat = 60
-    /// Пустая строка
-    static let emptyString = ""
-    /// Пробельная строка
-    static let spaceString = " "
-    /// Радиус скругления изображения
-    static let cornerRadius: CGFloat = 20
-}
-
 /// Описывает основные методы, которые должны обрабатываться Responder для этой View
 public protocol FloatingTextFieldViewEventsRespondable {
     /// Обработка нажатия на view иконки
@@ -39,7 +25,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "closeButton")
+        imageView.image = Images.closeImage
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -48,7 +34,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     private lazy var horizontalStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 8
+        stack.spacing = spacer.space8
         stack.alignment = .center
         return stack
     }()
@@ -61,7 +47,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
                 formatter != nil,
                 oldFormatter != nil
             else { return }
-            let text = textField.text ?? Constants.emptyString
+            let text = textField.text ?? .empty
 
             let selectedRange = textField.selectedCharactersRange ?? text.startIndex ..< text.startIndex
 
@@ -128,15 +114,15 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     private func makeConstraints() {
         horizontalStackView.snp.makeConstraints { make in
             make.top.bottom.leading.equalToSuperview()
-            make.trailing.equalToSuperview().inset(8)
+            make.trailing.equalToSuperview().inset(spacer.space8)
         }
 
         textField.snp.makeConstraints { make in
-            make.height.equalTo(56)
+            make.height.equalTo(spacer.space56)
         }
         
         iconImageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 24, height: 24))
+            make.size.equalTo(spacer.space24)
         }
     }
 
@@ -149,7 +135,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     ) -> Bool {
         if textFieldMask != nil {
             guard let processor = processor else { return true }
-            return string != Constants.spaceString
+            return string != .space
                 ? processor.shouldChangeCharacters(in: range, replacementString: string, textField: textField)
                 : false
         } else {

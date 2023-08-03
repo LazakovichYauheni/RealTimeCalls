@@ -54,8 +54,6 @@ public final class PrimaryButton<Style: ButtonStyle>: UIButton {
         setTitleColor(Style.textActiveColor, for: .normal)
         setTitleColor(Style.textActiveColor, for: .highlighted)
         setTitleColor(Style.textDisabledColor, for: .disabled)
-        
-        //imageView?.image = UIImage(named: "loader")
     }
     
     required init?(coder: NSCoder) {
@@ -63,13 +61,13 @@ public final class PrimaryButton<Style: ButtonStyle>: UIButton {
     }
     
     public func startAnimating() {
-        setTitle("", for: .normal)
-        setImage(UIImage(named: "loader"), for: .normal)
+        setTitle(.empty, for: .normal)
+        setImage(Images.loaderImage, for: .normal)
         self.imageView?.rotate()
     }
     
     public func stopAnimating() {
         self.imageView?.stopRotating()
-        setImage(UIImage(named: ""), for: .normal)
+        setImage(UIImage(), for: .normal)
     }
 }

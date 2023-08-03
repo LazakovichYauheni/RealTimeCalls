@@ -25,19 +25,27 @@ class CubeLabel: UILabel {
         self.superview?.addSubview(auxLabel)
         
         let auxLabelOffset = auxLabel.frame.height / 2 * CGFloat(direction.rawValue)
-        auxLabel.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: auxLabelOffset))
+        auxLabel.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(
+            CGAffineTransform(translationX: 0, y: auxLabelOffset)
+        )
         
-        UIView.animate(withDuration: TimeInterval(duration), delay: 0, options: .curveEaseOut, animations: {
-            auxLabel.transform = CGAffineTransform.identity
-            auxLabel.alpha = 1
-            self.alpha = 0
-            self.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(CGAffineTransform.init(translationX: 0, y: -auxLabelOffset))
-        }) { _ in
-            self.text = newText
-            self.alpha = 1
-            self.transform = CGAffineTransform.identity
-            
-            auxLabel.removeFromSuperview()
-        }
+        UIView.animate(
+            withDuration: TimeInterval(duration),
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {
+                auxLabel.transform = CGAffineTransform.identity
+                auxLabel.alpha = 1
+                self.alpha = 0
+                self.transform = (CGAffineTransform(scaleX: 0.4, y: 0.1)).concatenating(
+                    CGAffineTransform.init(translationX: 0, y: -auxLabelOffset)
+                )
+            }) { _ in
+                self.text = newText
+                self.alpha = 1
+                self.transform = CGAffineTransform.identity
+                
+                auxLabel.removeFromSuperview()
+            }
     }
 }

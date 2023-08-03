@@ -5,17 +5,17 @@ public final class UserDetailsScreenPresenter {
     
     private func makeActionViewModels(backgroudColor: UIColor) -> [UserDetailsActionView.ViewModel] {
         let callViewModel = UserDetailsActionView.ViewModel(
-            image: UIImage(named: "call") ?? UIImage(),
+            image: Images.statusEndImage,
             buttonTitle: "Call",
             imageBackgroundColor: backgroudColor
         )
         let historyViewModel = UserDetailsActionView.ViewModel(
-            image: UIImage(named: "call") ?? UIImage(),
+            image: Images.statusEndImage,
             buttonTitle: "History",
             imageBackgroundColor: backgroudColor
         )
         let blockViewModel = UserDetailsActionView.ViewModel(
-            image: UIImage(named: "call") ?? UIImage(),
+            image: Images.statusEndImage,
             buttonTitle: "Block",
             imageBackgroundColor: backgroudColor
         )

@@ -39,13 +39,13 @@ final class UserDetailsTableViewCell: UITableViewCell {
     
     private func makeConstraints() {
         iconFillerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(16)
-            make.leading.equalToSuperview().inset(24)
+            make.top.bottom.equalToSuperview().inset(spacer.space16)
+            make.leading.equalToSuperview().inset(spacer.space24)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(iconFillerView.snp.trailing).offset(28)
-            make.trailing.equalToSuperview().inset(16)
+            make.leading.equalTo(iconFillerView.snp.trailing).offset(spacer.space28)
+            make.trailing.equalToSuperview().inset(spacer.space16)
             make.centerY.equalTo(iconFillerView)
         }
     }

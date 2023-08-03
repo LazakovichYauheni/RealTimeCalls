@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var containerViewWidth: CGFloat { 74 }
+}
+
 public protocol StatusProtocol {}
 
 public final class NetworkView: UIView, StatusProtocol {
@@ -36,7 +40,7 @@ public final class NetworkView: UIView, StatusProtocol {
     private lazy var stackView: UIStackView = {
        let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = 16
+        stack.spacing = spacer.space16
         stack.alignment = .center
         return stack
     }()
@@ -98,7 +102,7 @@ public final class NetworkView: UIView, StatusProtocol {
         }
         
         endCallImageView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.size.equalTo(spacer.space20)
         }
         
         timerView.snp.makeConstraints { make in
@@ -107,7 +111,7 @@ public final class NetworkView: UIView, StatusProtocol {
         }
         
         containerView.snp.makeConstraints { make in
-            make.width.equalTo(74)
+            make.width.equalTo(spacer.containerViewWidth)
         }
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 public final class AllStatusView: UIView {
     
-    private var statusView: StatusProtocol = StatusView(text: "")
+    private var statusView: StatusProtocol = StatusView(text: .empty)
     
     public init(statusView: StatusView) {
         super.init(frame: .zero)
@@ -43,7 +43,9 @@ public final class AllStatusView: UIView {
             newView.transform = .identity
             newView.alpha = 1
             statusView.alpha = 0
-            statusView.transform = (CGAffineTransform(scaleX: 0.8, y: 0.1)).concatenating(CGAffineTransform(translationX: 0, y: -9))
+            statusView.transform = (CGAffineTransform(scaleX: 0.8, y: 0.1)).concatenating(
+                CGAffineTransform(translationX: 0, y: -9)
+            )
         }, completion: { _ in
             statusView.removeFromSuperview()
             guard let newView = newView as? StatusProtocol else { return }

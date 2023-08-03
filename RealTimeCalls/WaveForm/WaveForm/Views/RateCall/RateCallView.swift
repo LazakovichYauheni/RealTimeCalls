@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space14: CGFloat { 14 }
+}
+
 final class RateCallView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -31,7 +35,7 @@ final class RateCallView: UIView {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
-        stack.spacing = 12
+        stack.spacing = spacer.space12
         return stack
     }()
     
@@ -39,7 +43,7 @@ final class RateCallView: UIView {
         super.init(frame: frame)
         backgroundColor = .white.withAlphaComponent(0.25)
         clipsToBounds = true
-        layer.cornerRadius = 20
+        layer.cornerRadius = spacer.space20
         addSubviews()
         makeConstraints()
     }
@@ -66,19 +70,19 @@ final class RateCallView: UIView {
     
     private func makeConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalToSuperview().inset(14)
+            make.top.equalToSuperview().inset(spacer.space20)
+            make.leading.trailing.equalToSuperview().inset(spacer.space14)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(14)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space10)
+            make.leading.trailing.equalToSuperview().inset(spacer.space14)
         }
         
         starsStackView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(40)
-            make.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(spacer.space20)
+            make.leading.trailing.equalToSuperview().inset(spacer.space40)
+            make.bottom.equalToSuperview().inset(spacer.space20)
         }
     }
     
@@ -87,12 +91,12 @@ final class RateCallView: UIView {
         print(image.id)
         starsStackView.subviews.forEach { imageView in
             guard let imageView = imageView as? StarView else { return }
-            imageView.reconfigure(image: UIImage(named: "star"))
+            imageView.reconfigure(image: Images.starImage)
         }
         
         starsStackView.subviews.prefix(image.id + 1).forEach { imageView in
             guard let imageView = imageView as? StarView else { return }
-            imageView.reconfigure(image: UIImage(named: "maskStar"))
+            imageView.reconfigure(image: Images.maskStarImage)
             imageView.animate()
         }
     }

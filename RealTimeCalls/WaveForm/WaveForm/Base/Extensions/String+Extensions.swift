@@ -8,6 +8,9 @@
 import Foundation
 
 extension String {
+    public static let space = " "
+    public static let empty = ""
+    
     /// Получить Range из NSRange
     func range(from nsRange: NSRange) -> Range<String.Index>? {
         guard

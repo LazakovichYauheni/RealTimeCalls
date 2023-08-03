@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space15: CGFloat { 15 }
+}
+
 public final class NetworkAnimatableView: UIView {
     private lazy var firstView = BaseNetworkView(layerHeight: 4)
     private lazy var secondView = BaseNetworkView(layerHeight: 7)
@@ -17,7 +21,7 @@ public final class NetworkAnimatableView: UIView {
     private lazy var stackView: UIStackView = {
        let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 2
+        stack.spacing = spacer.space2
         return stack
     }()
 
@@ -53,24 +57,24 @@ public final class NetworkAnimatableView: UIView {
     
     private func makeConstraints() {
         stackView.snp.makeConstraints { make in
-            make.height.equalTo(15)
+            make.height.equalTo(spacer.space15)
             make.edges.equalToSuperview()
         }
         
         firstView.snp.makeConstraints { make in
-            make.width.equalTo(4)
+            make.width.equalTo(spacer.space4)
         }
         
         secondView.snp.makeConstraints { make in
-            make.width.equalTo(4)
+            make.width.equalTo(spacer.space4)
         }
         
         thirdView.snp.makeConstraints { make in
-            make.width.equalTo(4)
+            make.width.equalTo(spacer.space4)
         }
         
         fourthView.snp.makeConstraints { make in
-            make.width.equalTo(4)
+            make.width.equalTo(spacer.space4)
         }
         
         stackView.transform = CGAffineTransform(scaleX: 1, y: -1)

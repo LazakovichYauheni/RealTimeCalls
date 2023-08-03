@@ -7,6 +7,12 @@ private enum Constants {
     static let layerShadowOffset: CGSize = CGSize(width: .zero, height: 6) 
 }
 
+private extension Spacer {
+    var space22: CGFloat { 22 }
+    var space45: CGFloat { 45 }
+    var iconSize: CGSize { CGSize(width: 90, height: 90) }
+}
+
 /// Ячейка для карточки партнера с возможностью активации
 public final class MainScreenCollectionViewCell: UICollectionViewCell {
     public lazy var randomHue = CGFloat.random(in: (0...1))
@@ -18,7 +24,7 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
     private(set) lazy var iconImageView: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
-        image.layer.cornerRadius = 45
+        image.layer.cornerRadius = spacer.space45
         return image
     }()
     
@@ -65,14 +71,14 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         descriptionLabel.textColor = isSelected ? .black : .white
         subDescriptionLabel.textColor = isSelected ? .black : .white
         
-        if !isSelected {
+        if isSelected {
+            addAnim()
+        } else {
             let shapeLayers = layer.sublayers?.filter { $0 is CAShapeLayer }
             shapeLayers?.forEach {
                 $0.removeFromSuperlayer()
                 $0.removeAllAnimations()
             }
-        } else {
-            addAnim()
         }
     }
     
@@ -218,7 +224,7 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
 
     private func initialize() {
         clipsToBounds = true
-        layer.cornerRadius = 16
+        layer.cornerRadius = spacer.space16
         layer.borderColor = UIColor.white.cgColor
         backgroundColor = background
         addSubviews()
@@ -235,29 +241,29 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
 
     private func makeConstraints() {
         iconImageView.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(16)
-            make.size.equalTo(CGSize(width: 90, height: 90))
+            make.top.leading.equalToSuperview().inset(spacer.space16)
+            make.size.equalTo(spacer.iconSize)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(iconImageView.snp.bottom).offset(48)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(iconImageView.snp.bottom).offset(spacer.space48)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space8)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
         subDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.lessThanOrEqualTo(callIconView.snp.top).inset(16)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(spacer.space20)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.bottom.lessThanOrEqualTo(callIconView.snp.top).inset(spacer.space16)
         }
         
         callIconView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(22)
+            make.bottom.equalToSuperview().inset(spacer.space22)
         }
     }
 }

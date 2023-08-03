@@ -57,7 +57,11 @@ extension LoginViewController {
     func showAlert(error: UIError) {
         let banner = FloatingNotificationBanner(subtitle: error.description, subtitleTextAlign: .center, style: .danger)
         banner.autoDismiss = true
-        banner.show(cornerRadius: 12, shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04), shadowBlurRadius: 16)
+        banner.show(
+            cornerRadius: spacer.space12,
+            shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04),
+            shadowBlurRadius: spacer.space16
+        )
     }
     
     func pushMainScreen(user: User) {
@@ -120,21 +124,35 @@ extension LoginViewController: LoginViewEventsRespondable {
                     contacts: [
                         ContactDTO(
                             id: "1",
-                            username: "loh"
+                            firstName: "loh",
+                            lastName: "ftgsv",
+                            phoneNumber: "123456789",
+                            isFavorite: true
                         ),
                         ContactDTO(
                             id: "2",
-                            username: "ty"
+                            firstName: "ty",
+                            lastName: "ftgsv",
+                            phoneNumber: "123456789",
+                            isFavorite: true
                         ),
                         ContactDTO(
                             id: "3",
-                            username: "ebany"
+                            firstName: "ebany",
+                            lastName: "ftgsv",
+                            phoneNumber: "123456789",
+                            isFavorite: true
                         ),
                         ContactDTO(
                             id: "4",
-                            username: "debik"
+                            firstName: "debik",
+                            lastName: "ftgsv",
+                            phoneNumber: "123456789",
+                            isFavorite: true
                         )
-                    ]
+                    ],
+                    recentContacts: [],
+                    favoritesContacts: []
                 )
             )
         )

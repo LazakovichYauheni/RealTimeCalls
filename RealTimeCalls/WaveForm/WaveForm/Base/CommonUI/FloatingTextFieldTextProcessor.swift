@@ -4,11 +4,6 @@
 
 import UIKit
 
-private enum Constants {
-    /// Пустая строка
-    static let emptyString = ""
-}
-
 /// Процессор, который занимается преобразованием Range и NSRange
 public final class FloatingTextFieldTextProcessor {
     // MARK: - Private Properties
@@ -41,7 +36,7 @@ public final class FloatingTextFieldTextProcessor {
         replacementString string: String,
         textField: UITextField
     ) -> Bool {
-        let text = textField.text ?? Constants.emptyString
+        let text = textField.text ?? .empty
 
         guard
             let charactersRange = text.range(from: range),

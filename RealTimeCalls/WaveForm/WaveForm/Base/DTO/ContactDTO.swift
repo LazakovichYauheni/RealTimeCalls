@@ -8,22 +8,19 @@
 import Foundation
 
 public struct ContactDTO {
-    public let id: String?
-    public let username: String?
+    public let id: String
+    public let firstName: String
+    public let lastName: String
+    public let phoneNumber: String
+    public let isFavorite: Bool
 }
 
 extension ContactDTO: Codable {
     enum CodingKeys: String, CodingKey {
         case id = "_id"
-        case username
-    }
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        let id = try? container.decode(String.self, forKey: CodingKeys.id)
-        let username = try? container.decode(String.self, forKey: CodingKeys.username)
-
-        self.init(id: id, username: username)
+        case firstName
+        case lastName
+        case phoneNumber
+        case isFavorite
     }
 }
