@@ -9,23 +9,38 @@ import Foundation
 
 public final class MainScreenInteractor {
     private let presenter: MainScreenPresenter
-    private let user: User
+    private let service: UserServiceProtocol
+    private let username: String
+    private let token: String
+    private var user: User?
     
     public init(
         presenter: MainScreenPresenter,
-        user: User
+        service: UserServiceProtocol,
+        username: String,
+        token: String
     ) {
         self.presenter = presenter
-        self.user = user
+        self.service = service
+        self.username = username
+        self.token = token
     }
 }
 
 extension MainScreenInteractor {
     func obtainInitialState() {
-        presenter.present(user: user)
+        service.getUserData(username: username, token: token) { [weak self] result in
+            switch result {
+            case let .success(user):
+                self?.presenter.present(user: user)
+            case .failure:
+                print("error")
+            }
+        }
     }
     
     func obtainAllContacts() {
+        guard let user = user else { return }
         presenter.presentAll(contacts: user.contacts)
     }
 }

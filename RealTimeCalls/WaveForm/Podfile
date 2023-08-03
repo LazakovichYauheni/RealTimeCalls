@@ -11,6 +11,8 @@ target 'WaveForm' do
   pod 'Alamofire'
   pod 'KeychainAccess', '~> 4.2.0'
   pod 'FloatingPanel'
+  pod 'GoogleSignIn'
+  pod 'GoogleSignInSwift' 
   # Pods for WaveForm
 
 end

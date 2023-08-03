@@ -9,158 +9,105 @@ import Foundation
 
 public final class LoginPresenter {
     weak var viewController: LoginViewController?
-
-    lazy var emailTextFieldViewModel = FloatingTextFieldView.ViewModel(
-        textField: FloatingTextField.ViewModel(
-            title: "Email",
-            id: "0"
-        ),
-        isInvalidInput: false,
-        isNeedToShowClearButton: false
-    )
-    
-    lazy var passwordTextFieldViewModel = FloatingTextFieldView.ViewModel(
-        textField: FloatingTextField.ViewModel(
-            title: "Password",
-            id: "1"
-        ),
-        isInvalidInput: false,
-        isNeedToShowClearButton: false
-    )
-    
-    lazy var phoneTextFieldViewModel = FloatingTextFieldView.ViewModel(
-        textField: FloatingTextField.ViewModel(
-            title: "Phone number",
-            id: "0"
-        ),
-        isInvalidInput: false,
-        isNeedToShowClearButton: false
-    )
-    
-    lazy var emailTextFields: [FloatingTextFieldView.ViewModel] = [
-        emailTextFieldViewModel,
-        passwordTextFieldViewModel,
-    ]
-    
-    lazy var phoneTextFields: [FloatingTextFieldView.ViewModel] = [
-        phoneTextFieldViewModel,
-        passwordTextFieldViewModel
-    ]
-    
-    private func makeUsernameTextFields(text: String?, id: String, didEndEditing: Bool) -> [FloatingTextFieldView.ViewModel] {
-        guard
-            let index = emailTextFields.firstIndex(where: { $0.textField.id == id })
-        else { return [] }
-        emailTextFields[index] = FloatingTextFieldView.ViewModel(
-            textField: FloatingTextField.ViewModel(
-                title: emailTextFields[index].textField.title,
-                id: emailTextFields[index].textField.id,
-                text: text
-            ),
-            mask: id == "1" ? nil : FloatingTextFieldMask(isCharactersOnlyUppercased: false),
-            isInvalidInput: id == "0" ? ((!(text?.isEmpty ?? true))) : false,
-            isNeedToShowClearButton: !didEndEditing
-        )
-        return emailTextFields
-    }
-    
-    private func makePhoneTextFields(text: String?,id: String, didEndEditing: Bool) -> [FloatingTextFieldView.ViewModel] {
-        guard
-            let index = phoneTextFields.firstIndex(where: { $0.textField.id == id })
-        else { return [] }
-        phoneTextFields[index] = FloatingTextFieldView.ViewModel(
-            textField: FloatingTextField.ViewModel(
-                title: phoneTextFields[index].textField.title,
-                id: phoneTextFields[index].textField.id,
-                text: text
-            ),
-            mask: id == "1" ? nil : FloatingTextFieldMask(
-                mask: "+375 (XX) XXX-XX-XX",
-                isCharactersOnlyUppercased: false,
-                validCharacters: getValidPhoneCharacters()
-            ),
-            isInvalidInput: false,
-            isNeedToShowClearButton: !didEndEditing
-        )
-        return phoneTextFields
-    }
-    
-    private func getValidPhoneCharacters() -> [Character: Character] {
-        [
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-            "0": "0",
-            "(": "(",
-            ")": ")",
-            "-": "-",
-            "+": "+",
-            " ": " "
-        ]
-    }
-    
-    private func checkEmailFields() -> Bool {
-        guard
-            let emailText = emailTextFields[0].textField.text,
-            let passwordText = emailTextFields[1].textField.text,
-            emailText != "",
-            passwordText != ""
-        else { return false }
-        return true
-    }
-    
-    private func checkPhoneFields() -> Bool {
-        guard
-            let phoneText = phoneTextFields[0].textField.text,
-            let passwordText = phoneTextFields[1].textField.text,
-            phoneText != "",
-            passwordText != ""
-        else { return false }
-        return true
-    }
 }
 
 extension LoginPresenter {
-    func presentInitialState(
-        isEmailSelected: Bool,
-        isInitialState: Bool,
-        text: String?,
-        id: String,
+    func presentInitialState() {
+        viewController?.display(
+            viewModel: LoginView.ViewModel(
+                title: "Welcome Back",
+                description: "To use your account, \nyou should log in first",
+                loginButtonTitle: "Login",
+                filterViewModel: FilterView.ViewModel(filterState: .username),
+                fieldsViewModel: FieldsView.ViewModel(
+                    textFieldViewModels: userNameTextFields(username: nil, password: nil, isInvalid: false)
+                ),
+                isLoginButtonEnabled: false,
+                didEndEditing: false
+            )
+        )
+    }
+    
+    func present(
         didEndEditing: Bool,
-        isNeedToReconfigureTextFields: Bool
+        state: FilterSelectionState,
+        firstFieldText: String?,
+        passwordText: String?,
+        isInvalidCredentials: Bool
     ) {
         viewController?.display(
             viewModel: LoginView.ViewModel(
                 title: "Welcome Back",
-                description: "To use your account,\nyou should log in first",
+                description: "To use your account, \nyou should log in first",
                 loginButtonTitle: "Login",
-                isNeedToReconfigureTextFields: isNeedToReconfigureTextFields,
-                filterViewModel: FilterView.ViewModel(
-                    isEmailSelected: isEmailSelected,
-                    isInitialState: isInitialState
-                ),
+                filterViewModel: FilterView.ViewModel(filterState: state),
                 fieldsViewModel: FieldsView.ViewModel(
-                    textFieldViewModels: isEmailSelected
-                        ? makeUsernameTextFields(text: text, id: id, didEndEditing: didEndEditing)
-                        : makePhoneTextFields(text: text, id: id, didEndEditing: didEndEditing)
+                    textFieldViewModels: state == .username
+                        ? userNameTextFields(username: firstFieldText, password: passwordText, isInvalid: isInvalidCredentials)
+                        : phoneTextFields(phoneNumber: firstFieldText, password: passwordText, isInvalid: isInvalidCredentials)
                 ),
-                isLoginButtonEnabled: isEmailSelected ? checkEmailFields() : checkPhoneFields(),
+                isLoginButtonEnabled: checkIsLoginButtonEnabled(firstText: firstFieldText, password: passwordText),
                 didEndEditing: didEndEditing
             )
         )
+    }
+    
+    private func userNameTextFields(username: String?, password: String?, isInvalid: Bool) -> [FloatingTextFieldView.ViewModel] {
+        return [
+            makeTextFieldForUsername(text: username, isInvalid: isInvalid),
+            makeTextFieldForPassword(text: password, isInvalid: isInvalid)
+        ]
+    }
+    
+    private func phoneTextFields(phoneNumber: String?, password: String?, isInvalid: Bool) -> [FloatingTextFieldView.ViewModel] {
+        return [
+            makeTextFieldForPhone(text: phoneNumber, isInvalid: isInvalid),
+            makeTextFieldForPassword(text: password, isInvalid: isInvalid)
+        ]
+    }
+    
+    private func makeTextFieldForUsername(text: String?, isInvalid: Bool) -> FloatingTextFieldView.ViewModel {
+        FloatingTextFieldView.ViewModel(
+            textField: FloatingTextField.ViewModel(title: "Username", id: "0", text: text),
+            isInvalidInput: isInvalid,
+            isNeedToShowClearButton: checkIsNeedClearButton(text: text)
+        )
+    }
+    
+    private func makeTextFieldForPhone(text: String?, isInvalid: Bool) -> FloatingTextFieldView.ViewModel {
+        FloatingTextFieldView.ViewModel(
+            textField: FloatingTextField.ViewModel(title: "Phone number", id: "0", text: text),
+            isInvalidInput: isInvalid,
+            isNeedToShowClearButton: checkIsNeedClearButton(text: text)
+        )
+    }
+    
+    private func makeTextFieldForPassword(text: String?, isInvalid: Bool) -> FloatingTextFieldView.ViewModel {
+        FloatingTextFieldView.ViewModel(
+            textField: FloatingTextField.ViewModel(title: "Password", id: "1", text: text, isSecureTextEntry: true),
+            isInvalidInput: isInvalid,
+            isNeedToShowClearButton: checkIsNeedClearButton(text: text)
+        )
+    }
+    
+    private func checkIsNeedClearButton(text: String?) -> Bool {
+        guard let text = text else { return false }
+        return !text.isEmpty
+    }
+    
+    private func checkIsLoginButtonEnabled(firstText: String?, password: String?) -> Bool {
+        guard
+            let firstText = firstText,
+            let password = password
+        else { return false }
+        return !firstText.isEmpty && !password.isEmpty
     }
     
     func showAlert(error: UIError) {
         viewController?.showAlert(error: error)
     }
     
-    func presentMainScreen(user: User) {
-        viewController?.pushMainScreen(user: user)
+    func presentMainScreen(username: String, token: String) {
+        viewController?.pushMainScreen(username: username, token: token)
     }
 }

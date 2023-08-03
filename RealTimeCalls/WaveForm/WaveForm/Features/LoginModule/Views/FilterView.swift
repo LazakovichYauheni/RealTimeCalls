@@ -8,8 +8,13 @@
 import UIKit
 
 public protocol FilterViewEventsRespondable {
-    func emailTapped()
+    func usernameTapped()
     func phoneTapped()
+}
+
+enum FilterSelectionState {
+    case username
+    case phoneNumber
 }
 
 public final class FilterView: UIView {
@@ -45,6 +50,7 @@ public final class FilterView: UIView {
         return label
     }()
     
+    private var preSelectionStateActive = true
     private lazy var responder = Weak(firstResponder(of: FilterViewEventsRespondable.self))
     
     public override init(frame: CGRect) {
@@ -90,7 +96,7 @@ public final class FilterView: UIView {
         )
         let location = sender.location(in: self)
         if leftRectangle.contains(location) {
-            responder.object?.emailTapped()
+            responder.object?.usernameTapped()
         } else {
             responder.object?.phoneTapped()
         }
@@ -99,26 +105,21 @@ public final class FilterView: UIView {
 
 extension FilterView {
     struct ViewModel {
-        let isEmailSelected: Bool
-        let isInitialState: Bool
+        let filterState: FilterSelectionState
     }
     
     func configure(viewModel: FilterView.ViewModel) {
         layoutIfNeeded()
         
-        if !viewModel.isInitialState {
-            if !viewModel.isEmailSelected {
-                UIView.animate(withDuration: 0.1, delay: .zero) {
-                    self.rightTitle.textColor = .black
-                    self.leftTitle.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
-                    self.selectedContainer.snp.remakeConstraints { make in
-                        make.top.bottom.equalToSuperview().inset(6)
-                        make.trailing.equalToSuperview().inset(6)
-                        make.width.equalTo((self.frame.width / 2) - self.spacer.space6)
-                    }
-                    self.layoutIfNeeded()
-                }
-            } else {
+        if preSelectionStateActive {
+            selectedContainer.snp.makeConstraints { make in
+                make.leading.equalToSuperview().inset(spacer.space6)
+                make.width.equalTo((frame.width / 2) - spacer.space6)
+            }
+            preSelectionStateActive = false
+        } else {
+            switch viewModel.filterState {
+            case .username:
                 UIView.animate(withDuration: 0.1, delay: .zero) {
                     self.leftTitle.textColor = .black
                     self.rightTitle.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
@@ -129,11 +130,17 @@ extension FilterView {
                     }
                     self.layoutIfNeeded()
                 }
-            }
-        } else {
-            selectedContainer.snp.makeConstraints { make in
-                make.leading.equalToSuperview().inset(spacer.space6)
-                make.width.equalTo((frame.width / 2) - spacer.space6)
+            case .phoneNumber:
+                UIView.animate(withDuration: 0.1, delay: .zero) {
+                    self.rightTitle.textColor = .black
+                    self.leftTitle.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+                    self.selectedContainer.snp.remakeConstraints { make in
+                        make.top.bottom.equalToSuperview().inset(6)
+                        make.trailing.equalToSuperview().inset(6)
+                        make.width.equalTo((self.frame.width / 2) - self.spacer.space6)
+                    }
+                    self.layoutIfNeeded()
+                }
             }
         }
     }

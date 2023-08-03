@@ -5,7 +5,7 @@ import UIKit
 /// Описывает основные методы, которые должны обрабатываться Responder для этой View
 public protocol FloatingTextFieldViewEventsRespondable {
     /// Обработка нажатия на view иконки
-    func tapRightIconButton()
+    func tapRightIconButton(id: String)
     func shouldReturnAction(text: String)
 }
 
@@ -148,7 +148,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     }
     
     @objc private func imageTapped() {
-        responder.object?.tapRightIconButton()
+        responder.object?.tapRightIconButton(id: textField.id ?? "")
     }
 }
 
@@ -178,6 +178,8 @@ extension FloatingTextFieldView {
     }
 
     public func configure(with viewModel: ViewModel) {
+        textField.keyboardType = .default
+        textField.spellCheckingType = .no
         textField.configure(with: viewModel.textField)
         if
             let mask = viewModel.mask,

@@ -36,6 +36,12 @@
 		513A5EED2A7BD5640053FCB0 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EEC2A7BD5640053FCB0 /* Spacer.swift */; };
 		513A5EEF2A7BD5B50053FCB0 /* RecentContactDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EEE2A7BD5B50053FCB0 /* RecentContactDTO.swift */; };
 		513A5EF12A7BD5BD0053FCB0 /* RecentContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EF02A7BD5BD0053FCB0 /* RecentContact.swift */; };
+		513A5EF62A7C11070053FCB0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EF52A7C11070053FCB0 /* RegisterViewController.swift */; };
+		513A5EF82A7C116B0053FCB0 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EF72A7C116B0053FCB0 /* RegisterPresenter.swift */; };
+		513A5EFA2A7C11740053FCB0 /* RegisterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EF92A7C11740053FCB0 /* RegisterInteractor.swift */; };
+		513A5EFC2A7C117C0053FCB0 /* RegisterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EFB2A7C117C0053FCB0 /* RegisterAssembly.swift */; };
+		513A5EFF2A7C11880053FCB0 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EFE2A7C11880053FCB0 /* RegisterView.swift */; };
+		513A5F012A7C143C0053FCB0 /* RegisterFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5F002A7C143C0053FCB0 /* RegisterFieldsView.swift */; };
 		513F049229CDE8A4008E19E7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049129CDE8A4008E19E7 /* Colors.swift */; };
 		513F049429CDEA02008E19E7 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049329CDEA02008E19E7 /* Images.swift */; };
 		513F049629CDEA33008E19E7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049529CDEA33008E19E7 /* Texts.swift */; };
@@ -166,6 +172,12 @@
 		513A5EEC2A7BD5640053FCB0 /* Spacer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spacer.swift; path = ../../../../../../../Downloads/Spacer.swift; sourceTree = "<group>"; };
 		513A5EEE2A7BD5B50053FCB0 /* RecentContactDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentContactDTO.swift; path = ../../../../../../../Downloads/RecentContactDTO.swift; sourceTree = "<group>"; };
 		513A5EF02A7BD5BD0053FCB0 /* RecentContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentContact.swift; path = ../../../../../../../Downloads/RecentContact.swift; sourceTree = "<group>"; };
+		513A5EF52A7C11070053FCB0 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		513A5EF72A7C116B0053FCB0 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		513A5EF92A7C11740053FCB0 /* RegisterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInteractor.swift; sourceTree = "<group>"; };
+		513A5EFB2A7C117C0053FCB0 /* RegisterAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssembly.swift; sourceTree = "<group>"; };
+		513A5EFE2A7C11880053FCB0 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		513A5F002A7C143C0053FCB0 /* RegisterFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFieldsView.swift; sourceTree = "<group>"; };
 		513F049129CDE8A4008E19E7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		513F049329CDEA02008E19E7 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		513F049529CDEA33008E19E7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
@@ -382,6 +394,27 @@
 			path = Dots;
 			sourceTree = "<group>";
 		};
+		513A5EF42A7C10F40053FCB0 /* RegisterModule */ = {
+			isa = PBXGroup;
+			children = (
+				513A5EFD2A7C11810053FCB0 /* Views */,
+				513A5EFB2A7C117C0053FCB0 /* RegisterAssembly.swift */,
+				513A5EF92A7C11740053FCB0 /* RegisterInteractor.swift */,
+				513A5EF72A7C116B0053FCB0 /* RegisterPresenter.swift */,
+				513A5EF52A7C11070053FCB0 /* RegisterViewController.swift */,
+			);
+			path = RegisterModule;
+			sourceTree = "<group>";
+		};
+		513A5EFD2A7C11810053FCB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				513A5EFE2A7C11880053FCB0 /* RegisterView.swift */,
+				513A5F002A7C143C0053FCB0 /* RegisterFieldsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5160611D2A409C14004FEE54 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +600,7 @@
 		51AB9ABF2A697CD800D26A4F /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				513A5EF42A7C10F40053FCB0 /* RegisterModule */,
 				512BFB362A7925ED002706DF /* AddUserModule */,
 				51CA56A02A6AE8E1004088CC /* NotificationsModule */,
 				51CA56902A6ABB53004088CC /* AllContactsModule */,
@@ -841,6 +875,7 @@
 				516061352A409C3E004FEE54 /* UserService.swift in Sources */,
 				51A6421C2A61B0B900792D74 /* UserDetailsScreenPresenter.swift in Sources */,
 				51A642102A61AE5900792D74 /* TransitionManager.swift in Sources */,
+				513A5EFA2A7C11740053FCB0 /* RegisterInteractor.swift in Sources */,
 				5164CD012A3736B60091052E /* LoginView.swift in Sources */,
 				51CA569B2A6ABCCA004088CC /* AllContactsView.swift in Sources */,
 				51C951FE2A6594E7001C59FB /* SnapshotTransition.swift in Sources */,
@@ -848,6 +883,7 @@
 				51CA56A62A6AE94E004088CC /* NotificationsTableViewCell.swift in Sources */,
 				51CA56992A6ABC89004088CC /* AllContactsViewController.swift in Sources */,
 				51E48B4F29E5AC9D0085088D /* WebRTCClient.swift in Sources */,
+				513A5F012A7C143C0053FCB0 /* RegisterFieldsView.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
 				5164CD272A3889160091052E /* PrimaryButton.swift in Sources */,
 				510F997B29BD10C700B34C72 /* RadialGradientLayer.swift in Sources */,
@@ -855,6 +891,7 @@
 				513F049429CDEA02008E19E7 /* Images.swift in Sources */,
 				5164CCFB2A37369E0091052E /* LoginViewController.swift in Sources */,
 				513F049629CDEA33008E19E7 /* Texts.swift in Sources */,
+				513A5EF62A7C11070053FCB0 /* RegisterViewController.swift in Sources */,
 				5164CCF82A337ABC0091052E /* UIImage+Extensions.swift in Sources */,
 				518271972A45B96B003E7A29 /* MainScreenCollectionViewCell.swift in Sources */,
 				510F997D29BD347800B34C72 /* ContentableView.swift in Sources */,
@@ -879,9 +916,11 @@
 				512BFB382A7925FE002706DF /* AddUserViewController.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
 				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
+				513A5EF82A7C116B0053FCB0 /* RegisterPresenter.swift in Sources */,
 				513F049829CDEA84008E19E7 /* Fonts.swift in Sources */,
 				516061362A409C3E004FEE54 /* ApiService.swift in Sources */,
 				51CA56972A6ABC62004088CC /* AllContactsPresenter.swift in Sources */,
+				513A5EFF2A7C11880053FCB0 /* RegisterView.swift in Sources */,
 				518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */,
 				5164CD192A3775300091052E /* FloatingTextField.swift in Sources */,
 				5164CCFD2A3736A70091052E /* LoginInteractor.swift in Sources */,
@@ -910,6 +949,7 @@
 				510E559729CDB3E700D6638C /* MicrophoneMonitor.swift in Sources */,
 				5164CD1F2A3781240091052E /* FloatingTextFieldTextProcessor.swift in Sources */,
 				51A642132A61AED800792D74 /* UserDetailsScreenViewController.swift in Sources */,
+				513A5EFC2A7C117C0053FCB0 /* RegisterAssembly.swift in Sources */,
 				513A5EF12A7BD5BD0053FCB0 /* RecentContact.swift in Sources */,
 				518271922A45AE97003E7A29 /* MainScreenViewController.swift in Sources */,
 				5164CCF62A33785F0091052E /* TestButton.swift in Sources */,

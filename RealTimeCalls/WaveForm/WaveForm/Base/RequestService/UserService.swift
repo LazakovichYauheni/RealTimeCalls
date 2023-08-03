@@ -13,6 +13,7 @@ public protocol UserServiceProtocol {
     func register(
         username: String,
         password: String,
+        phoneNumber: String,
         firstName: String?,
         lastName: String?,
         completion: @escaping (Result<Token, UIError>) -> Void
@@ -50,6 +51,7 @@ public class UserService: UserServiceProtocol {
     public func register(
         username: String,
         password: String,
+        phoneNumber: String,
         firstName: String?,
         lastName: String?,
         completion: @escaping (Result<Token, UIError>) -> Void
@@ -57,6 +59,7 @@ public class UserService: UserServiceProtocol {
         let parameters = [
             "username": username,
             "password": password,
+            "phoneNumber": phoneNumber,
             "firstName": firstName,
             "lastName": lastName
         ]

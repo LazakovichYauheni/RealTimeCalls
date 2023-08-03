@@ -84,7 +84,7 @@ public final class FloatingTextField: UITextField {
     ]
 
     private lazy var responder = Weak(firstResponder(of: FloatingTextFieldEventsRespondable.self))
-    private var id: String?
+    public var id: String?
     private var titleText: String?
     private var caretPosition: UITextPosition?
 
@@ -278,17 +278,20 @@ extension FloatingTextField {
         let id: String
         var text: String?
         let placeholder: String?
+        var isSecureTextEntry: Bool
 
         public init(
             title: String?,
             id: String,
             text: String? = nil,
-            placeholder: String? = nil
+            placeholder: String? = nil,
+            isSecureTextEntry: Bool = false
         ) {
             self.title = title
             self.id = id
             self.text = text
             self.placeholder = placeholder
+            self.isSecureTextEntry = isSecureTextEntry
         }
     }
 
@@ -299,6 +302,7 @@ extension FloatingTextField {
             text = viewModel.text
         }
 
+        isSecureTextEntry = viewModel.isSecureTextEntry
         placeholderLabel.text = viewModel.placeholder
         guard !isFirstResponder else { return }
         drawViewsForRect(self.frame)

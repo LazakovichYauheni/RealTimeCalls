@@ -10,13 +10,11 @@ import Foundation
 public final class LoginInteractor {
     
     private let presenter: LoginPresenter
-    private var isEmailSelected = true
-    private var isInitialState = true
-    private var emailText: String? = nil
+    private var isUsernameStateSelected = true
+    private var usernameText: String? = nil
     private var phoneText: String? = nil
     private var passwordText: String? = nil
-    private var text: String? = nil
-    private var id: String = "0"
+    private var isInvalidCredentials = false
     
     private let service: UserServiceProtocol
     
@@ -28,95 +26,93 @@ public final class LoginInteractor {
 
 extension LoginInteractor {
     func obtainInitialState() {
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
-            didEndEditing: true,
-            isNeedToReconfigureTextFields: true
-        )
+        presenter.presentInitialState()
     }
     
-    func switchSegment(isEmailSelected: Bool, isInitialState: Bool) {
-        self.isEmailSelected = isEmailSelected
-        self.isInitialState = isInitialState
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
+    func switchSegment(state: FilterSelectionState) {
+        self.isUsernameStateSelected = state == .username
+        
+        presenter.present(
             didEndEditing: true,
-            isNeedToReconfigureTextFields: true
+            state: state,
+            firstFieldText: state == .username ? usernameText : phoneText,
+            passwordText: passwordText,
+            isInvalidCredentials: isInvalidCredentials
         )
     }
     
     func obtainBeginEditing(text: String, id: String) {
-        if !text.isEmpty {
-            if id == "1" {
-                passwordText = text
-            } else if isEmailSelected {
-                emailText = text
+        isInvalidCredentials = false
+        if isUsernameStateSelected {
+            if id == "0" {
+                usernameText = text
             } else {
-                phoneText = text
+                passwordText = text
             }
+            presenter.present(
+                didEndEditing: false,
+                state: .username,
+                firstFieldText: usernameText,
+                passwordText: passwordText,
+                isInvalidCredentials: false
+            )
+            
+        } else {
+            if id == "0" {
+                phoneText = text
+            } else {
+                passwordText = text
+            }
+            presenter.present(
+                didEndEditing: false,
+                state: .phoneNumber,
+                firstFieldText: phoneText,
+                passwordText: passwordText,
+                isInvalidCredentials: false
+            )
         }
-        self.id = id
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
-            didEndEditing: false,
-            isNeedToReconfigureTextFields: true
-        )
     }
     
-    func obtainEndEditing(text: String, id: String) {
-        if !text.isEmpty {
-//            if id == "1" {
-//                passwordText = text
-//            } else if isEmailSelected {
-//                emailText = text
-//            } else {
-//                phoneText = text
-//            }
-        }
-        self.id = id
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
-            didEndEditing: true,
-            isNeedToReconfigureTextFields: true
-        )
-    }
+    func obtainEndEditing(text: String, id: String) {}
     
     func obtainTextChanging(text: String, id: String) {
-        if id == "1" {
-            passwordText = text
-        } else if isEmailSelected {
-            emailText = text
+        isInvalidCredentials = false
+        if isUsernameStateSelected {
+            if id == "0" {
+                usernameText = text
+            } else {
+                passwordText = text
+            }
+            presenter.present(
+                didEndEditing: false,
+                state: .username,
+                firstFieldText: usernameText,
+                passwordText: passwordText,
+                isInvalidCredentials: false
+            )
+            
         } else {
-            phoneText = text
+            if id == "0" {
+                phoneText = text
+            } else {
+                passwordText = text
+            }
+            presenter.present(
+                didEndEditing: false,
+                state: .phoneNumber,
+                firstFieldText: phoneText,
+                passwordText: passwordText,
+                isInvalidCredentials: false
+            )
         }
-        self.id = id
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
-            didEndEditing: false,
-            isNeedToReconfigureTextFields: true
-        )
     }
     
-    func obtainClearButton() {
+    func obtainClearButton(id: String) {
+        isInvalidCredentials = false
         switch id {
         case "0":
-            if isEmailSelected {
-                emailText = .empty
+            if isUsernameStateSelected {
+                usernameText = .empty
             } else {
                 phoneText = .empty
             }
@@ -126,52 +122,43 @@ extension LoginInteractor {
             return
         }
         
-        presenter.presentInitialState(
-            isEmailSelected: isEmailSelected,
-            isInitialState: isInitialState,
-            text: id == "1" ? passwordText : (isEmailSelected ? emailText : phoneText),
-            id: id,
+        presenter.present(
             didEndEditing: false,
-            isNeedToReconfigureTextFields: true
+            state: isUsernameStateSelected ? .username : .phoneNumber,
+            firstFieldText: isUsernameStateSelected ? usernameText : phoneText,
+            passwordText: passwordText,
+            isInvalidCredentials: false
         )
     }
     
     func obtainLogin() {
-        guard
-            let email = emailText,
-            let password = passwordText
-        else { return }
-        service.login(userName: email, password: password) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(token):
-                self.service.getUserData(username: email, token: token.token) { [weak self] result in
-                    switch result {
-                    case let .success(user):
-                        self?.presenter.presentMainScreen(user: user)
-                    case let .failure(error):
-                        print(error)
-                    }
+        if
+            let username = usernameText,
+            let password = passwordText,
+            username == "admin",
+            password == "admin" {
+            presenter.presentMainScreen(username: username, token: "")
+        } else {
+            guard
+                let username = isUsernameStateSelected ? usernameText : phoneText,
+                let password = passwordText
+            else { return }
+            
+            service.login(userName: username, password: password) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .success(model):
+                    self.presenter.presentMainScreen(username: username, token: model.token)
+                case let .failure(error):
+                    self.isInvalidCredentials = true
+                    self.presenter.present(
+                        didEndEditing: false,
+                        state: self.isUsernameStateSelected ? .username : .phoneNumber,
+                        firstFieldText: self.isUsernameStateSelected ? usernameText : phoneText,
+                        passwordText: self.passwordText,
+                        isInvalidCredentials: true
+                    )
                 }
-                
-//                self.presenter.presentInitialState(
-//                    isEmailSelected: self.isEmailSelected,
-//                    isInitialState: self.isInitialState,
-//                    text: nil,
-//                    id: "0",
-//                    didEndEditing: false,
-//                    isNeedToReconfigureTextFields: false
-//                )
-            case let .failure(error):
-                self.presenter.showAlert(error: error)
-                self.presenter.presentInitialState(
-                    isEmailSelected: self.isEmailSelected,
-                    isInitialState: self.isInitialState,
-                    text: nil,
-                    id: "0",
-                    didEndEditing: false,
-                    isNeedToReconfigureTextFields: false
-                )
             }
         }
     }

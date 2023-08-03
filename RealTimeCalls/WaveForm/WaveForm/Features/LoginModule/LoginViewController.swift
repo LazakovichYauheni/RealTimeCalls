@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import NotificationBannerSwift
+import GoogleSignIn
 
 public final class LoginViewController: UIViewController {
     
@@ -18,9 +19,9 @@ public final class LoginViewController: UIViewController {
         super.loadView()
         view = contentView
     }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         interactor.obtainInitialState()
     }
     
@@ -45,7 +46,7 @@ public final class LoginViewController: UIViewController {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) { nil }
 }
 
@@ -64,8 +65,8 @@ extension LoginViewController {
         )
     }
     
-    func pushMainScreen(user: User) {
-        let mainScreenViewController = MainScreenAssembly().assemble(user: user)
+    func pushMainScreen(username: String, token: String) {
+        let mainScreenViewController = MainScreenAssembly().assemble(username: username, token: token)
         navigationController?.pushViewController(mainScreenViewController, animated: true)
     }
 }
@@ -76,11 +77,11 @@ extension LoginViewController: FloatingTextFieldEventsRespondable {
     public func textFieldDidBeginEditing(text: String, id: String) {
         interactor.obtainBeginEditing(text: text, id: id)
     }
-
+    
     public func textFieldDidEndEditing(text: String, id: String) {
         interactor.obtainEndEditing(text: text, id: id)
     }
-
+    
     public func textFieldDidChange(text: String, id: String) {
         interactor.obtainTextChanging(text: text, id: id)
     }
@@ -89,20 +90,20 @@ extension LoginViewController: FloatingTextFieldEventsRespondable {
 // MARK: - FilterViewEventsRespondable
 
 extension LoginViewController: FilterViewEventsRespondable {
-    public func emailTapped() {
-        interactor.switchSegment(isEmailSelected: true, isInitialState: false)
+    public func usernameTapped() {
+        interactor.switchSegment(state: .username)
     }
     
     public func phoneTapped() {
-        interactor.switchSegment(isEmailSelected: false, isInitialState: false)
+        interactor.switchSegment(state: .phoneNumber)
     }
 }
 
 // MARK: - FloatingTextFieldViewEventsRespondable
 
 extension LoginViewController: FloatingTextFieldViewEventsRespondable {
-    public func tapRightIconButton() {
-        interactor.obtainClearButton()
+    public func tapRightIconButton(id: String) {
+        interactor.obtainClearButton(id: id)
     }
 }
 
@@ -110,51 +111,22 @@ extension LoginViewController: FloatingTextFieldViewEventsRespondable {
 
 extension LoginViewController: LoginViewEventsRespondable {
     public func loginTapped() {
-        //interactor.obtainLogin()
-        
-        pushMainScreen(
-            user: User(
-                dto: UserDTO(
-                    id: "12341234",
-                    username: "user",
-                    password: "1234",
-                    firstName: "YA",
-                    lastName: "ETO",
-                    phoneNumber: "",
-                    contacts: [
-                        ContactDTO(
-                            id: "1",
-                            firstName: "loh",
-                            lastName: "ftgsv",
-                            phoneNumber: "123456789",
-                            isFavorite: true
-                        ),
-                        ContactDTO(
-                            id: "2",
-                            firstName: "ty",
-                            lastName: "ftgsv",
-                            phoneNumber: "123456789",
-                            isFavorite: true
-                        ),
-                        ContactDTO(
-                            id: "3",
-                            firstName: "ebany",
-                            lastName: "ftgsv",
-                            phoneNumber: "123456789",
-                            isFavorite: true
-                        ),
-                        ContactDTO(
-                            id: "4",
-                            firstName: "debik",
-                            lastName: "ftgsv",
-                            phoneNumber: "123456789",
-                            isFavorite: true
-                        )
-                    ],
-                    recentContacts: [],
-                    favoritesContacts: []
-                )
-            )
-        )
+        interactor.obtainLogin()
+    }
+    
+    public func googleTapped() {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+            guard
+                let result = result,
+                let username = result.user.profile?.email
+            else { return }
+            self?.pushMainScreen(username: username, token: result.user.accessToken.tokenString)
+        }
+    }
+    
+    public func signUpTapped() {
+        let registerAssembly = RegisterAssembly()
+        let controller = registerAssembly.assemble()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

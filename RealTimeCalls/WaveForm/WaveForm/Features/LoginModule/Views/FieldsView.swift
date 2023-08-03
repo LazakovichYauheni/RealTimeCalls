@@ -87,5 +87,12 @@ extension FieldsView {
         } else {
             usernameTextFieldView.layer.borderWidth = .zero
         }
+        
+        if viewModel.textFieldViewModels[1].isInvalidInput {
+            passwordTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
+            passwordTextFieldView.layer.borderWidth = 1
+        } else {
+            passwordTextFieldView.layer.borderWidth = .zero
+        }
     }
 }

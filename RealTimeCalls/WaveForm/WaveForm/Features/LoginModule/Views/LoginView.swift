@@ -9,6 +9,8 @@ import UIKit
 
 public protocol LoginViewEventsRespondable {
     func loginTapped()
+    func googleTapped()
+    func signUpTapped()
 }
 
 public final class LoginView: UIView {
@@ -70,9 +72,10 @@ public final class LoginView: UIView {
     private lazy var googleButton: PrimaryButton<SecondaryButtonStyle> = {
         let button = PrimaryButton<SecondaryButtonStyle>()
         button.setTitle("Google", for: .normal)
+        button.addTarget(self, action: #selector(googleTapped), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var container = UIView()
     
     private lazy var dontHaveAccLabel: UILabel = {
@@ -90,6 +93,7 @@ public final class LoginView: UIView {
         button.setTitle("Sign up", for: .normal)
         button.titleLabel?.font = Fonts.Medium.medium15
         button.setTitleColor(UIColor(red: 44 / 255, green: 102 / 255, blue: 189 / 255, alpha: 1), for: .normal)
+        button.addTarget(self, action: #selector(signUpTapped), for: .touchUpInside)
         return button
     }()
     
@@ -111,6 +115,18 @@ public final class LoginView: UIView {
         addGestureRecognizer(gestureRecognizer)
         addSubviews()
         makeConstraints()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     private func addSubviews() {
@@ -205,6 +221,29 @@ public final class LoginView: UIView {
         loginButton.startAnimating()
         responder.object?.loginTapped()
     }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            
+            var contentInset = scrollView.contentInset
+            contentInset.bottom = keyboardHeight
+            scrollView.contentInset = contentInset
+            scrollView.scrollRectToVisible(loginButton.frame, animated: true)
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        scrollView.contentInset = .zero
+    }
+    
+    @objc private func googleTapped() {
+        responder.object?.googleTapped()
+    }
+    
+    @objc private func signUpTapped() {
+        responder.object?.signUpTapped()
+    }
 }
 
 extension LoginView {
@@ -212,7 +251,6 @@ extension LoginView {
         let title: String
         let description: String
         let loginButtonTitle: String
-        let isNeedToReconfigureTextFields: Bool
         let filterViewModel: FilterView.ViewModel
         let fieldsViewModel: FieldsView.ViewModel
         let isLoginButtonEnabled: Bool
@@ -224,10 +262,8 @@ extension LoginView {
         }
         titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.description
-        if viewModel.isNeedToReconfigureTextFields {
-            filterView.configure(viewModel: viewModel.filterViewModel)
-            fieldsView.configure(viewModel: viewModel.fieldsViewModel)
-        }
+        filterView.configure(viewModel: viewModel.filterViewModel)
+        fieldsView.configure(viewModel: viewModel.fieldsViewModel)
         loginButton.stopAnimating()
         loginButton.isEnabled = viewModel.isLoginButtonEnabled
         loginButton.setTitle(viewModel.loginButtonTitle, for: .normal)
