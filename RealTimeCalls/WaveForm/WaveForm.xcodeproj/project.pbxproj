@@ -33,6 +33,9 @@
 		51307E4729C0DEBC0080EE05 /* NetworkAnimatableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51307E4629C0DEBC0080EE05 /* NetworkAnimatableView.swift */; };
 		51307E4B29C0DFBA0080EE05 /* BaseNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51307E4A29C0DFBA0080EE05 /* BaseNetworkView.swift */; };
 		51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51307E4C29C0E4980080EE05 /* BaseNetworkLayer.swift */; };
+		513A5EED2A7BD5640053FCB0 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EEC2A7BD5640053FCB0 /* Spacer.swift */; };
+		513A5EEF2A7BD5B50053FCB0 /* RecentContactDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EEE2A7BD5B50053FCB0 /* RecentContactDTO.swift */; };
+		513A5EF12A7BD5BD0053FCB0 /* RecentContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EF02A7BD5BD0053FCB0 /* RecentContact.swift */; };
 		513F049229CDE8A4008E19E7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049129CDE8A4008E19E7 /* Colors.swift */; };
 		513F049429CDEA02008E19E7 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049329CDEA02008E19E7 /* Images.swift */; };
 		513F049629CDEA33008E19E7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049529CDEA33008E19E7 /* Texts.swift */; };
@@ -160,6 +163,9 @@
 		51307E4629C0DEBC0080EE05 /* NetworkAnimatableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnimatableView.swift; sourceTree = "<group>"; };
 		51307E4A29C0DFBA0080EE05 /* BaseNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkView.swift; sourceTree = "<group>"; };
 		51307E4C29C0E4980080EE05 /* BaseNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkLayer.swift; sourceTree = "<group>"; };
+		513A5EEC2A7BD5640053FCB0 /* Spacer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spacer.swift; path = ../../../../../../../Downloads/Spacer.swift; sourceTree = "<group>"; };
+		513A5EEE2A7BD5B50053FCB0 /* RecentContactDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentContactDTO.swift; path = ../../../../../../../Downloads/RecentContactDTO.swift; sourceTree = "<group>"; };
+		513A5EF02A7BD5BD0053FCB0 /* RecentContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentContact.swift; path = ../../../../../../../Downloads/RecentContact.swift; sourceTree = "<group>"; };
 		513F049129CDE8A4008E19E7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		513F049329CDEA02008E19E7 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		513F049529CDEA33008E19E7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
@@ -379,6 +385,7 @@
 		5160611D2A409C14004FEE54 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				513A5EEE2A7BD5B50053FCB0 /* RecentContactDTO.swift */,
 				5160611E2A409C14004FEE54 /* ContactDTO.swift */,
 				5160611F2A409C14004FEE54 /* UserDTO.swift */,
 				518271842A4474FF003E7A29 /* CommonDTO.swift */,
@@ -390,6 +397,7 @@
 		516061222A409C31004FEE54 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				513A5EF02A7BD5BD0053FCB0 /* RecentContact.swift */,
 				516061232A409C31004FEE54 /* User.swift */,
 				516061242A409C31004FEE54 /* Contact.swift */,
 				518271882A44817A003E7A29 /* Token.swift */,
@@ -643,6 +651,7 @@
 		51D3927F29F6DE62003E8E84 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				513A5EEC2A7BD5640053FCB0 /* Spacer.swift */,
 				51A6421D2A61B13600792D74 /* Fonts */,
 				510E559629CDB3E700D6638C /* MicrophoneMonitor.swift */,
 				513F049B29CDF096008E19E7 /* CallStatus.swift */,
@@ -811,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51307E3929C0997C0080EE05 /* CALayer+Extensions.swift in Sources */,
+				513A5EED2A7BD5640053FCB0 /* Spacer.swift in Sources */,
 				517EFB2529C4AC9600DE8C7B /* BottomCloseButton.swift in Sources */,
 				51307E4729C0DEBC0080EE05 /* NetworkAnimatableView.swift in Sources */,
 				510F997529BB4E2600B34C72 /* BaseLayer.swift in Sources */,
@@ -900,6 +910,7 @@
 				510E559729CDB3E700D6638C /* MicrophoneMonitor.swift in Sources */,
 				5164CD1F2A3781240091052E /* FloatingTextFieldTextProcessor.swift in Sources */,
 				51A642132A61AED800792D74 /* UserDetailsScreenViewController.swift in Sources */,
+				513A5EF12A7BD5BD0053FCB0 /* RecentContact.swift in Sources */,
 				518271922A45AE97003E7A29 /* MainScreenViewController.swift in Sources */,
 				5164CCF62A33785F0091052E /* TestButton.swift in Sources */,
 				513F049229CDE8A4008E19E7 /* Colors.swift in Sources */,
@@ -917,6 +928,7 @@
 				518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */,
 				512BFB3A2A79262C002706DF /* AddUserView.swift in Sources */,
 				517EFB2129C336E400DE8C7B /* BottomButton.swift in Sources */,
+				513A5EEF2A7BD5B50053FCB0 /* RecentContactDTO.swift in Sources */,
 				51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */,
 				5164CD212A37828A0091052E /* Collection+Extensions.swift in Sources */,
 				516061372A409C3E004FEE54 /* EndpointConfig.swift in Sources */,
