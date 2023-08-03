@@ -1,8 +1,6 @@
 import UIKit
 
-final class BackgroundView: UIView {
-    private let button = UIButton()
-    
+final class BackgroundView: UIView {    
     private lazy var firstLayer = RadialGradientLayer(
         frame: frame,
         startAngle: 2 * Double.pi,
