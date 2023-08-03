@@ -1,48 +1,6 @@
 import UIKit
 import SnapKit
 
-public protocol ImageFillerViewStyle {
-    static var imageSize: CGSize { get }
-    static var imageInsets: CGFloat { get }
-    static var radius: CGFloat { get }
-    static var backgroundColor: UIColor { get }
-}
-
-public struct DefaultFillerViewStyle: ImageFillerViewStyle {
-    public static var imageSize: CGSize { .init(width: 20, height: 20) }
-    public static var imageInsets: CGFloat { 10 }
-    public static var radius: CGFloat { 20 }
-    public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
-}
-
-public struct SmallFillerViewStyle: ImageFillerViewStyle {
-    public static var imageSize: CGSize { .init(width: 24, height: 24) }
-    public static var imageInsets: CGFloat { 8 }
-    public static var radius: CGFloat { 8 }
-    public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
-}
-
-public struct SmallGreenFillerViewStyle: ImageFillerViewStyle {
-    public static var imageSize: CGSize { .init(width: 24, height: 24) }
-    public static var imageInsets: CGFloat { 8 }
-    public static var radius: CGFloat { 8 }
-    public static var backgroundColor: UIColor { .green.withAlphaComponent(0.2) }
-}
-
-public struct MediumFillerViewStyle: ImageFillerViewStyle {
-    public static var imageSize: CGSize { .init(width: 32, height: 32) }
-    public static var imageInsets: CGFloat { 10 }
-    public static var radius: CGFloat { 26 }
-    public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
-}
-
-public struct LargeFillerViewStyle: ImageFillerViewStyle {
-    public static var imageSize: CGSize { .init(width: 24, height: 24) }
-    public static var imageInsets: CGFloat { 14 }
-    public static var radius: CGFloat { 26 }
-    public static var backgroundColor: UIColor { .white.withAlphaComponent(0.2) }
-}
-
 /// View для заполнения иконок с фоном
 public final class ImageFillerView<Style: ImageFillerViewStyle>: UIView {
     // MARK: - Subview Properties

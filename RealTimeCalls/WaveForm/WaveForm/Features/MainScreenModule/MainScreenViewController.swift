@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import NotificationBannerSwift
+import FloatingPanel
 
 public final class MainScreenViewController: UIViewController {
     
@@ -69,7 +69,35 @@ public final class MainScreenViewController: UIViewController {
     required init?(coder: NSCoder) { nil }
     
     @objc private func notificationTapped() {
+        let notificationViewController = NotificationsViewController(viewModels: [
+            NotificationsTableViewCell.ViewModel(alertViewModel: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
+                icon: UIImage(named: "call") ?? UIImage(),
+                title: "Ty",
+                description: "Pidor",
+                actions: []
+            )),
+            NotificationsTableViewCell.ViewModel(alertViewModel: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
+                icon: UIImage(named: "call") ?? UIImage(),
+                title: "Ty",
+                description: "Pidor",
+                actions: []
+            ))
+        ])
         
+
+        let floatingController = FloatingPanelController()
+        let surfaceAppearance = SurfaceAppearance()
+        let layout = CustomFloatingLayout(targetGuide: notificationViewController.view.safeAreaLayoutGuide)
+        surfaceAppearance.backgroundColor = .clear
+        surfaceAppearance.shadows = []
+        surfaceAppearance.cornerRadius = 16
+        floatingController.surfaceView.grabberHandleSize = .zero
+        floatingController.surfaceView.appearance = surfaceAppearance
+        floatingController.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        floatingController.layout = layout
+        
+        floatingController.set(contentViewController: notificationViewController)
+        navigationController?.present(floatingController, animated: true)
     }
 }
 
@@ -95,5 +123,40 @@ extension MainScreenViewController: MainScreenViewEventsRespondable {
     
     func didAllContactsTapped() {
         interactor.obtainAllContacts()
+    }
+}
+
+
+class CustomFloatingLayout: FloatingPanelLayout {
+    public let position: FloatingPanelPosition = .top
+    public let initialState: FloatingPanelState = .full
+
+    private unowned var targetGuide: UILayoutGuide
+
+    public init(targetGuide: UILayoutGuide) {
+        self.targetGuide = targetGuide
+    }
+
+    public var anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] {
+        [
+            .full: FloatingPanelAdaptiveLayoutAnchor(
+                absoluteOffset: .zero,
+                contentLayout: targetGuide,
+                referenceGuide: .safeArea,
+                contentBoundingGuide: .safeArea
+            )
+        ]
+    }
+    
+    public func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
+        0.7
+    }
+    
+    func prepareLayout(surfaceView: UIView, in view: UIView) -> [NSLayoutConstraint] {
+        return [
+            surfaceView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            surfaceView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            surfaceView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ]
     }
 }

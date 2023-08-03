@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = GoogleWebRTC;
+			productName = GoogleWebRTC;
 		};
 /* End PBXAggregateTarget section */
 
@@ -297,10 +298,10 @@
 		99E60B4169FE142C7B2F69B49AC18E2A /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 		9BC024C77BDA494606CD8D5DFDAD9DC7 /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Source/Session.swift; sourceTree = "<group>"; };
 		9D7E0B490E3E11E527F7A6F26B6A85F8 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Source/Debugging.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9EB4A5D8DA67CF236ADF24D35DC832C9 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMultiplierTarget.swift; path = Source/ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
 		A00A8C442F08EEB9D5FAA15D51359629 /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerPriortizable.swift; path = Source/ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
-		A15C06FEEE3A47F2B606635CF496B079 /* Pods-WaveForm */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-WaveForm"; path = Pods_WaveForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A15C06FEEE3A47F2B606635CF496B079 /* Pods_WaveForm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WaveForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4FF5F0B26CB1ACB84A0BB52A4605C2B /* Alamofire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.release.xcconfig; sourceTree = "<group>"; };
 		A539E5A206201DC2613969C799EA4351 /* Pods-WaveForm-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-WaveForm-umbrella.h"; sourceTree = "<group>"; };
 		A6935F3F6AE768E3A82862519EE26FB3 /* Pods-WaveForm-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WaveForm-dummy.m"; sourceTree = "<group>"; };
@@ -492,7 +493,6 @@
 				2C5C05C78C2C9EC29E6B4C6B854A407A /* Validation.swift */,
 				D5FF9F5293E5DAE9B638E3B043751CAB /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -502,7 +502,6 @@
 				8F774DAFA41E005A3BC0166B7E6D752D /* Keychain.swift */,
 				80270D525B11696000970119C34D5ED8 /* Support Files */,
 			);
-			name = KeychainAccess;
 			path = KeychainAccess;
 			sourceTree = "<group>";
 		};
@@ -530,7 +529,6 @@
 				046632FC2320488E72DFA7C8696D0C93 /* WebSocket.swift */,
 				0D90126BF63A16815BA47B31097AE164 /* Support Files */,
 			);
-			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
@@ -540,7 +538,6 @@
 				B3AC99D3D4D9A22BE54AE3802C6CF1AB /* MarqueeLabel.swift */,
 				C1FD556FE2F147D443BAF92E2010CB24 /* Support Files */,
 			);
-			name = MarqueeLabel;
 			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
@@ -565,7 +562,6 @@
 				D46009122B968A70A46FD5C872962CBB /* Frameworks */,
 				F9FF6021E33FD9D81CC08ADF319ABA41 /* Support Files */,
 			);
-			name = GoogleWebRTC;
 			path = GoogleWebRTC;
 			sourceTree = "<group>";
 		};
@@ -576,7 +572,7 @@
 				E8EE7F078656FABB8F6821D10FF994BB /* KeychainAccess */,
 				CF0AA9FBFBDB70858C030769541505ED /* MarqueeLabel */,
 				0AB91F46DDDA5588520D012E6F4FB918 /* NotificationBannerSwift */,
-				A15C06FEEE3A47F2B606635CF496B079 /* Pods-WaveForm */,
+				A15C06FEEE3A47F2B606635CF496B079 /* Pods_WaveForm.framework */,
 				979486118B3E90C08386079D57962701 /* SnapKit */,
 				891B2270823847ED23F2ECFC28F935EC /* Starscream */,
 			);
@@ -601,7 +597,6 @@
 				1FC37673B18A650D1DA2C62C6F263874 /* UIWindow+orientation.swift */,
 				1A796C64F7E03F01732BB4D614E8BFCC /* Support Files */,
 			);
-			name = NotificationBannerSwift;
 			path = NotificationBannerSwift;
 			sourceTree = "<group>";
 		};
@@ -709,7 +704,6 @@
 				0294CD127C01BE808FC53C932117922E /* UILayoutSupport+Extensions.swift */,
 				48E031F57FDD4041A0FAA2967827C2EF /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -855,7 +849,7 @@
 			);
 			name = "Pods-WaveForm";
 			productName = Pods_WaveForm;
-			productReference = A15C06FEEE3A47F2B606635CF496B079 /* Pods-WaveForm */;
+			productReference = A15C06FEEE3A47F2B606635CF496B079 /* Pods_WaveForm.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */ = {

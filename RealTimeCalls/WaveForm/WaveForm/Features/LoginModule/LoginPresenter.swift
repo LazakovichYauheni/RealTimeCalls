@@ -47,7 +47,7 @@ public final class LoginPresenter {
         passwordTextFieldViewModel
     ]
     
-    private func makeEmailTextFields(text: String?, id: String, didEndEditing: Bool) -> [FloatingTextFieldView.ViewModel] {
+    private func makeUsernameTextFields(text: String?, id: String, didEndEditing: Bool) -> [FloatingTextFieldView.ViewModel] {
         guard
             let index = emailTextFields.firstIndex(where: { $0.textField.id == id })
         else { return [] }
@@ -147,7 +147,7 @@ extension LoginPresenter {
                 ),
                 fieldsViewModel: FieldsView.ViewModel(
                     textFieldViewModels: isEmailSelected
-                        ? makeEmailTextFields(text: text, id: id, didEndEditing: didEndEditing)
+                        ? makeUsernameTextFields(text: text, id: id, didEndEditing: didEndEditing)
                         : makePhoneTextFields(text: text, id: id, didEndEditing: didEndEditing)
                 ),
                 isLoginButtonEnabled: isEmailSelected ? checkEmailFields() : checkPhoneFields(),

@@ -12,7 +12,7 @@ extension UIView {
         let blurEffect = UIBlurEffect(style: blurStyle)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
-        blurEffectView.alpha = 0.5
+        blurEffectView.alpha = 0.75
 
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(blurEffectView)
@@ -20,10 +20,10 @@ extension UIView {
 }
 
 extension UIView{
-    func rotate() {
+    func rotate(duration: CFTimeInterval = 1) {
         let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = NSNumber(value: Double.pi * 2)
-        rotation.duration = 1
+        rotation.duration = duration
         rotation.isCumulative = true
         rotation.repeatCount = Float.greatestFiniteMagnitude
         self.layer.add(rotation, forKey: "rotationAnimation")
@@ -31,5 +31,59 @@ extension UIView{
     
     func stopRotating() {
         self.layer.removeAllAnimations()
+    }
+}
+
+extension UIView {
+    /// Добавляет ангулар градиент с анимацией на круглую вью
+    func addGradientBorder(to view: UIView) {
+        let path = UIBezierPath(ovalIn: view.bounds.insetBy(dx: 1, dy: 1))
+
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.type = .conic
+        gradient.colors = [
+            UIColor(red: 73 / 255, green: 139 / 255, blue: 235 / 255, alpha: 1).cgColor,
+            UIColor(red: 63 / 255, green: 187 / 255, blue: 89 / 255, alpha: 1).cgColor,
+            UIColor(red: 232 / 255, green: 182 / 255, blue: 1 / 255, alpha: 1).cgColor,
+            UIColor(red: 209 / 255, green: 52 / 255, blue: 43 / 255, alpha: 1).cgColor,
+            UIColor(red: 73 / 255, green: 139 / 255, blue: 235 / 255, alpha: 1).cgColor
+        ]
+
+        let shape = CAShapeLayer()
+        shape.lineWidth = 2
+        shape.path = path.cgPath
+        shape.strokeColor = UIColor.black.cgColor
+        shape.fillColor = UIColor.clear.cgColor
+        gradient.mask = shape
+
+        view.layer.insertSublayer(gradient, at: 0)
+        
+        let anim = CABasicAnimation(keyPath: "transform.rotation")
+        anim.fromValue = 0
+        anim.toValue = Double.pi * 2
+        anim.duration = 3
+        anim.repeatCount = .infinity
+        anim.isRemovedOnCompletion = false
+        gradient.add(anim, forKey: "sss")
+    }
+    
+    /// параллакс эффект
+    func addParallaxToView(vw: UIView) {
+        let amount = 20
+
+        let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontal.minimumRelativeValue = -amount
+        horizontal.maximumRelativeValue = amount
+
+        let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        vertical.minimumRelativeValue = -amount
+        vertical.maximumRelativeValue = 0
+
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontal, vertical]
+        vw.addMotionEffect(group)
     }
 }

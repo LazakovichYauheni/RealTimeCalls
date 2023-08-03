@@ -2,37 +2,50 @@ import UIKit
 
 public final class UserDetailsScreenPresenter {
     weak var viewController: UserDetailsScreenViewController?
-    
-    private func makeActionViewModels(backgroudColor: UIColor) -> [UserDetailsActionView.ViewModel] {
-        let callViewModel = UserDetailsActionView.ViewModel(
-            image: Images.statusEndImage,
-            buttonTitle: "Call",
-            imageBackgroundColor: backgroudColor
-        )
-        let historyViewModel = UserDetailsActionView.ViewModel(
-            image: Images.statusEndImage,
-            buttonTitle: "History",
-            imageBackgroundColor: backgroudColor
-        )
-        let blockViewModel = UserDetailsActionView.ViewModel(
-            image: Images.statusEndImage,
-            buttonTitle: "Block",
-            imageBackgroundColor: backgroudColor
-        )
-        
-        return [callViewModel, historyViewModel, blockViewModel]
-    }
 }
 
 extension UserDetailsScreenPresenter {
     func present(data: MainScreenCollectionViewCell.ViewModel) {
         viewController?.display(
             viewModel: UserDetailsScreenView.ViewModel(
-                iconImage: data.image,
-                name: data.name,
-                lastName: data.lastName,
-                backgroundColor: data.backgroundColor,
-                actionButtonViewModels: makeActionViewModels(backgroudColor: data.buttonBackground)
+                headerViewModel: UserDetailsHeaderView.ViewModel(
+                    userImage: data.image,
+                    mainActions: [
+                        ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
+                            image: UIImage(named: "call") ?? UIImage()
+                        ),
+                        ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
+                            image: UIImage(named: "video") ?? UIImage()
+                        ),
+                        ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
+                            image: UIImage(named: "maskStar") ?? UIImage()
+                        )
+                    ],
+                    additionalActionsViewModel: UserActionsView.ViewModel(
+                        viewModels: [
+                            ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
+                                image: UIImage(named: "block")?.withTintColor(
+                                    UIColor(red: 191 / 255, green: 88 / 255, blue: 88 / 255, alpha: 1)
+                                ) ?? UIImage()
+                            ),
+                            ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
+                                image: UIImage(named: "qr")?.withTintColor(data.buttonBackground) ?? UIImage()
+                            ),
+                            ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
+                                image: UIImage(named: "edit")?.withTintColor(data.buttonBackground) ?? UIImage()
+                            )
+                        ],
+                        closeButtonBackground: data.buttonBackground
+                    ),
+                    actionsBackground: data.buttonBackground
+                ),
+                contentViewModel: UserDetailsContentView.ViewModel(
+                    background: data.backgroundColor,
+                    buttonBackground: data.buttonBackground,
+                    title: data.name,
+                    description: data.lastName,
+                    notice: data.infoMessage
+                )
             )
         )
     }
