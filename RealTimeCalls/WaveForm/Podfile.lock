@@ -1,5 +1,6 @@
 PODS:
-  - Alamofire (5.6.4)
+  - Alamofire (5.7.1)
+  - FloatingPanel (2.6.3)
   - GoogleWebRTC (1.1.32000)
   - KeychainAccess (4.2.2)
   - MarqueeLabel (4.0.5)
@@ -11,6 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - FloatingPanel
   - GoogleWebRTC
   - KeychainAccess (~> 4.2.0)
   - NotificationBannerSwift (~> 3.0.0)
@@ -20,6 +22,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FloatingPanel
     - GoogleWebRTC
     - KeychainAccess
     - MarqueeLabel
@@ -28,7 +31,8 @@ SPEC REPOS:
     - Starscream
 
 SPEC CHECKSUMS:
-  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  FloatingPanel: ff837f4a65b2a81716bf9bfb9e43c280627db993
   GoogleWebRTC: 4d261187b30512efdb711d21fa961a6adf138717
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
@@ -36,6 +40,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: 782f003160b0d469057b4a84fc7d01e074b5e4e0
+PODFILE CHECKSUM: ed9dae30cee0242c1218b830cce7768694dbdab8
 
 COCOAPODS: 1.11.3

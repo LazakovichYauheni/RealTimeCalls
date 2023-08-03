@@ -39,5 +39,6 @@ public enum Fonts {
         static let medium26 = UIFont(name: "GraphikLCG-Medium", size: 26)
         static let medium28 = UIFont(name: "GraphikLCG-Medium", size: 28)
         static let medium30 = UIFont(name: "GraphikLCG-Medium", size: 30)
+        static let medium36 = UIFont(name: "GraphikLCG-Medium", size: 36)
     }
 }

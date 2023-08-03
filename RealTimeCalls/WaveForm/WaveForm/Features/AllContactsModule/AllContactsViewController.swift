@@ -1,4 +1,5 @@
 import UIKit
+import FloatingPanel
 
 final class AllContactsViewController: UIViewController {
     public let contentView = AllContactsView()
@@ -55,7 +56,20 @@ final class AllContactsViewController: UIViewController {
     required init?(coder: NSCoder) { nil }
     
     @objc private func addUser() {
+        let addUserViewController = AddUserViewController()
         
+        let floatingController = FloatingPanelController()
+        let surfaceAppearance = SurfaceAppearance()
+        let layout = FloatingLayout()
+        surfaceAppearance.backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        surfaceAppearance.shadows = []
+        surfaceAppearance.cornerRadius = 16
+        floatingController.surfaceView.appearance = surfaceAppearance
+        floatingController.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        floatingController.layout = layout
+        
+        floatingController.set(contentViewController: addUserViewController)
+        navigationController?.present(floatingController, animated: true)
     }
 }
 
@@ -87,5 +101,18 @@ extension AllContactsViewController: AllContactsViewEventsRespondable {
     func didSelectCell(index: Int, cell: ContactTableViewCell) {
         currentCell = cell
         interactor.obtainSelectedCell(index: index)
+    }
+}
+
+class FloatingLayout: FloatingPanelLayout {
+    public let position: FloatingPanelPosition = .bottom
+    public let initialState: FloatingPanelState = .full
+
+    public var anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] {
+        [.full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: .zero)]
+    }
+    
+    public func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
+        0.7
     }
 }

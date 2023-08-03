@@ -15,6 +15,11 @@ final class UserDetailsScreenViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        contentView.updateMainActions()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -43,12 +48,8 @@ extension UserDetailsScreenViewController {
     }
 }
 
-extension UserDetailsScreenViewController: UserDetailsScreenEventsRespondable {
+extension UserDetailsScreenViewController: UserDetailsContentViewEventsRespondable {
     func didCloseButtonTapped() {
         dismisser.dismiss(productViewController: self)
-    }
-    
-    func didSelectCell(index: Int) {
-        interactor.obtainSelectedCell(index: index)
     }
 }

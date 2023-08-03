@@ -10,6 +10,7 @@ target 'WaveForm' do
   pod 'GoogleWebRTC'
   pod 'Alamofire'
   pod 'KeychainAccess', '~> 4.2.0'
+  pod 'FloatingPanel'
   # Pods for WaveForm
 
 end
