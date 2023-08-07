@@ -70,8 +70,8 @@ extension UIViewController {
             appearance.backgroundColor = configuration.barTintColor
             appearance.backgroundImage = configuration.backgroundImage
             appearance.shadowImage = configuration.shadowImage
-            appearance.titleTextAttributes[.foregroundColor] = configuration.textColor ?? .white
-            appearance.largeTitleTextAttributes[.foregroundColor] = configuration.textColor ?? .white
+            appearance.titleTextAttributes[.foregroundColor] = configuration.textColor ?? Color.current.text.whiteColor
+            appearance.largeTitleTextAttributes[.foregroundColor] = configuration.textColor ?? Color.current.text.whiteColor
 
             appearance.setBackIndicatorImage(
                 configuration.backButtonImage,

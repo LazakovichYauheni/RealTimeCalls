@@ -15,7 +15,7 @@ private extension Spacer {
 final class RateCallView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         label.text = "Rate This Call"
@@ -24,7 +24,7 @@ final class RateCallView: UIView {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         label.text = "Please rate the quality of this call"
@@ -41,7 +41,7 @@ final class RateCallView: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white.withAlphaComponent(0.25)
+        backgroundColor = Color.current.background.white.alpha25
         clipsToBounds = true
         layer.cornerRadius = spacer.space20
         addSubviews()

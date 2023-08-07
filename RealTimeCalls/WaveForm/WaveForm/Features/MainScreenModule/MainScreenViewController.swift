@@ -25,7 +25,7 @@ public final class MainScreenViewController: UIViewController {
             make.size.equalTo(spacer.space24)
         }
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(notificationTapped)))
-        imageView.image = Images.addImage.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
+        imageView.image = Images.addImage.withTintColor(Color.current.text.lightBlueColor)
         
         let item = UIBarButtonItem(customView: imageView)
         return item
@@ -50,9 +50,9 @@ public final class MainScreenViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         setNavigationBarTint(
             with: UIViewController.NavigationBarConfiguration(
-                tintColor: .black,
-                barTintColor: UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1),
-                textColor: .black,
+                tintColor: Color.current.background.blackColor,
+                barTintColor: Color.current.background.mainColor,
+                textColor: Color.current.text.blackColor,
                 isTranslucent: true,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()

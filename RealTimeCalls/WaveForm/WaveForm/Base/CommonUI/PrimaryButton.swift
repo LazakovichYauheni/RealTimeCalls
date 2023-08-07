@@ -19,42 +19,42 @@ public protocol ButtonStyle {
 
 struct DefaultButtonStyle: ButtonStyle {
     static var cornerRadius: CGFloat { 8 }
-    static var activeColor: UIColor { UIColor(red: 44 / 255, green: 102 / 255, blue: 189 / 255, alpha: 1) }
-    static var disabledColor: UIColor { UIColor(red: 208 / 255, green: 220 / 255, blue: 228 / 255, alpha: 1) }
-    static var tappedColor: UIColor { UIColor(red: 26 / 255, green: 66 / 255, blue: 124 / 255, alpha: 1) }
+    static var activeColor: UIColor { Color.current.background.blueColor }
+    static var disabledColor: UIColor { Color.current.background.disableGrayColor }
+    static var tappedColor: UIColor { Color.current.background.darkBlueColor }
     
-    static var textActiveColor: UIColor { .white }
-    static var textDisabledColor: UIColor { UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24) }
+    static var textActiveColor: UIColor { Color.current.text.whiteColor }
+    static var textDisabledColor: UIColor { Color.current.text.disableSecondaryColor }
 }
 
 struct DefaultRadius30ButtonStyle: ButtonStyle {
     static var cornerRadius: CGFloat { 30 }
-    static var activeColor: UIColor { UIColor(red: 44 / 255, green: 102 / 255, blue: 189 / 255, alpha: 1) }
-    static var disabledColor: UIColor { UIColor(red: 208 / 255, green: 220 / 255, blue: 228 / 255, alpha: 1) }
-    static var tappedColor: UIColor { UIColor(red: 26 / 255, green: 66 / 255, blue: 124 / 255, alpha: 1) }
+    static var activeColor: UIColor { Color.current.background.blueColor }
+    static var disabledColor: UIColor { Color.current.background.disableGrayColor }
+    static var tappedColor: UIColor { Color.current.background.darkBlueColor }
     
-    static var textActiveColor: UIColor { .white }
-    static var textDisabledColor: UIColor { UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24) }
+    static var textActiveColor: UIColor { Color.current.text.whiteColor }
+    static var textDisabledColor: UIColor { Color.current.text.disableSecondaryColor }
 }
 
 struct SecondaryButtonStyle: ButtonStyle {
     static var cornerRadius: CGFloat { 8 }
-    static var activeColor: UIColor { UIColor(red: 216 / 255, green: 226 / 255, blue: 235 / 255, alpha: 1) }
-    static var disabledColor: UIColor { UIColor(red: 208 / 255, green: 220 / 255, blue: 228 / 255, alpha: 1) }
-    static var tappedColor: UIColor { UIColor(red: 204 / 255, green: 213 / 255, blue: 221 / 255, alpha: 1) }
+    static var activeColor: UIColor { Color.current.background.lightGrayColor }
+    static var disabledColor: UIColor { Color.current.background.disableGrayColor }
+    static var tappedColor: UIColor { Color.current.background.darkGrayColor }
     
-    static var textActiveColor: UIColor { .black }
-    static var textDisabledColor: UIColor { UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24) }
+    static var textActiveColor: UIColor { Color.current.text.blackColor }
+    static var textDisabledColor: UIColor { Color.current.text.disableSecondaryColor }
 }
 
 struct WhiteButtonStyle: ButtonStyle {
     static var cornerRadius: CGFloat { 8 }
-    static var activeColor: UIColor { .white.withAlphaComponent(0.3) }
-    static var disabledColor: UIColor { UIColor(red: 208 / 255, green: 220 / 255, blue: 228 / 255, alpha: 1) }
-    static var tappedColor: UIColor { .white.withAlphaComponent(0.6) }
+    static var activeColor: UIColor { Color.current.background.white.alpha30 }
+    static var disabledColor: UIColor { Color.current.background.disableGrayColor }
+    static var tappedColor: UIColor { Color.current.background.white.alpha60 }
     
-    static var textActiveColor: UIColor { .white }
-    static var textDisabledColor: UIColor { UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24) }
+    static var textActiveColor: UIColor { Color.current.text.whiteColor }
+    static var textDisabledColor: UIColor { Color.current.text.disableSecondaryColor }
 }
 
 public final class PrimaryButton<Style: ButtonStyle>: UIButton {

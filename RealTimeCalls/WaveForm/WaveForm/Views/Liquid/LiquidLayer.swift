@@ -20,7 +20,7 @@ public final class LiquidLayer: CAShapeLayer {
     override public init() {
         super.init()
         
-        fillColor = Colors.whiteColorWithAlpha01.cgColor
+        fillColor = Color.current.background.white.alpha16.cgColor
     }
     
     required init?(coder: NSCoder) {

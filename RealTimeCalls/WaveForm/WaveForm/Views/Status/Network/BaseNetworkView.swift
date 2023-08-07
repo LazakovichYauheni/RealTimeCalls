@@ -20,8 +20,8 @@ public final class BaseNetworkView: UIView {
     public init(layerHeight: CGFloat) {
         super.init(frame: .zero)
         self.layerHeight = layerHeight
-        let baseLayer = BaseNetworkLayer(color: Colors.whiteColorWithAlpha028, height: layerHeight)
-        let animatedLayer = BaseNetworkLayer(color: UIColor.white, height: layerHeight)
+        let baseLayer = BaseNetworkLayer(color: Color.current.background.white.alpha28, height: layerHeight)
+        let animatedLayer = BaseNetworkLayer(color: Color.current.background.whiteColor, height: layerHeight)
         self.baseLayer = baseLayer
         self.animatedLayer = animatedLayer
         layer.addSublayer(baseLayer)

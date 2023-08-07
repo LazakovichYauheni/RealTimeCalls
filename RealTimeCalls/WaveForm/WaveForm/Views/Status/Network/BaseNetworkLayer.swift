@@ -59,11 +59,11 @@ public final class BaseNetworkLayer: CAShapeLayer {
 
 extension BaseNetworkLayer: CAAnimationDelegate {
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        fillColor = UIColor.white.withAlphaComponent(0.0).cgColor
+        fillColor = Color.current.background.white.alpha0.cgColor
         let fadeAnimation = CABasicAnimation(keyPath: "fadePath")
         fadeAnimation.beginTime = 0
         fadeAnimation.fromValue = fillColor
-        fadeAnimation.toValue = UIColor.white.withAlphaComponent(0.0).cgColor
+        fadeAnimation.toValue = Color.current.background.white.alpha0.cgColor
         fadeAnimation.duration = 0.14
         fadeAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
         add(fadeAnimation, forKey: nil)

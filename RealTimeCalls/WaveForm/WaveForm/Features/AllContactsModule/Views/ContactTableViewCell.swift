@@ -17,7 +17,7 @@ final class ContactTableViewCell: UITableViewCell {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = spacer.space16
-        view.backgroundColor = .white
+        view.backgroundColor = Color.current.background.whiteColor
         return view
     }()
     
@@ -33,14 +33,14 @@ final class ContactTableViewCell: UITableViewCell {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium16
-        label.textColor = UIColor(red: 46 / 255, green: 46 / 255, blue: 46 / 255, alpha: 1)
+        label.textColor = Color.current.text.darkGrayColor
         return label
     }()
     
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Regular.regular12
-        label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+        label.textColor = Color.current.text.secondaryColor
         return label
     }()
     

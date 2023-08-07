@@ -14,14 +14,14 @@ public final class UserDetailsContentView: UIView {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium36
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Regular.regular28
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
@@ -29,7 +29,7 @@ public final class UserDetailsContentView: UIView {
         let label = UILabel()
         label.font = Fonts.Regular.regular20
         label.numberOfLines = .zero
-        label.textColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
+        label.textColor = Color.current.text.noticeColor
         return label
     }()
     

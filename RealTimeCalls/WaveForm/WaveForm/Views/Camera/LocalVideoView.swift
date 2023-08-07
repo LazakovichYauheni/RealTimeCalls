@@ -31,8 +31,8 @@ final class LocalVideoView: UIView {
     private lazy var startButton: UIButton = {
         let button = UIButton()
         button.setTitle("Start Video", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = Color.current.background.whiteColor
+        button.setTitleColor(Color.current.text.blackColor, for: .normal)
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
         return button
@@ -136,7 +136,7 @@ extension LocalVideoView: UIPickerViewDataSource {
         pickerRow.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         let rowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
         rowLabel.font = Fonts.Medium.medium15
-        rowLabel.textColor = .white
+        rowLabel.textColor = Color.current.text.whiteColor
         rowLabel.text = titles[row]
         rowLabel.textAlignment = .center
         pickerRow.addSubview(rowLabel)

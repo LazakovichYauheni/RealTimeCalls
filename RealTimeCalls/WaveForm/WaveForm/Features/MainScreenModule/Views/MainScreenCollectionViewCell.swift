@@ -31,21 +31,21 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium20
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Regular.regular24
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
     private lazy var subDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Regular.regular14
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
@@ -64,12 +64,14 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
     
     func changeAppearance(isSelected: Bool) {
         UIView.animate(withDuration: 0.3, delay: .zero, options: .curveEaseInOut) {
-            self.backgroundColor = isSelected ? self.background.withAlphaComponent(0.15) : self.background.withAlphaComponent(1)
+            self.backgroundColor = isSelected
+                ? self.background.withAlphaComponent(0.15)
+                : self.background.withAlphaComponent(1)
             self.callIconView.changeBackgroundAnimated(with: isSelected ? self.background : nil)
         }
-        titleLabel.textColor = isSelected ? .black : .white
-        descriptionLabel.textColor = isSelected ? .black : .white
-        subDescriptionLabel.textColor = isSelected ? .black : .white
+        titleLabel.textColor = isSelected ? Color.current.text.blackColor : Color.current.text.whiteColor
+        descriptionLabel.textColor = isSelected ? Color.current.text.blackColor : Color.current.text.whiteColor
+        subDescriptionLabel.textColor = isSelected ? Color.current.text.blackColor : Color.current.text.whiteColor
         
         if isSelected {
             addAnim()
@@ -225,7 +227,7 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
     private func initialize() {
         clipsToBounds = true
         layer.cornerRadius = spacer.space16
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = Color.current.background.whiteColor.cgColor
         backgroundColor = background
         addSubviews()
         makeConstraints()

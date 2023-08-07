@@ -33,7 +33,7 @@ public final class RegisterView: UIView {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium16
-        label.textColor = UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24)
+        label.textColor = Color.current.text.disableSecondaryColor
         label.numberOfLines = .zero
         return label
     }()
@@ -66,7 +66,7 @@ public final class RegisterView: UIView {
     private lazy var responder = Weak(firstResponder(of: RegisterViewEventsRespondable.self))
     
     private func initialize() {
-        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        backgroundColor = Color.current.background.mainColor
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped))
         gestureRecognizer.delegate = self
         addGestureRecognizer(gestureRecognizer)

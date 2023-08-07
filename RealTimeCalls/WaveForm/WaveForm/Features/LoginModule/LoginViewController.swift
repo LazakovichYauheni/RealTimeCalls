@@ -31,9 +31,9 @@ public final class LoginViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         setNavigationBarTint(
             with: UIViewController.NavigationBarConfiguration(
-                tintColor: .black,
-                barTintColor: UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1),
-                textColor: .black,
+                tintColor: Color.current.background.blackColor,
+                barTintColor: Color.current.background.mainColor,
+                textColor: Color.current.text.blackColor,
                 isTranslucent: false,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()
@@ -60,7 +60,7 @@ extension LoginViewController {
         banner.autoDismiss = true
         banner.show(
             cornerRadius: spacer.space12,
-            shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04),
+            shadowColor: Color.current.background.shadowColor,
             shadowBlurRadius: spacer.space16
         )
     }

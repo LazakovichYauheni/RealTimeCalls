@@ -23,7 +23,9 @@ public final class UserActionsView: UIView {
     
     private lazy var closeView: ImageFillerView<SmallGrayWithoutAlphaFillerViewStyle> = {
         let view = ImageFillerView<SmallGrayWithoutAlphaFillerViewStyle>()
-        view.configure(with: .init(image: UIImage(named: "closeButton")?.withTintColor(.white) ?? UIImage()))
+        view.configure(with: .init(
+            image: UIImage(named: "closeButton")?.withTintColor(Color.current.background.whiteColor) ?? UIImage())
+        )
         view.isHidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeTapped)))
         return view

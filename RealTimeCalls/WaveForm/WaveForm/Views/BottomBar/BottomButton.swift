@@ -45,7 +45,7 @@ public final class BottomButton: UIView {
         let label = UILabel()
         label.font = Fonts.Regular.regular12
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         return label
     }()
     
@@ -57,7 +57,10 @@ public final class BottomButton: UIView {
         title.text = name
         imageIconView.clipsToBounds = true
         imageIconView.layer.cornerRadius = spacer.space25
-        let tintedImage = generateTintedImage(image: image, color: .white, backgroundColor: Colors.whiteColorWithAlpha020)
+        let tintedImage = generateTintedImage(
+            image: image,
+            color: Color.current.background.whiteColor,
+            backgroundColor: Color.current.background.white.alpha20)
         imageIconView.image = tintedImage
         
         /// ???
@@ -128,7 +131,11 @@ public final class BottomButton: UIView {
         delegate?.bottomButtonTapped(type: type, isOn: isOn)
         
         if isFlippable {
-            let newImage = generateTintedImage(image: image, color: isOn ? .clear : UIColor.white, backgroundColor: isOn ? .white : Colors.whiteColorWithAlpha020)
+            let newImage = generateTintedImage(
+                image: image,
+                color: isOn ? .clear : Color.current.background.whiteColor,
+                backgroundColor: isOn ? Color.current.background.whiteColor : Color.current.background.white.alpha20
+            )
             let cgNewImage = newImage!.cgImage!
             
             let oldImage = imageIconView.image

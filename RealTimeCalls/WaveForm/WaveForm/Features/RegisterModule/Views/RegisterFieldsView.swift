@@ -124,21 +124,21 @@ extension RegisterFieldsView {
         lastNameTextFieldView.configure(with: viewModel.textFieldViewModels[4])
         
         if viewModel.textFieldViewModels[0].isInvalidInput {
-            usernameTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
+            usernameTextFieldView.layer.borderColor = Color.current.background.errorColor.cgColor
             usernameTextFieldView.layer.borderWidth = 1
         } else {
             usernameTextFieldView.layer.borderWidth = .zero
         }
         
         if viewModel.textFieldViewModels[1].isInvalidInput {
-            passwordTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
+            passwordTextFieldView.layer.borderColor = Color.current.background.errorColor.cgColor
             passwordTextFieldView.layer.borderWidth = 1
         } else {
             passwordTextFieldView.layer.borderWidth = .zero
         }
         
         if viewModel.textFieldViewModels[2].isInvalidInput {
-            phoneTextFieldView.layer.borderColor = UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1).cgColor
+            phoneTextFieldView.layer.borderColor = Color.current.background.errorColor.cgColor
             phoneTextFieldView.layer.borderWidth = 1
         } else {
             phoneTextFieldView.layer.borderWidth = .zero

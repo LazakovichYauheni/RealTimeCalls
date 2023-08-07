@@ -32,7 +32,7 @@ public final class StartView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        backgroundColor = Color.current.background.mainColor
         testButton.setTitle("BUTTON", for: .normal)
         testButton.addTarget(self, action: #selector(secButtonTapped), for: .touchUpInside)
         addSubview(callButton)

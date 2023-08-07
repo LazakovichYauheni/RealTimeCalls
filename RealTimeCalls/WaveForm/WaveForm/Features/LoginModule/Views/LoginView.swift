@@ -27,14 +27,14 @@ public final class LoginView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium24
-        label.textColor = .black
+        label.textColor = Color.current.text.blackColor
         return label
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium16
-        label.textColor = UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24)
+        label.textColor = Color.current.text.disableSecondaryColor
         label.numberOfLines = .zero
         return label
     }()
@@ -52,7 +52,7 @@ public final class LoginView: UIView {
     private lazy var orLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium15
-        label.textColor = UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24)
+        label.textColor = Color.current.text.disableSecondaryColor
         label.numberOfLines = .zero
         label.textAlignment = .center
         label.text = "or"
@@ -62,7 +62,7 @@ public final class LoginView: UIView {
     private lazy var googleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium15
-        label.textColor = UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24)
+        label.textColor = Color.current.text.disableSecondaryColor
         label.numberOfLines = .zero
         label.textAlignment = .center
         label.text = "Sign in with Google or Facebook"
@@ -81,7 +81,7 @@ public final class LoginView: UIView {
     private lazy var dontHaveAccLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium15
-        label.textColor = UIColor(red: 12 / 255, green: 38 / 255, blue: 61 / 255, alpha: 0.24)
+        label.textColor = Color.current.text.disableSecondaryColor
         label.textAlignment = .center
         label.text = "Don't have an account?"
         return label
@@ -92,7 +92,7 @@ public final class LoginView: UIView {
         button.backgroundColor = .clear
         button.setTitle("Sign up", for: .normal)
         button.titleLabel?.font = Fonts.Medium.medium15
-        button.setTitleColor(UIColor(red: 44 / 255, green: 102 / 255, blue: 189 / 255, alpha: 1), for: .normal)
+        button.setTitleColor(Color.current.background.blueColor, for: .normal)
         button.addTarget(self, action: #selector(signUpTapped), for: .touchUpInside)
         return button
     }()
@@ -109,7 +109,7 @@ public final class LoginView: UIView {
     private lazy var responder = Weak(firstResponder(of: LoginViewEventsRespondable.self))
     
     private func initialize() {
-        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        backgroundColor = Color.current.background.mainColor
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped))
         gestureRecognizer.delegate = self
         addGestureRecognizer(gestureRecognizer)

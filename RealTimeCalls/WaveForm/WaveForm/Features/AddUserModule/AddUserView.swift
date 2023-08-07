@@ -22,7 +22,7 @@ public final class AddUserView: UIView {
         let field = FloatingTextFieldView()
         field.clipsToBounds = true
         field.layer.cornerRadius = 12
-        field.backgroundColor = .white
+        field.backgroundColor = Color.current.background.whiteColor
         return field
     }()
 

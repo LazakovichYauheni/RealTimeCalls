@@ -6,9 +6,9 @@ protocol AllContactsViewEventsRespondable: AnyObject {
 }
 
 struct DefaultAlertViewStyle: AlertViewStyle {
-    static var titleColor: UIColor { .black }
-    static var descriptionColor: UIColor { .gray }
-    static var backgroundColor: UIColor { .white }
+    static var titleColor: UIColor { Color.current.text.blackColor }
+    static var descriptionColor: UIColor { Color.current.text.secondaryColor }
+    static var backgroundColor: UIColor { Color.current.background.whiteColor }
 }
 
 /// View для заполнения иконок с фоном
@@ -48,7 +48,7 @@ public final class AllContactsView: UIView {
     // MARK: - Private Methods
 
     private func commonInit() {
-        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        backgroundColor = Color.current.background.mainColor
         addSubviews()
         makeConstraints()
     }

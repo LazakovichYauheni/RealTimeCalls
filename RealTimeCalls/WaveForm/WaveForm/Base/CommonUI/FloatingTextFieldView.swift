@@ -19,7 +19,7 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     private let textField: FloatingTextField = {
         let textField = FloatingTextField()
         textField.autocorrectionType = .no
-        textField.textColor = .black
+        textField.textColor = Color.current.text.blackColor
         return textField
     }()
     

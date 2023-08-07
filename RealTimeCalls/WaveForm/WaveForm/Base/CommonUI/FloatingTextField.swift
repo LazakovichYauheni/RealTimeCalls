@@ -59,13 +59,13 @@ public final class FloatingTextField: UITextField {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+        label.textColor = Color.current.text.secondaryColor
         return label
     }()
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+        label.textColor = Color.current.text.secondaryColor
         label.font = Fonts.Regular.regular15
         return label
     }()

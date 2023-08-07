@@ -4,15 +4,15 @@ final class BackgroundView: UIView {
     private lazy var firstLayer = RadialGradientLayer(
         frame: frame,
         startAngle: 2 * Double.pi,
-        color: UIColor(red: 81 / 255, green: 163 / 255, blue: 207 / 255, alpha: 1)
+        color: Color.current.calls.blobs.blueYellowColors[0]
     )
     
     private lazy var secondLayer = RadialGradientLayer(
         frame: frame,
         startAngle: Double.pi,
-        color: UIColor(red: 173 / 255, green: 189 / 255, blue: 101 / 255, alpha: 1)
+        color: Color.current.calls.blobs.blueYellowColors[1]
     )
-    private lazy var backgroundLayer = BaseLayer(color: UIColor(red: 87 / 255, green: 158 / 255, blue: 135 / 255, alpha: 1))
+    private lazy var backgroundLayer = BaseLayer(color: Color.current.calls.background.greenColor)
     
     private lazy var size = CGRect(x: .zero, y: .zero, width: frame.height + 50, height: frame.height + 50)
     

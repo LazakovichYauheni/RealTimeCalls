@@ -82,7 +82,7 @@ final class ContentableView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.font = Fonts.Regular.regular25
         label.textAlignment = .center
         label.text = Texts.callingName
@@ -290,7 +290,7 @@ final class ContentableView: UIView {
         )
 
         // Fill the circle.
-        mask.fillColor = UIColor.black.cgColor
+        mask.fillColor = Color.current.background.blackColor.cgColor
 
         // Add as a mask to the parent layer.
         view.layer.mask = mask

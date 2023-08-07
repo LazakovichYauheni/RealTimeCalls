@@ -44,18 +44,12 @@ extension UIView {
         gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
         gradient.endPoint = CGPoint(x: 0.5, y: 0.0)
         gradient.type = .conic
-        gradient.colors = [
-            UIColor(red: 73 / 255, green: 139 / 255, blue: 235 / 255, alpha: 1).cgColor,
-            UIColor(red: 63 / 255, green: 187 / 255, blue: 89 / 255, alpha: 1).cgColor,
-            UIColor(red: 232 / 255, green: 182 / 255, blue: 1 / 255, alpha: 1).cgColor,
-            UIColor(red: 209 / 255, green: 52 / 255, blue: 43 / 255, alpha: 1).cgColor,
-            UIColor(red: 73 / 255, green: 139 / 255, blue: 235 / 255, alpha: 1).cgColor
-        ]
+        gradient.colors = Color.current.google.googleColors.compactMap { $0.cgColor }
 
         let shape = CAShapeLayer()
         shape.lineWidth = 2
         shape.path = path.cgPath
-        shape.strokeColor = UIColor.black.cgColor
+        shape.strokeColor = Color.current.background.blackColor.cgColor
         shape.fillColor = UIColor.clear.cgColor
         gradient.mask = shape
 

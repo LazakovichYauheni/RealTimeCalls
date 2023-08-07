@@ -14,14 +14,14 @@ protocol BottomCloseButtonDelegate: AnyObject {
 
 public final class BottomCloseButton: UIView {
     weak var delegate: BottomCloseButtonDelegate?
-    let secondLayer = BottomButtonLayer(color: UIColor.white)
+    let secondLayer = BottomButtonLayer(color: Color.current.background.whiteColor)
     
     let maskLayer = CAShapeLayer()
     
     let backgroundLabel: UILabel = {
         let label = UILabel()
         label.text = Texts.buttonClose
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.textAlignment = .center
         return label
     }()
@@ -29,7 +29,7 @@ public final class BottomCloseButton: UIView {
     let secondLabel: UILabel = {
         let label = UILabel()
         label.text = Texts.buttonClose
-        label.textColor = UIColor(red: 170 / 255, green: 126 / 255, blue: 225 / 255, alpha: 1)
+        label.textColor = Color.current.text.lightPurpleColor
         label.textAlignment = .center
         return label
     }()
@@ -38,7 +38,7 @@ public final class BottomCloseButton: UIView {
         super.init(frame: frame)
         clipsToBounds = true
         layer.cornerRadius = spacer.space16
-        backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        backgroundColor = Color.current.background.white.alpha20
         
         addSubview(backgroundLabel)
         backgroundLabel.snp.makeConstraints { make in
@@ -47,7 +47,7 @@ public final class BottomCloseButton: UIView {
         
         secondLayer.addSublayer(secondLabel.layer)
         
-        maskLayer.fillColor = UIColor.white.cgColor
+        maskLayer.fillColor = Color.current.background.whiteColor.cgColor
         
         layer.addSublayer(secondLayer)
         secondLayer.mask = maskLayer

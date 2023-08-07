@@ -15,7 +15,7 @@ private extension Spacer {
 public final class ToastView: UIView {
     private lazy var label: UILabel = {
        let label = UILabel()
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.textAlignment = .center
         label.font = Fonts.Regular.regular15
         label.text = "Weak network signal"
@@ -27,7 +27,7 @@ public final class ToastView: UIView {
         super.init(frame: .zero)
         
         addSubview(label)
-        backgroundColor = Colors.whiteColorWithAlpha020
+        backgroundColor = Color.current.background.white.alpha20
         layer.cornerRadius = spacer.space15
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(spacer.space6)

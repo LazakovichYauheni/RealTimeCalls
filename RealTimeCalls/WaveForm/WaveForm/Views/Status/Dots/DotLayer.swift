@@ -17,7 +17,7 @@ public final class DotLayer: CAShapeLayer {
         
         bounds = CGRect(origin: .zero, size: CGSize(width: radius * 2, height: radius * 2))
         path = UIBezierPath(roundedRect: bounds, cornerRadius: radius).cgPath
-        fillColor = UIColor.white.cgColor
+        fillColor = Color.current.background.whiteColor.cgColor
     }
     
     required init?(coder: NSCoder) {

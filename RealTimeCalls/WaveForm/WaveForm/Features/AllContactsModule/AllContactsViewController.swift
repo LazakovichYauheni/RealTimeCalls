@@ -14,7 +14,7 @@ final class AllContactsViewController: UIViewController {
             make.size.equalTo(spacer.space24)
         }
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addUser)))
-        imageView.image = Images.addImage.withTintColor(UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1))
+        imageView.image = Images.addImage.withTintColor(Color.current.text.lightBlueColor)
         
         let item = UIBarButtonItem(customView: imageView)
         return item
@@ -37,9 +37,9 @@ final class AllContactsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         setNavigationBarTint(
             with: UIViewController.NavigationBarConfiguration(
-                tintColor: .black,
-                barTintColor: UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1),
-                textColor: .black,
+                tintColor: Color.current.background.blackColor,
+                barTintColor: Color.current.background.mainColor,
+                textColor: Color.current.text.blackColor,
                 isTranslucent: true,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()
@@ -61,7 +61,7 @@ final class AllContactsViewController: UIViewController {
         let floatingController = FloatingPanelController()
         let surfaceAppearance = SurfaceAppearance()
         let layout = FloatingLayout()
-        surfaceAppearance.backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        surfaceAppearance.backgroundColor = Color.current.background.mainColor
         surfaceAppearance.shadows = []
         surfaceAppearance.cornerRadius = 16
         floatingController.surfaceView.appearance = surfaceAppearance

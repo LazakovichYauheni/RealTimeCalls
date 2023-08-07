@@ -21,7 +21,7 @@ public final class FilterView: UIView {
     private lazy var selectedContainer: UIView = {
         let container = UIView()
         container.layer.cornerRadius = spacer.space12
-        container.backgroundColor = .white
+        container.backgroundColor = Color.current.background.whiteColor
         return container
     }()
     
@@ -44,7 +44,7 @@ public final class FilterView: UIView {
     private lazy var rightTitle: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium13
-        label.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+        label.textColor = Color.current.text.secondaryColor
         label.textAlignment = .center
         label.text = "Phone number"
         return label
@@ -64,7 +64,7 @@ public final class FilterView: UIView {
     
     private func initialize() {
         layer.cornerRadius = spacer.space12
-        backgroundColor = UIColor(red: 216 / 255, green: 226 / 255, blue: 235 / 255, alpha: 1)
+        backgroundColor = Color.current.background.lightGrayColor
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didViewTapped)))
         addSubviews()
         makeConstraints()
@@ -121,8 +121,8 @@ extension FilterView {
             switch viewModel.filterState {
             case .username:
                 UIView.animate(withDuration: 0.1, delay: .zero) {
-                    self.leftTitle.textColor = .black
-                    self.rightTitle.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+                    self.leftTitle.textColor = Color.current.text.blackColor
+                    self.rightTitle.textColor = Color.current.text.secondaryColor
                     self.selectedContainer.snp.remakeConstraints { make in
                         make.top.bottom.equalToSuperview().inset(6)
                         make.leading.equalToSuperview().inset(6)
@@ -132,8 +132,8 @@ extension FilterView {
                 }
             case .phoneNumber:
                 UIView.animate(withDuration: 0.1, delay: .zero) {
-                    self.rightTitle.textColor = .black
-                    self.leftTitle.textColor = UIColor(red: 136 / 255, green: 153 / 255, blue: 168 / 255, alpha: 1)
+                    self.rightTitle.textColor = Color.current.text.blackColor
+                    self.leftTitle.textColor = Color.current.text.secondaryColor
                     self.selectedContainer.snp.remakeConstraints { make in
                         make.top.bottom.equalToSuperview().inset(6)
                         make.trailing.equalToSuperview().inset(6)

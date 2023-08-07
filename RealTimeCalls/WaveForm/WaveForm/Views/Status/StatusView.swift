@@ -11,7 +11,7 @@ import SnapKit
 public final class StatusView: UIView, StatusProtocol {
     private lazy var titleLabel: CubeLabel = {
         let label = CubeLabel()
-        label.textColor = .white
+        label.textColor = Color.current.text.whiteColor
         label.font = Fonts.Regular.regular15
         label.textAlignment = .center
         return label

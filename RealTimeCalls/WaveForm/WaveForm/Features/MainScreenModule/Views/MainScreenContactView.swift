@@ -14,7 +14,7 @@ public final class MainScreenContactView: UIView {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium16
-        label.textColor = UIColor(red: 46 / 255, green: 46 / 255, blue: 46 / 255, alpha: 1)
+        label.textColor = Color.current.text.darkGrayColor
         return label
     }()
 
@@ -35,7 +35,7 @@ public final class MainScreenContactView: UIView {
     private func commonInit() {
         addSubviews()
         makeConstraints()
-        backgroundColor = .white
+        backgroundColor = Color.current.background.whiteColor
         layer.cornerRadius = spacer.space16
     }
 

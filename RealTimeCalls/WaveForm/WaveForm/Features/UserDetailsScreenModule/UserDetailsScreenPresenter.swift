@@ -25,7 +25,7 @@ extension UserDetailsScreenPresenter {
                         viewModels: [
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
                                 image: UIImage(named: "block")?.withTintColor(
-                                    UIColor(red: 191 / 255, green: 88 / 255, blue: 88 / 255, alpha: 1)
+                                    Color.current.background.dangerColor
                                 ) ?? UIImage()
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(

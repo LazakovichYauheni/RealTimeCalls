@@ -65,7 +65,7 @@ extension StartViewController: WebSocketWorkerOutputProtocol {
             }
             banner.show(
                 cornerRadius: self.spacer.space12,
-                shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04),
+                shadowColor: Color.current.background.shadowColor,
                 shadowBlurRadius: self.spacer.space16
             )
         }

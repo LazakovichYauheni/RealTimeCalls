@@ -154,7 +154,7 @@ extension LoginInteractor {
                     self.presenter.present(
                         didEndEditing: false,
                         state: self.isUsernameStateSelected ? .username : .phoneNumber,
-                        firstFieldText: self.isUsernameStateSelected ? usernameText : phoneText,
+                        firstFieldText: self.isUsernameStateSelected ? self.usernameText : self.phoneText,
                         passwordText: self.passwordText,
                         isInvalidCredentials: true
                     )

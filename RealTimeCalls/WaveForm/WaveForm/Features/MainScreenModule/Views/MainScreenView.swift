@@ -36,7 +36,7 @@ public final class MainScreenView: UIView {
         let label = UILabel()
         label.font = Fonts.Medium.medium24
         label.text = "Favorites"
-        label.textColor = .black
+        label.textColor = Color.current.text.blackColor
         return label
     }()
     
@@ -64,14 +64,14 @@ public final class MainScreenView: UIView {
         let label = UILabel()
         label.font = Fonts.Medium.medium24
         label.text = "Recent"
-        label.textColor = .black
+        label.textColor = Color.current.text.blackColor
         return label
     }()
     
     private lazy var allContactsLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Regular.regular18
-        label.textColor = UIColor(red: 0 / 255, green: 143 / 255, blue: 219 / 255, alpha: 1)
+        label.textColor = Color.current.text.lightBlueColor
         label.isUserInteractionEnabled = true
         label.text = "All"
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(allContactsTapped)))
@@ -95,7 +95,7 @@ public final class MainScreenView: UIView {
     }
     
     private func initialize() {
-        backgroundColor = UIColor(red: 235 / 255, green: 241 / 255, blue: 245 / 255, alpha: 1)
+        backgroundColor = Color.current.background.mainColor
         addSubviews()
         makeConstraints()
     }

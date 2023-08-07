@@ -11,7 +11,7 @@ import SnapKit
 public final class TimerView: UIView {
     private lazy var label: UILabel = {
        let uiLabel = UILabel()
-        uiLabel.textColor = .white
+        uiLabel.textColor = Color.current.text.whiteColor
         uiLabel.textAlignment = .center
         uiLabel.font = Fonts.Regular.regular15
         return uiLabel
