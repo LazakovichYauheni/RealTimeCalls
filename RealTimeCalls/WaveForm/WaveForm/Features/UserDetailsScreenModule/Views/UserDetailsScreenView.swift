@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var imageHeightMultiplier: CGFloat { 0.64 }
+}
+
 public final class UserDetailsScreenView: UIView {
     // MARK: - Subview Properties
     
@@ -44,7 +48,7 @@ public final class UserDetailsScreenView: UIView {
     private func makeConstraints() {
         headerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.64)
+            make.height.equalToSuperview().multipliedBy(spacer.imageHeightMultiplier)
         }
         
         contentView.snp.makeConstraints { make in

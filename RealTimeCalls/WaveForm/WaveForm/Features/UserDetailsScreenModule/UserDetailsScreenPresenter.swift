@@ -12,27 +12,25 @@ extension UserDetailsScreenPresenter {
                     userImage: data.image,
                     mainActions: [
                         ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
-                            image: UIImage(named: "call") ?? UIImage()
+                            image: Images.statusEndImage
                         ),
                         ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
-                            image: UIImage(named: "video") ?? UIImage()
+                            image: Images.videoImage
                         ),
                         ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel(
-                            image: UIImage(named: "maskStar") ?? UIImage()
+                            image: Images.maskStarImage
                         )
                     ],
                     additionalActionsViewModel: UserActionsView.ViewModel(
                         viewModels: [
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: UIImage(named: "block")?.withTintColor(
-                                    Color.current.background.dangerColor
-                                ) ?? UIImage()
+                                image: Images.blockImage.withTintColor(Color.current.background.dangerColor)
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: UIImage(named: "qr")?.withTintColor(data.buttonBackground) ?? UIImage()
+                                image: Images.qrImage.withTintColor(data.buttonBackground)
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: UIImage(named: "edit")?.withTintColor(data.buttonBackground) ?? UIImage()
+                                image: Images.editImagee.withTintColor(data.buttonBackground)
                             )
                         ],
                         closeButtonBackground: data.buttonBackground

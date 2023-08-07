@@ -2,6 +2,10 @@ import UIKit
 import SnapKit
 import AudioToolbox
 
+private extension Spacer {
+    var viewSize: CGFloat { 32 }
+}
+
 public final class UserActionsView: UIView {
     // MARK: - Subview Properties
     
@@ -9,23 +13,21 @@ public final class UserActionsView: UIView {
         let view = UIView()
         view.blur(blurStyle: .light)
         view.clipsToBounds = true
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = spacer.space20
         return view
     }()
 
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = -16
+        stack.spacing = -spacer.space16
         stack.distribution = .fillEqually
         return stack
     }()
     
     private lazy var closeView: ImageFillerView<SmallGrayWithoutAlphaFillerViewStyle> = {
         let view = ImageFillerView<SmallGrayWithoutAlphaFillerViewStyle>()
-        view.configure(with: .init(
-            image: UIImage(named: "closeButton")?.withTintColor(Color.current.background.whiteColor) ?? UIImage())
-        )
+        view.configure(with: .init(image: Images.closeImage.withTintColor(Color.current.background.whiteColor)))
         view.isHidden = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeTapped)))
         return view
@@ -75,34 +77,33 @@ public final class UserActionsView: UIView {
         viewModels.forEach { viewModel in
             let view = ImageFillerView<SmallWhiteFillerViewStyle>()
             view.snp.makeConstraints { make in
-                make.size.equalTo(CGSize(width: 32, height: 32))
+                make.size.equalTo(spacer.viewSize)
             }
             view.configure(with: viewModel)
             stackView.addArrangedSubview(view)
         }
         
         closeView.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 32, height: 32))
+            make.size.equalTo(spacer.viewSize)
         }
         stackView.addArrangedSubview(closeView)
         
         stackView.snp.remakeConstraints { make in
-            make.edges.equalToSuperview().inset(4)
-            make.width.equalTo(32)
-            make.height.equalTo(16 + viewModels.count * 16)
+            make.edges.equalToSuperview().inset(spacer.space4)
+            make.width.equalTo(spacer.space32)
+            make.height.equalTo(spacer.space16 + CGFloat(viewModels.count) * spacer.space16)
         }
     }
     
     private func changeViewToExpanded() {
         let newHeight = 32 + self.viewModels.count * 32 + self.viewModels.count * 12
 
-
         UIView.animate(withDuration: 0.15, delay: .zero, options: .curveEaseIn, animations: {
             self.closeView.isHidden = false
             self.closeView.rotate(duration: 0.4)
-            self.stackView.spacing = 12
+            self.stackView.spacing = self.spacer.space12
             self.stackView.snp.updateConstraints { make in
-                make.edges.equalToSuperview().inset(6)
+                make.edges.equalToSuperview().inset(self.spacer.space6)
                 make.height.equalTo(newHeight)
             }
             self.layoutIfNeeded()
@@ -116,10 +117,10 @@ public final class UserActionsView: UIView {
     private func changeViewToCollapsed() {
         UIView.animate(withDuration: 0.15, delay: .zero, options: .curveEaseOut) {
             self.closeView.isHidden = true
-            self.stackView.spacing = -16
+            self.stackView.spacing = -self.spacer.space16
             self.stackView.snp.updateConstraints { make in
-                make.edges.equalToSuperview().inset(4)
-                make.height.equalTo(16 + self.viewModels.count * 16)
+                make.edges.equalToSuperview().inset(self.spacer.space4)
+                make.height.equalTo(self.spacer.space16 + CGFloat(self.viewModels.count) * self.spacer.space16)
             }
             self.layoutIfNeeded()
         }

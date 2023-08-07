@@ -71,13 +71,13 @@ public final class MainScreenViewController: UIViewController {
     @objc private func notificationTapped() {
         let notificationViewController = NotificationsViewController(viewModels: [
             NotificationsTableViewCell.ViewModel(alertViewModel: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
-                icon: UIImage(named: "call") ?? UIImage(),
+                icon: Images.statusEndImage,
                 title: "Ty",
                 description: "Pidor",
                 actions: []
             )),
             NotificationsTableViewCell.ViewModel(alertViewModel: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
-                icon: UIImage(named: "call") ?? UIImage(),
+                icon: Images.statusEndImage,
                 title: "Ty",
                 description: "Pidor",
                 actions: []

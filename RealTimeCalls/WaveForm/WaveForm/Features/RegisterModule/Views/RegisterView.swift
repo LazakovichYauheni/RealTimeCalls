@@ -7,6 +7,10 @@
 
 import UIKit
 
+private extension Spacer {
+    var space70: CGFloat { 70 }
+}
+
 public protocol RegisterViewEventsRespondable {
     func registerTapped()
     func googleTapped()
@@ -26,7 +30,7 @@ public final class RegisterView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium24
-        label.textColor = .black
+        label.textColor = Color.current.text.blackColor
         return label
     }()
     
@@ -121,16 +125,16 @@ public final class RegisterView: UIView {
         }
         
         registerButton.snp.makeConstraints { make in
-            make.top.equalTo(fieldsView.snp.bottom).offset(70)
+            make.top.equalTo(fieldsView.snp.bottom).offset(spacer.space70)
             make.leading.trailing.equalToSuperview().inset(spacer.space16)
-            make.height.equalTo(60)
+            make.height.equalTo(spacer.space60)
         }
         
         googleButton.snp.makeConstraints { make in
-            make.top.equalTo(registerButton.snp.bottom).offset(16)
+            make.top.equalTo(registerButton.snp.bottom).offset(spacer.space16)
             make.leading.trailing.equalToSuperview().inset(spacer.space16)
-            make.bottom.equalToSuperview().inset(60)
-            make.height.equalTo(60)
+            make.bottom.equalToSuperview().inset(spacer.space60)
+            make.height.equalTo(spacer.space60)
         }
     }
     

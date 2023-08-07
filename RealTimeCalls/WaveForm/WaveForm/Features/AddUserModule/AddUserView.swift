@@ -1,6 +1,11 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space54: CGFloat { 54 }
+    var iconImageSize: CGFloat { 120 }
+}
+
 /// View для заполнения иконок с фоном
 public final class AddUserView: UIView {
     // MARK: - Subview Properties
@@ -21,7 +26,7 @@ public final class AddUserView: UIView {
     private lazy var textField: FloatingTextFieldView = {
         let field = FloatingTextFieldView()
         field.clipsToBounds = true
-        field.layer.cornerRadius = 12
+        field.layer.cornerRadius = spacer.space12
         field.backgroundColor = Color.current.background.whiteColor
         return field
     }()
@@ -54,22 +59,22 @@ public final class AddUserView: UIView {
 
     private func makeConstraints() {
         iconImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(32)
+            make.top.equalToSuperview().inset(spacer.space32)
             make.centerX.equalToSuperview()
-            make.size.equalTo(120)
+            make.size.equalTo(spacer.iconImageSize)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(iconImageView.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(iconImageView.snp.bottom).offset(spacer.space20)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
             make.centerX.equalToSuperview()
         }
         
         textField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(54)
-            make.height.equalTo(56)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space24)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.bottom.equalToSuperview().inset(spacer.space54)
+            make.height.equalTo(spacer.space56)
         }
     }
 }

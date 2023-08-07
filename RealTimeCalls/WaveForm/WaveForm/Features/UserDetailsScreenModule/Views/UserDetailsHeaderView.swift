@@ -1,6 +1,12 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space44: CGFloat { 44 }
+    var space100: CGFloat { 100 }
+    var spacing: CGFloat { ((UIScreen.main.bounds.width - 122) - (3 * 48)) / 2 }
+}
+
 /// View для заполнения иконок с фоном
 public final class UserDetailsHeaderView: UIView {
     // MARK: - Subview Properties
@@ -20,7 +26,7 @@ public final class UserDetailsHeaderView: UIView {
     private lazy var mainActionsContainerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 28
+        view.layer.cornerRadius = spacer.space28
         view.blur(blurStyle: .light)
         return view
     }()
@@ -29,7 +35,7 @@ public final class UserDetailsHeaderView: UIView {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .fillEqually
-        stack.spacing = -48
+        stack.spacing = -spacer.space48
         return stack
     }()
 
@@ -46,13 +52,12 @@ public final class UserDetailsHeaderView: UIView {
     }
     
     func updateMainActionsStack() {
-        let spacing = ((UIScreen.main.bounds.width - 122) - (3 * 48)) / 2
         UIView.animate(withDuration: 0.2, delay: .zero, options: .curveEaseOut) {
-            self.mainActionsStackView.spacing = spacing
+            self.mainActionsStackView.spacing = self.spacer.spacing
             self.mainActionsContainerView.snp.remakeConstraints { make in
-                make.bottom.equalToSuperview().inset(44)
-                make.leading.equalToSuperview().inset(10)
-                make.trailing.equalToSuperview().inset(100)
+                make.bottom.equalToSuperview().inset(self.spacer.space44)
+                make.leading.equalToSuperview().inset(self.spacer.space10)
+                make.trailing.equalToSuperview().inset(self.spacer.space100)
             }
             self.layoutIfNeeded()
         }
@@ -81,18 +86,18 @@ public final class UserDetailsHeaderView: UIView {
         }
         
         additionalActionsView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(44)
-            make.trailing.equalToSuperview().inset(28)
+            make.bottom.equalToSuperview().inset(spacer.space44)
+            make.trailing.equalToSuperview().inset(spacer.space28)
         }
         
         mainActionsContainerView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(44)
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.lessThanOrEqualToSuperview().inset(100)
+            make.bottom.equalToSuperview().inset(spacer.space44)
+            make.leading.equalToSuperview().inset(spacer.space10)
+            make.trailing.lessThanOrEqualToSuperview().inset(spacer.space100)
         }
         
         mainActionsStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(6)
+            make.edges.equalToSuperview().inset(spacer.space6)
         }
     }
     

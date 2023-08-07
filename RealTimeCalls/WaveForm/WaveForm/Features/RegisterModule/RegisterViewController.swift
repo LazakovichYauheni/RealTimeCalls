@@ -31,9 +31,9 @@ public final class RegisterViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         setNavigationBarTint(
             with: UIViewController.NavigationBarConfiguration(
-                tintColor: .black,
+                tintColor: Color.current.background.blackColor,
                 barTintColor: Color.current.background.mainColor,
-                textColor: .black,
+                textColor: Color.current.text.blackColor,
                 isTranslucent: false,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()

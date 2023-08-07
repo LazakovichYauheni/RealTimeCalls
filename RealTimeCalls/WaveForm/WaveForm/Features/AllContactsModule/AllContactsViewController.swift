@@ -63,7 +63,7 @@ final class AllContactsViewController: UIViewController {
         let layout = FloatingLayout()
         surfaceAppearance.backgroundColor = Color.current.background.mainColor
         surfaceAppearance.shadows = []
-        surfaceAppearance.cornerRadius = 16
+        surfaceAppearance.cornerRadius = spacer.space16
         floatingController.surfaceView.appearance = surfaceAppearance
         floatingController.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         floatingController.layout = layout

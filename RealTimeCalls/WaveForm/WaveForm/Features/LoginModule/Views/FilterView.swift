@@ -35,7 +35,7 @@ public final class FilterView: UIView {
     private lazy var leftTitle: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium13
-        label.textColor = .black
+        label.textColor = Color.current.text.blackColor
         label.textAlignment = .center
         label.text = "Username"
         return label

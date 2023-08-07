@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+private extension Spacer {
+    var space52: CGFloat { 52 }
+}
+
 protocol UserDetailsContentViewEventsRespondable: AnyObject {
     func didCloseButtonTapped()
 }
@@ -59,7 +63,7 @@ public final class UserDetailsContentView: UIView {
     // MARK: - Private Methods
 
     private func commonInit() {
-        layer.cornerRadius = 18
+        layer.cornerRadius = spacer.space18
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         addSubviews()
         makeConstraints()
@@ -75,8 +79,8 @@ public final class UserDetailsContentView: UIView {
 
     private func makeConstraints() {
         textContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(30)
-            make.leading.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(spacer.space30)
+            make.leading.equalToSuperview().inset(spacer.space16)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -84,18 +88,18 @@ public final class UserDetailsContentView: UIView {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space4)
             make.leading.trailing.equalToSuperview()
         }
         
         noticeLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(36)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(spacer.space36)
             make.bottom.leading.trailing.equalToSuperview()
         }
         
         closeButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(52)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(spacer.space52)
+            make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
     }
     

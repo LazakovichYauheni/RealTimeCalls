@@ -24,7 +24,7 @@ public final class RegisterFieldsView: UIView {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = spacer.space12
-        textFieldView.backgroundColor = .white
+        textFieldView.backgroundColor = Color.current.background.whiteColor
         return textFieldView
     }()
     
@@ -32,7 +32,7 @@ public final class RegisterFieldsView: UIView {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = spacer.space12
-        textFieldView.backgroundColor = .white
+        textFieldView.backgroundColor = Color.current.background.whiteColor
         return textFieldView
     }()
     
@@ -40,7 +40,7 @@ public final class RegisterFieldsView: UIView {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = spacer.space12
-        textFieldView.backgroundColor = .white
+        textFieldView.backgroundColor = Color.current.background.whiteColor
         return textFieldView
     }()
     
@@ -48,7 +48,7 @@ public final class RegisterFieldsView: UIView {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = spacer.space12
-        textFieldView.backgroundColor = .white
+        textFieldView.backgroundColor = Color.current.background.whiteColor
         return textFieldView
     }()
     
@@ -56,7 +56,7 @@ public final class RegisterFieldsView: UIView {
         let textFieldView = FloatingTextFieldView()
         textFieldView.clipsToBounds = true
         textFieldView.layer.cornerRadius = spacer.space12
-        textFieldView.backgroundColor = .white
+        textFieldView.backgroundColor = Color.current.background.whiteColor
         return textFieldView
     }()
     
