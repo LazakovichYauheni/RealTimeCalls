@@ -12,12 +12,12 @@ protocol MainScreenAssemblyProtocol {
 }
 
 public final class MainScreenAssembly {
-    func assemble(username: String, token: String) -> MainScreenViewController {
+    func assemble() -> MainScreenViewController {
         let presenter = MainScreenPresenter()
         let requestManager = RequestManager()
         let endpointConfig = EndpointConfig()
         let service = UserService(requestManager: requestManager, endpointConfig: endpointConfig)
-        let interactor = MainScreenInteractor(presenter: presenter, service: service, username: username, token: token)
+        let interactor = MainScreenInteractor(presenter: presenter, service: service)
 
         let viewController = MainScreenViewController(interactor: interactor)
         presenter.viewController = viewController

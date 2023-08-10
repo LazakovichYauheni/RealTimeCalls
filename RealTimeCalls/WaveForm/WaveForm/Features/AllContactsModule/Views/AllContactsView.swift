@@ -26,7 +26,12 @@ public final class AllContactsView: UIView {
         return table
     }()
     
-    private lazy var alertView = AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>()
+    private lazy var emptyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.noContactsImage
+        imageView.isHidden = true
+        return imageView
+    }()
     
     // MARK: - Private Properties
     
@@ -55,18 +60,17 @@ public final class AllContactsView: UIView {
 
     private func addSubviews() {
         addSubview(tableView)
-        addSubview(alertView)
+        addSubview(emptyImageView)
     }
 
     private func makeConstraints() {
         tableView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
-        alertView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom).offset(spacer.space32)
-            make.leading.trailing.equalToSuperview().inset(spacer.space16)
-            make.bottom.greaterThanOrEqualToSuperview()
+        emptyImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(150)
         }
     }
 }
@@ -80,17 +84,10 @@ extension AllContactsView {
 
     public func configure(with viewModel: ViewModel) {
         tableViewModels = viewModel.tableViewModels
-        alertView.configure(
-            with: AlertView<SmallGreenFillerViewStyle, DefaultAlertViewStyle>.ViewModel(
-                icon: Images.endCallImage,
-                title: "Privet",
-                description: "Drug",
-                actions: [
-                    AlertButtonModel(background: .blue, title: "Add"),
-                    AlertButtonModel(background: .red, title: "Decline")
-                ]
-            )
-        )
+        if viewModel.tableViewModels.isEmpty {
+            tableView.isHidden = true
+            emptyImageView.isHidden = false
+        }
     }
 }
 

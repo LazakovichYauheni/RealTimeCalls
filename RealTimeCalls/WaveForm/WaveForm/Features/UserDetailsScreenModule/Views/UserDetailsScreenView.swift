@@ -23,11 +23,6 @@ public final class UserDetailsScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let view = super.hitTest(point, with: event)
-        return view
-    }
     
     func updateMainActions() {
         headerView.updateMainActionsStack()
@@ -52,7 +47,7 @@ public final class UserDetailsScreenView: UIView {
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).inset(spacer.space20)
+            make.top.equalTo(headerView.snp.bottom).offset(-spacer.space20)
             make.bottom.leading.trailing.equalToSuperview()
         }
     }

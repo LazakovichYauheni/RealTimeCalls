@@ -56,9 +56,9 @@ final class AllContactsViewController: UIViewController {
     required init?(coder: NSCoder) { nil }
     
     @objc private func addUser() {
-        let addUserViewController = AddUserViewController()
+        let addUserViewController = AddUserAssembly().assemble()
         
-        let floatingController = FloatingPanelController()
+        let floatingController = AddContactFloatingController()
         let surfaceAppearance = SurfaceAppearance()
         let layout = FloatingLayout()
         surfaceAppearance.backgroundColor = Color.current.background.mainColor
@@ -67,6 +67,8 @@ final class AllContactsViewController: UIViewController {
         floatingController.surfaceView.appearance = surfaceAppearance
         floatingController.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         floatingController.layout = layout
+        
+        addUserViewController.setObserver(floatingController)
         
         floatingController.set(contentViewController: addUserViewController)
         navigationController?.present(floatingController, animated: true)
@@ -86,9 +88,9 @@ extension AllContactsViewController {
                 infoMessage: contact.firstName,
                 image: Images.girlImage,
                 callImage:Images.girlImage,
-                isNeedToShowBorder: false,
-                backgroundColor: UIColor(hue: 0.5, saturation: 0.44, brightness: 0.76, alpha: 1),
-                buttonBackground: UIColor(hue: 0.5, saturation: 0.44, brightness: 0.59, alpha: 1)
+                gradientColors: [],
+                detailsBackgroundColor: .black,
+                detailsButtonBackgroundColor: .white
             ),
             from: self,
             duration: 0.2
@@ -104,13 +106,37 @@ extension AllContactsViewController: AllContactsViewEventsRespondable {
     }
 }
 
-class FloatingLayout: FloatingPanelLayout {
-    public let position: FloatingPanelPosition = .bottom
-    public let initialState: FloatingPanelState = .full
+protocol FloatingObservable {
+    func updateHeight(height: CGFloat)
+    func track(scrollView: UIScrollView)
+}
 
-    public var anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] {
-        [.full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: .zero)]
+class AddContactFloatingController: FloatingPanelController, FloatingObservable {
+    func updateHeight(height: CGFloat) {
+        let panelLayout = FloatingLayout()
+        panelLayout.updateState(height: height)
+        layout = panelLayout
+        UIView.animate(withDuration: 0.3) {
+            self.invalidateLayout()
+        }
     }
+    
+    func trackScroll(scrollView: UIScrollView) {
+        track(scrollView: scrollView)
+    }
+}
+
+class FloatingLayout: FloatingPanelLayout {
+    public var position: FloatingPanelPosition = .bottom
+    public var initialState: FloatingPanelState = .full
+    
+    func updateState(height: CGFloat) {
+        anchors[.full] = FloatingPanelLayoutAnchor(absoluteInset: height, edge: .bottom, referenceGuide: .superview)
+    }
+
+    var anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
+        .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: .zero)
+    ]
     
     public func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
         0.7

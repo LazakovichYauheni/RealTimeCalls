@@ -137,7 +137,7 @@ extension LoginInteractor {
             let password = passwordText,
             username == "admin",
             password == "admin" {
-            presenter.presentMainScreen(username: username, token: "")
+            presenter.presentMainScreen()
         } else {
             guard
                 let username = isUsernameStateSelected ? usernameText : phoneText,
@@ -147,9 +147,9 @@ extension LoginInteractor {
             service.login(userName: username, password: password) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case let .success(model):
-                    self.presenter.presentMainScreen(username: username, token: model.token)
-                case let .failure(error):
+                case .success:
+                    self.presenter.presentMainScreen()
+                case .failure:
                     self.isInvalidCredentials = true
                     self.presenter.present(
                         didEndEditing: false,
@@ -159,6 +159,17 @@ extension LoginInteractor {
                         isInvalidCredentials: true
                     )
                 }
+            }
+        }
+    }
+    
+    func obtainLoginByGoogle(idToken: String) {
+        service.login(idToken: idToken) { [weak self] result in
+            switch result {
+            case .success:
+                self?.presenter.presentMainScreen()
+            case let .failure(error):
+                print(error)
             }
         }
     }

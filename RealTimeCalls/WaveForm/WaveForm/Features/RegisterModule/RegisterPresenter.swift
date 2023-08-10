@@ -152,14 +152,14 @@ extension RegisterPresenter {
     
     private func checkIsRegisterButtonEnabled(username: String?, password: String?, phone: String?) -> Bool {
         guard
-            let username = username,
-            let password = password,
-            let phone = phone
+            let username = username?.replacingOccurrences(of: " ", with: ""),
+            let password = password?.replacingOccurrences(of: " ", with: ""),
+            let phone = phone?.replacingOccurrences(of: " ", with: "")
         else { return false }
         return !username.isEmpty && !password.isEmpty && !phone.isEmpty
     }
     
-    func presentMainScreen(username: String, token: String) {
-        viewController?.displayMainScreen(username: username, token: token)
+    func presentMainScreen() {
+        viewController?.displayMainScreen()
     }
 }

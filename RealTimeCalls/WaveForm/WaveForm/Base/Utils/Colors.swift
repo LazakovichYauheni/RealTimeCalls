@@ -51,6 +51,10 @@ public class Color {
         public let dangerColor: UIColor
         public let errorColor: UIColor
         public let shadowColor: UIColor
+        public let gradientBackgroundFirstColors: [UIColor]
+        public let gradientBackgroundSecondColors: [UIColor]
+        public let detailsBackgroundColors: [UIColor]
+        public let detailsButtonBackgroundColors: [UIColor]
         public let white: White
         
         public init(
@@ -66,6 +70,10 @@ public class Color {
             dangerColor: UIColor,
             errorColor: UIColor,
             shadowColor: UIColor,
+            gradientBackgroundFirstColors: [UIColor],
+            gradientBackgroundSecondColors: [UIColor],
+            detailsBackgroundColors: [UIColor],
+            detailsButtonBackgroundColors: [UIColor],
             white: White
         ) {
             self.mainColor = mainColor
@@ -80,6 +88,10 @@ public class Color {
             self.dangerColor = dangerColor
             self.errorColor = errorColor
             self.shadowColor = shadowColor
+            self.gradientBackgroundFirstColors = gradientBackgroundFirstColors
+            self.gradientBackgroundSecondColors = gradientBackgroundSecondColors
+            self.detailsBackgroundColors = detailsBackgroundColors
+            self.detailsButtonBackgroundColors = detailsButtonBackgroundColors
             self.white = white
         }
     }
@@ -205,6 +217,34 @@ extension Color {
             dangerColor: UIColor(red: 191 / 255, green: 88 / 255, blue: 88 / 255, alpha: 1),
             errorColor: UIColor(red: 224 / 255, green: 37 / 255, blue: 68 / 255, alpha: 1),
             shadowColor: UIColor(red: 0, green: 31 / 255, blue: 61 / 255, alpha: 0.04),
+            gradientBackgroundFirstColors: [
+                UIColor(red: 222 / 255, green: 131 / 255, blue: 245 / 255, alpha: 1),
+                UIColor(red: 131 / 255, green: 245 / 255, blue: 231 / 255, alpha: 1),
+                UIColor(red: 243 / 255, green: 206 / 255, blue: 109 / 255, alpha: 1),
+                UIColor(red: 255 / 255, green: 95 / 255, blue: 229 / 255, alpha: 1),
+                UIColor(red: 131 / 255, green: 245 / 255, blue: 142 / 255, alpha: 1)
+            ],
+            gradientBackgroundSecondColors: [
+                UIColor(red: 69 / 255, green: 60 / 255, blue: 171 / 255, alpha: 1),
+                UIColor(red: 69 / 255, green: 60 / 255, blue: 171 / 255, alpha: 1),
+                UIColor(red: 155 / 255, green: 37 / 255, blue: 94 / 255, alpha: 1),
+                UIColor(red: 46 / 255, green: 198 / 255, blue: 219 / 255, alpha: 1),
+                UIColor(red: 60 / 255, green: 138 / 255, blue: 171 / 255, alpha: 1)
+            ],
+            detailsBackgroundColors: [
+                UIColor(red: 97 / 255, green: 49 / 255, blue: 175 / 255, alpha: 1),
+                UIColor(red: 51 / 255, green: 94 / 255, blue: 163 / 255, alpha: 1),
+                UIColor(red: 167 / 255, green: 70 / 255, blue: 75 / 255, alpha: 1),
+                UIColor(red: 46 / 255, green: 113 / 255, blue: 176 / 255, alpha: 1),
+                UIColor(red: 52 / 255, green: 155 / 255, blue: 136 / 255, alpha: 1)
+            ],
+            detailsButtonBackgroundColors: [
+                UIColor(red: 68 / 255, green: 35 / 255, blue: 121 / 255, alpha: 1),
+                UIColor(red: 35 / 255, green: 76 / 255, blue: 141 / 255, alpha: 1),
+                UIColor(red: 150 / 255, green: 49 / 255, blue: 55 / 255, alpha: 1),
+                UIColor(red: 36 / 255, green: 83 / 255, blue: 126 / 255, alpha: 1),
+                UIColor(red: 27 / 255, green: 121 / 255, blue: 104 / 255, alpha: 1)
+            ],
             white: Background.White(
                 alpha0: UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 0),
                 alpha16: UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 0.16),

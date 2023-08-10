@@ -22,4 +22,9 @@ public enum Images {
     static let blockImage = UIImage(named: "block") ?? UIImage()
     static let qrImage =  UIImage(named: "qr") ?? UIImage()
     static let editImagee = UIImage(named: "edit") ?? UIImage()
+    static let successImage = UIImage(named: "success") ?? UIImage()
+    static let addUserImage = UIImage(named: "addUser") ?? UIImage()
+    static let noContactsImage = UIImage(named: "noContacts") ?? UIImage()
+    static let noFavorites = UIImage(named: "noFavorites") ?? UIImage()
+    static let noRecents = UIImage(named: "noRecents") ?? UIImage()
 }

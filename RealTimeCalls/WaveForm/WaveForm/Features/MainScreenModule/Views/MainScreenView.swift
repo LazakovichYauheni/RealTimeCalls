@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CollectionViewPagingLayout
 
 private enum Constants {
     static let numerOfSections: Int = 1
@@ -13,7 +14,7 @@ private enum Constants {
 
 private extension Spacer {
     var space44: CGFloat { 44 }
-    var itemSize: CGSize { CGSize(width: 226, height: 326) }
+    var itemSize: CGSize { CGSize(width: 226, height: 386) }
 }
 
 protocol MainScreenViewEventsRespondable {
@@ -40,22 +41,32 @@ public final class MainScreenView: UIView {
         return label
     }()
     
-    private lazy var collectionView: UICollectionView = {
-        let layout = PagingCollectionViewLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(
-            top: .zero,
-            left: UIScreen.main.bounds.width / 2 - spacer.itemSize.width / 2,
-            bottom: .zero,
-            right: UIScreen.main.bounds.width / 2 - spacer.itemSize.width / 2
-        )
-        layout.itemSize = spacer.itemSize
+    private lazy var containerFavoritesView = UIView()
+    
+    private lazy var containerFavoritesStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.distribution = .equalCentering
+        return stack
+    }()
+    
+    private lazy var emptyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.noFavorites
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    private lazy var memeCollectionView: UICollectionView = {
+        let layout = CollectionViewPagingLayout()
+        layout.delegate = self
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.isPagingEnabled = true
         collection.dataSource = self
         collection.delegate = self
         collection.backgroundColor = .clear
         collection.showsHorizontalScrollIndicator = false
-        collection.decelerationRate = .fast
         collection.register(MainScreenCollectionViewCell.self, forCellWithReuseIdentifier: "cellReuseIdentifier")
         return collection
     }()
@@ -78,9 +89,23 @@ public final class MainScreenView: UIView {
         return label
     }()
     
+    private lazy var recentsContainerStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .equalCentering
+        stack.alignment = .center
+        return stack
+    }()
+    
+    private lazy var emptyRecentsView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.isHidden = true
+        imageView.image = Images.noRecents
+        return imageView
+    }()
+    
     private lazy var firstRecentContact = MainScreenContactView()
     private lazy var secondRecentContact = MainScreenContactView()
-    private var previousIndexPath: IndexPath = [0, 1]
     
     private lazy var responder = Weak(firstResponder(of: MainScreenViewEventsRespondable.self))
     private var cellViewModels: [MainScreenCollectionViewCell.ViewModel] = []
@@ -104,11 +129,13 @@ public final class MainScreenView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(collectionView)
+        containerView.addSubview(memeCollectionView)
         containerView.addSubview(recentLabel)
         containerView.addSubview(allContactsLabel)
-        containerView.addSubview(firstRecentContact)
-        containerView.addSubview(secondRecentContact)
+        containerView.addSubview(recentsContainerStackView)
+        recentsContainerStackView.addArrangedSubview(emptyRecentsView)
+        recentsContainerStackView.addArrangedSubview(firstRecentContact)
+        recentsContainerStackView.addArrangedSubview(secondRecentContact)
     }
     
     private func makeConstraints() {
@@ -125,14 +152,15 @@ public final class MainScreenView: UIView {
             make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
-        collectionView.snp.makeConstraints { make in
+        memeCollectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space24)
-            make.leading.trailing.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
             make.height.equalTo(spacer.itemSize.height)
         }
         
         recentLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(spacer.space44)
+            make.top.equalTo(memeCollectionView.snp.bottom).offset(spacer.space24)
             make.leading.equalToSuperview().inset(spacer.space16)
             make.trailing.lessThanOrEqualTo(allContactsLabel.snp.leading).offset(spacer.space16)
         }
@@ -142,15 +170,14 @@ public final class MainScreenView: UIView {
             make.centerY.equalTo(recentLabel)
         }
         
-        firstRecentContact.snp.makeConstraints { make in
+        recentsContainerStackView.snp.makeConstraints { make in
             make.top.equalTo(recentLabel.snp.bottom).offset(spacer.space40)
             make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.bottom.equalToSuperview()
         }
         
-        secondRecentContact.snp.makeConstraints { make in
-            make.top.equalTo(firstRecentContact.snp.bottom).offset(spacer.space16)
-            make.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+        emptyRecentsView.snp.makeConstraints { make in
+            make.size.equalTo(150)
         }
     }
     
@@ -162,39 +189,33 @@ public final class MainScreenView: UIView {
 extension MainScreenView {
     struct ViewModel {
         let cellViewModels: [MainScreenCollectionViewCell.ViewModel]
-        let firstRecentContactViewModel: MainScreenContactView.ViewModel
-        let secondRecentContactViewModel: MainScreenContactView.ViewModel
+        let recentContactViewModels: [MainScreenContactView.ViewModel]
     }
     
     func configure(viewModel: MainScreenView.ViewModel) {
-        cellViewModels = viewModel.cellViewModels
-        firstRecentContact.configure(with: viewModel.firstRecentContactViewModel)
-        secondRecentContact.configure(with: viewModel.secondRecentContactViewModel)
-    }
-}
-
-extension MainScreenView: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return spacer.itemSize
+        if viewModel.cellViewModels.isEmpty {
+            emptyImageView.isHidden = false
+            memeCollectionView.isHidden = true
+        } else {
+            cellViewModels = viewModel.cellViewModels
+            memeCollectionView.reloadData()
+            memeCollectionView.performBatchUpdates({ [weak self] in
+                self?.memeCollectionView.collectionViewLayout.invalidateLayout()
+            })
+        }
+        
+        if viewModel.recentContactViewModels.isEmpty {
+            emptyRecentsView.isHidden = false
+            firstRecentContact.isHidden = true
+            secondRecentContact.isHidden = true
+        } else {
+            firstRecentContact.configure(with: viewModel.recentContactViewModels[0])
+            secondRecentContact.configure(with: viewModel.recentContactViewModels[1])
+        }
     }
 }
 
 extension MainScreenView: UICollectionViewDelegate {
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard
-            let indexPath = indexPathForVisiblePoint(collection: collectionView),
-            let selectedCell = collectionView.cellForItem(at: indexPath) as? MainScreenCollectionViewCell
-        else { return }
-
-        collectionView.visibleCells.forEach { cell in
-            guard let cell = cell as? MainScreenCollectionViewCell else { return }
-            if selectedCell != cell {
-                cell.changeAppearance(isSelected: false)
-            }
-        }
-        selectedCell.changeAppearance(isSelected: true)
-    }
-    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard
             let cell = collectionView.cellForItem(at: indexPath) as? MainScreenCollectionViewCell
@@ -228,5 +249,20 @@ extension MainScreenView: UICollectionViewDataSource {
         cell.configure(with: item)
         
         return cell
+    }
+}
+
+extension MainScreenView: CollectionViewPagingLayoutDelegate {
+    public func onCurrentPageChanged(layout: CollectionViewPagingLayout, currentPage: Int) {
+        guard
+            let selectedCell = memeCollectionView.cellForItem(at: IndexPath(row: currentPage, section: .zero)) as? MainScreenCollectionViewCell
+        else { return }
+        memeCollectionView.visibleCells.forEach { cell in
+            guard let cell = cell as? MainScreenCollectionViewCell else { return }
+            if selectedCell != cell {
+                cell.changeAppearance(isSelected: false)
+            }
+        }
+        selectedCell.changeAppearance(isSelected: true)
     }
 }

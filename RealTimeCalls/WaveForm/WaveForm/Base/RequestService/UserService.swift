@@ -11,15 +11,25 @@ import Alamofire
 public protocol UserServiceProtocol {
     //func getUsers(completion: @escaping (Result<[User], NSError>) -> Void)
     func register(
+        idToken: String,
+        completion: @escaping (Result<Void, UIError>) -> Void
+    )
+    func register(
         username: String,
         password: String,
         phoneNumber: String,
         firstName: String?,
         lastName: String?,
-        completion: @escaping (Result<Token, UIError>) -> Void
+        completion: @escaping (Result<Void, UIError>) -> Void
     )
-    func login(userName: String, password: String, completion: @escaping (Result<Token, UIError>) -> Void)
-    func getUserData(username: String, token: String, completion: @escaping (Result<User, UIError>) -> Void)
+    func login(userName: String, password: String, completion: @escaping (Result<Void, UIError>) -> Void)
+    func login(
+        idToken: String,
+        completion: @escaping (Result<Void, UIError>) -> Void
+    )
+    func getUserData(completion: @escaping (Result<User, UIError>) -> Void)
+    func checkUser(username: String, completion: @escaping (Result<InvitableUsers, UIError>) -> Void)
+    func addContact(username: String, completion: @escaping (Result<String, UIError>) -> Void)
 }
 
 public class UserService: UserServiceProtocol {
@@ -49,12 +59,39 @@ public class UserService: UserServiceProtocol {
 //    }
     
     public func register(
+        idToken: String,
+        completion: @escaping (Result<Void, UIError>) -> Void
+    ) {
+        let parameters = [
+            "tokenId": idToken
+        ]
+        
+        requestManager.request(
+            baseURL: endpointConfig.registerByGoogleEndpoint,
+            parameters: parameters,
+            method: .post,
+            encoding: JSONEncoding.default,
+            completion: { (result: Result<ApiResponseDTO<TokenDTO>, UIError>) in
+                switch result {
+                case let .success(dto):
+                    let tokenModel = Token(dto: dto.data)
+                    KeychainHelper.shared.save(Data(tokenModel.accessToken.utf8), service: "accessToken")
+                    KeychainHelper.shared.save(Data(tokenModel.refreshToken.utf8), service: "refreshToken")
+                    completion(.success(()))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
+    
+    public func register(
         username: String,
         password: String,
         phoneNumber: String,
         firstName: String?,
         lastName: String?,
-        completion: @escaping (Result<Token, UIError>) -> Void
+        completion: @escaping (Result<Void, UIError>) -> Void
     ) {
         let parameters = [
             "username": username,
@@ -72,7 +109,37 @@ public class UserService: UserServiceProtocol {
             completion: { (result: Result<ApiResponseDTO<TokenDTO>, UIError>) in
                 switch result {
                 case let .success(dto):
-                    completion(.success(Token(dto: dto.data)))
+                    let tokenModel = Token(dto: dto.data)
+                    KeychainHelper.shared.save(Data(tokenModel.accessToken.utf8), service: "accessToken")
+                    KeychainHelper.shared.save(Data(tokenModel.refreshToken.utf8), service: "refreshToken")
+                    completion(.success(()))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
+    
+    public func login(
+        idToken: String,
+        completion: @escaping (Result<Void, UIError>) -> Void
+    ) {
+        let parameters = [
+            "tokenId": idToken
+        ]
+        
+        requestManager.request(
+            baseURL: endpointConfig.loginByGoogleEndpoint,
+            parameters: parameters,
+            method: .post,
+            encoding: JSONEncoding.default,
+            completion: { (result: Result<ApiResponseDTO<TokenDTO>, UIError>) in
+                switch result {
+                case let .success(dto):
+                    let tokenModel = Token(dto: dto.data)
+                    KeychainHelper.shared.save(Data(tokenModel.accessToken.utf8), service: "accessToken")
+                    KeychainHelper.shared.save(Data(tokenModel.refreshToken.utf8), service: "refreshToken")
+                    completion(.success(()))
                 case let .failure(error):
                     completion(.failure(error))
                 }
@@ -83,7 +150,7 @@ public class UserService: UserServiceProtocol {
     public func login(
         userName: String,
         password: String,
-        completion: @escaping (Result<Token, UIError>) -> Void
+        completion: @escaping (Result<Void, UIError>) -> Void
     ) {
         let parameters = [
             "username": userName,
@@ -98,7 +165,10 @@ public class UserService: UserServiceProtocol {
             completion: { (result: Result<ApiResponseDTO<TokenDTO>, UIError>) in
                 switch result {
                 case let .success(dto):
-                    completion(.success(Token(dto: dto.data)))
+                    let tokenModel = Token(dto: dto.data)
+                    KeychainHelper.shared.save(Data(tokenModel.accessToken.utf8), service: "accessToken")
+                    KeychainHelper.shared.save(Data(tokenModel.refreshToken.utf8), service: "refreshToken")
+                    completion(.success(()))
                 case let .failure(error):
                     completion(.failure(error))
                 }
@@ -106,10 +176,15 @@ public class UserService: UserServiceProtocol {
         )
     }
     
-    public func getUserData(username: String, token: String, completion: @escaping (Result<User, UIError>) -> Void) {
-        let parameters = [
-            "username": username
-        ]
+    public func getUserData(completion: @escaping (Result<User, UIError>) -> Void) {
+        guard
+            let data = KeychainHelper.shared.read(service: "accessToken"),
+            let token = String(data: data, encoding: .utf8)
+        else {
+            completion(.failure(.emptyPath))
+            return
+        }
+        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: token),
             .contentType("application/json")
@@ -118,7 +193,7 @@ public class UserService: UserServiceProtocol {
         requestManager.request(
             baseURL: endpointConfig.getUserDataEndpoint,
             headers: headers,
-            parameters: parameters,
+            parameters: [:],
             method: .get,
             completion: { (result: Result<ApiResponseDTO<UserDataDTO>, UIError>) in
                 switch result {
@@ -131,21 +206,68 @@ public class UserService: UserServiceProtocol {
         )
     }
     
-//    public func addContact(username: String, token: String, completion: @escaping (Result<String, Error>) -> Void) {
-//        let parameters = [
-//            "username": username
-//        ]
-//
-//        let header = [
-//            "token": token
-//        ]
-//
-//        requestManager.register(
-//            baseURL: endpointConfig.addContactEndpoint,
-//            header: header,
-//            parameters: parameters,
-//            method: .post,
-//            completion: completion
-//        )
-//    }
+    public func checkUser(username: String, completion: @escaping (Result<InvitableUsers, UIError>) -> Void) {
+        guard
+            let data = KeychainHelper.shared.read(service: "accessToken"),
+            let token = String(data: data, encoding: .utf8)
+        else {
+            completion(.failure(.emptyPath))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token),
+            .contentType("application/json")
+        ]
+        
+        requestManager.request(
+            baseURL: endpointConfig.checkUserEndpoint + "?searchText=\(username)",
+            headers: headers,
+            parameters: [:],
+            method: .get,
+            completion: { (result: Result<ApiResponseDTO<InvitableUsersDTO>, UIError>) in
+                switch result {
+                case let .success(dto):
+                    completion(.success(InvitableUsers(dto: dto.data)))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
+    
+    public func addContact(username: String, completion: @escaping (Result<String, UIError>) -> Void) {
+        guard
+            let data = KeychainHelper.shared.read(service: "accessToken"),
+            let token = String(data: data, encoding: .utf8)
+        else {
+            completion(.failure(.emptyPath))
+            return
+        }
+
+        let parameters = [
+            "username": username
+        ]
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token),
+            .contentType("application/json")
+        ]
+
+        requestManager.request(
+            baseURL: endpointConfig.addContactEndpoint,
+            headers: headers,
+            parameters: parameters,
+            method: .post,
+            encoding: JSONEncoding.default,
+            completion: { (result: Result<ApiResponseDTO<String>, UIError>) in
+                switch result {
+                case let .success(dto):
+                    completion(.success(dto.data))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
 }

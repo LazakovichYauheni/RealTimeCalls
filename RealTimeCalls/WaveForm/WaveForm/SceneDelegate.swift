@@ -17,6 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
+//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+//        window?.windowScene = windowScene
+//        let assembly = LoginAssembly()
+//        let controller = assembly.assemble()
+//        window?.rootViewController = UINavigationController(rootViewController: controller)
+//        window?.makeKeyAndVisible()
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if error != nil || user == nil {
                 self?.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -32,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let username = user.profile?.email
                 else { return }
                 let assembly = MainScreenAssembly()
-                let controller = assembly.assemble(username: username, token: user.accessToken.tokenString)
+                let controller = assembly.assemble()
                 self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
                 self.window?.windowScene = windowScene
                 self.window?.rootViewController = UINavigationController(rootViewController: controller)

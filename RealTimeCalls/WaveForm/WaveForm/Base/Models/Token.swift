@@ -8,9 +8,11 @@
 import Foundation
 
 public struct Token {
-    public let token: String
+    public let accessToken: String
+    public let refreshToken: String
     
     public init(dto: TokenDTO) {
-        token = dto.token
+        accessToken = dto.accessToken
+        refreshToken = dto.refreshToken
     }
 }

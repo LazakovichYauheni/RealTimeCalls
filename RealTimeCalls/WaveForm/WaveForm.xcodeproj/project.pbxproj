@@ -42,6 +42,14 @@
 		513A5EFC2A7C117C0053FCB0 /* RegisterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EFB2A7C117C0053FCB0 /* RegisterAssembly.swift */; };
 		513A5EFF2A7C11880053FCB0 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5EFE2A7C11880053FCB0 /* RegisterView.swift */; };
 		513A5F012A7C143C0053FCB0 /* RegisterFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A5F002A7C143C0053FCB0 /* RegisterFieldsView.swift */; };
+		513EDD042A7D3AF90064D073 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD032A7D3AF90064D073 /* KeychainHelper.swift */; };
+		513EDD062A7D5E230064D073 /* AddUserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD052A7D5E230064D073 /* AddUserInteractor.swift */; };
+		513EDD082A7D5F870064D073 /* CallDebouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD072A7D5F870064D073 /* CallDebouncer.swift */; };
+		513EDD0A2A7D624B0064D073 /* AddUserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD092A7D624B0064D073 /* AddUserPresenter.swift */; };
+		513EDD0C2A7D63EA0064D073 /* AddUserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD0B2A7D63EA0064D073 /* AddUserAssembly.swift */; };
+		513EDD0E2A8253D00064D073 /* InvitableUsersDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD0D2A8253D00064D073 /* InvitableUsersDTO.swift */; };
+		513EDD102A8253F20064D073 /* InvitableUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD0F2A8253F20064D073 /* InvitableUsers.swift */; };
+		513EDD132A827B860064D073 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513EDD122A827B860064D073 /* ContactCell.swift */; };
 		513F049229CDE8A4008E19E7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049129CDE8A4008E19E7 /* Colors.swift */; };
 		513F049429CDEA02008E19E7 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049329CDEA02008E19E7 /* Images.swift */; };
 		513F049629CDEA33008E19E7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F049529CDEA33008E19E7 /* Texts.swift */; };
@@ -111,6 +119,7 @@
 		51A642182A61B02400792D74 /* UserDetailsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A642172A61B02400792D74 /* UserDetailsScreenAssembly.swift */; };
 		51A6421A2A61B07800792D74 /* UserDetailsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A642192A61B07800792D74 /* UserDetailsScreenInteractor.swift */; };
 		51A6421C2A61B0B900792D74 /* UserDetailsScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A6421B2A61B0B900792D74 /* UserDetailsScreenPresenter.swift */; };
+		51AEB0192A83F62A00AF9479 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0182A83F62A00AF9479 /* UIColor+Extensions.swift */; };
 		51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6229E82B1200D7B2DD /* StartViewController.swift */; };
 		51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6529E82B4F00D7B2DD /* StartView.swift */; };
 		51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7429EB0A0700D7B2DD /* CameraSession.swift */; };
@@ -178,6 +187,14 @@
 		513A5EFB2A7C117C0053FCB0 /* RegisterAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssembly.swift; sourceTree = "<group>"; };
 		513A5EFE2A7C11880053FCB0 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		513A5F002A7C143C0053FCB0 /* RegisterFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFieldsView.swift; sourceTree = "<group>"; };
+		513EDD032A7D3AF90064D073 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		513EDD052A7D5E230064D073 /* AddUserInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserInteractor.swift; sourceTree = "<group>"; };
+		513EDD072A7D5F870064D073 /* CallDebouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallDebouncer.swift; sourceTree = "<group>"; };
+		513EDD092A7D624B0064D073 /* AddUserPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserPresenter.swift; sourceTree = "<group>"; };
+		513EDD0B2A7D63EA0064D073 /* AddUserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAssembly.swift; sourceTree = "<group>"; };
+		513EDD0D2A8253D00064D073 /* InvitableUsersDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitableUsersDTO.swift; sourceTree = "<group>"; };
+		513EDD0F2A8253F20064D073 /* InvitableUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitableUsers.swift; sourceTree = "<group>"; };
+		513EDD122A827B860064D073 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		513F049129CDE8A4008E19E7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		513F049329CDEA02008E19E7 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		513F049529CDEA33008E19E7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
@@ -249,6 +266,7 @@
 		51A642172A61B02400792D74 /* UserDetailsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsScreenAssembly.swift; sourceTree = "<group>"; };
 		51A642192A61B07800792D74 /* UserDetailsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsScreenInteractor.swift; sourceTree = "<group>"; };
 		51A6421B2A61B0B900792D74 /* UserDetailsScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsScreenPresenter.swift; sourceTree = "<group>"; };
+		51AEB0182A83F62A00AF9479 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		51B9BF6229E82B1200D7B2DD /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		51B9BF6529E82B4F00D7B2DD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		51B9BF6D29E9846F00D7B2DD /* WaveForm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WaveForm.entitlements; sourceTree = "<group>"; };
@@ -372,6 +390,7 @@
 				5164CD202A37828A0091052E /* Collection+Extensions.swift */,
 				5164CD222A37831E0091052E /* String+Extensions.swift */,
 				5164CD242A3783550091052E /* UITextField+Extensions.swift */,
+				51AEB0182A83F62A00AF9479 /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -379,8 +398,11 @@
 		512BFB362A7925ED002706DF /* AddUserModule */ = {
 			isa = PBXGroup;
 			children = (
+				513EDD112A827B790064D073 /* Views */,
+				513EDD0B2A7D63EA0064D073 /* AddUserAssembly.swift */,
+				513EDD052A7D5E230064D073 /* AddUserInteractor.swift */,
+				513EDD092A7D624B0064D073 /* AddUserPresenter.swift */,
 				512BFB372A7925FE002706DF /* AddUserViewController.swift */,
-				512BFB392A79262C002706DF /* AddUserView.swift */,
 			);
 			path = AddUserModule;
 			sourceTree = "<group>";
@@ -415,6 +437,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		513EDD112A827B790064D073 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				512BFB392A79262C002706DF /* AddUserView.swift */,
+				513EDD122A827B860064D073 /* ContactCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5160611D2A409C14004FEE54 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +454,7 @@
 				5160611F2A409C14004FEE54 /* UserDTO.swift */,
 				518271842A4474FF003E7A29 /* CommonDTO.swift */,
 				518271862A447CA9003E7A29 /* TokenDTO.swift */,
+				513EDD0D2A8253D00064D073 /* InvitableUsersDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -434,6 +466,7 @@
 				516061232A409C31004FEE54 /* User.swift */,
 				516061242A409C31004FEE54 /* Contact.swift */,
 				518271882A44817A003E7A29 /* Token.swift */,
+				513EDD0F2A8253F20064D073 /* InvitableUsers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -446,6 +479,8 @@
 				516061312A409C3E004FEE54 /* ApiService.swift */,
 				516061322A409C3E004FEE54 /* EndpointConfig.swift */,
 				516061332A409C3E004FEE54 /* UIError.swift */,
+				513EDD032A7D3AF90064D073 /* KeychainHelper.swift */,
+				513EDD072A7D5F870064D073 /* CallDebouncer.swift */,
 			);
 			path = RequestService;
 			sourceTree = "<group>";
@@ -862,6 +897,7 @@
 				513F049E29CDF200008E19E7 /* CallScreenConfigurator.swift in Sources */,
 				51E48B5129E5B2200085088D /* WebSocketWorker.swift in Sources */,
 				516061212A409C15004FEE54 /* UserDTO.swift in Sources */,
+				513EDD0E2A8253D00064D073 /* InvitableUsersDTO.swift in Sources */,
 				516061202A409C15004FEE54 /* ContactDTO.swift in Sources */,
 				5164CD1D2A3780D20091052E /* FloatingTextFieldTextFormatter.swift in Sources */,
 				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
@@ -895,6 +931,7 @@
 				5164CCF82A337ABC0091052E /* UIImage+Extensions.swift in Sources */,
 				518271972A45B96B003E7A29 /* MainScreenCollectionViewCell.swift in Sources */,
 				510F997D29BD347800B34C72 /* ContentableView.swift in Sources */,
+				513EDD132A827B860064D073 /* ContactCell.swift in Sources */,
 				516061252A409C31004FEE54 /* User.swift in Sources */,
 				518271852A4474FF003E7A29 /* CommonDTO.swift in Sources */,
 				5182718E2A45AE2F003E7A29 /* MainScreenInteractor.swift in Sources */,
@@ -929,13 +966,17 @@
 				51CA56A82A6AF28A004088CC /* ResizableTableView.swift in Sources */,
 				513F049C29CDF096008E19E7 /* CallStatus.swift in Sources */,
 				51CA569F2A6ADCEF004088CC /* AlertView.swift in Sources */,
+				513EDD042A7D3AF90064D073 /* KeychainHelper.swift in Sources */,
+				513EDD062A7D5E230064D073 /* AddUserInteractor.swift in Sources */,
 				51E228042A45C178003A6960 /* ImageFillerView.swift in Sources */,
 				5164CD152A3758130091052E /* FilterView.swift in Sources */,
 				518271872A447CA9003E7A29 /* TokenDTO.swift in Sources */,
 				510F998529BE0D9400B34C72 /* LiquidView.swift in Sources */,
 				5164CD1B2A377F010091052E /* FloatingTextFieldView.swift in Sources */,
+				513EDD102A8253F20064D073 /* InvitableUsers.swift in Sources */,
 				51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */,
 				512BFB3C2A79341F002706DF /* UserActionsView.swift in Sources */,
+				513EDD0C2A7D63EA0064D073 /* AddUserAssembly.swift in Sources */,
 				51CA56A42A6AE906004088CC /* NotificationsView.swift in Sources */,
 				5164CD032A3736CE0091052E /* LoginAssembly.swift in Sources */,
 				518271942A45B5E3003E7A29 /* MainScreenView.swift in Sources */,
@@ -947,12 +988,14 @@
 				517EFB1F29C336C700DE8C7B /* BottomBar.swift in Sources */,
 				51307E3C29C0A9AE0080EE05 /* DotLayer.swift in Sources */,
 				510E559729CDB3E700D6638C /* MicrophoneMonitor.swift in Sources */,
+				513EDD082A7D5F870064D073 /* CallDebouncer.swift in Sources */,
 				5164CD1F2A3781240091052E /* FloatingTextFieldTextProcessor.swift in Sources */,
 				51A642132A61AED800792D74 /* UserDetailsScreenViewController.swift in Sources */,
 				513A5EFC2A7C117C0053FCB0 /* RegisterAssembly.swift in Sources */,
 				513A5EF12A7BD5BD0053FCB0 /* RecentContact.swift in Sources */,
 				518271922A45AE97003E7A29 /* MainScreenViewController.swift in Sources */,
 				5164CCF62A33785F0091052E /* TestButton.swift in Sources */,
+				513EDD0A2A7D624B0064D073 /* AddUserPresenter.swift in Sources */,
 				513F049229CDE8A4008E19E7 /* Colors.swift in Sources */,
 				51307E3729C0963D0080EE05 /* UIView+Extensions.swift in Sources */,
 				5164CD172A3774F30091052E /* FieldsView.swift in Sources */,
@@ -972,6 +1015,7 @@
 				51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */,
 				5164CD212A37828A0091052E /* Collection+Extensions.swift in Sources */,
 				516061372A409C3E004FEE54 /* EndpointConfig.swift in Sources */,
+				51AEB0192A83F62A00AF9479 /* UIColor+Extensions.swift in Sources */,
 				512BFB3E2A7A6147002706DF /* UserDetailsHeaderView.swift in Sources */,
 				51B9BF7829EB0E2E00D7B2DD /* RemoteVideoView.swift in Sources */,
 				516061382A409C3E004FEE54 /* UIError.swift in Sources */,

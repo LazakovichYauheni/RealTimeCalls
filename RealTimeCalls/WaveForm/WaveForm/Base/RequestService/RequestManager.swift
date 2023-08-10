@@ -92,18 +92,6 @@ final class RequestManager: RequestManagerProtocol {
             completion(.failure(UIError.wrongUrl))
             return
         }
-        
-        var task = Task.requestPlain
-
-        if let parameters = parameters, !parameters.isEmpty {
-            task = Task.requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
-        }
-
-        if
-            let body = body, !body.isEmpty,
-            let theJSONData = try? JSONSerialization.data(withJSONObject: body, options: []) {
-            task = Task.requestCompositeData(bodyData: theJSONData, urlParameters: parameters ?? [:])
-        }
                 
         let request = AF.request(
             url,
@@ -119,6 +107,7 @@ final class RequestManager: RequestManagerProtocol {
                     completion(.failure(.noData))
                     return
                 }
+
                 let result = try self.decoder.decode(ResultType.self, from: data)
                 
                 if let wrappedSuccessResult = try? self.decoder.decode(SuccessResponseDTO.self, from: data) {
@@ -193,4 +182,3 @@ final class RequestManager: RequestManagerProtocol {
         }
     }
 }
-

@@ -27,19 +27,19 @@ extension UserDetailsScreenPresenter {
                                 image: Images.blockImage.withTintColor(Color.current.background.dangerColor)
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: Images.qrImage.withTintColor(data.buttonBackground)
+                                image: Images.qrImage.withTintColor(data.detailsButtonBackgroundColor)
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: Images.editImagee.withTintColor(data.buttonBackground)
+                                image: Images.editImagee.withTintColor(data.detailsButtonBackgroundColor)
                             )
                         ],
-                        closeButtonBackground: data.buttonBackground
+                        closeButtonBackground: data.detailsButtonBackgroundColor
                     ),
-                    actionsBackground: data.buttonBackground
+                    actionsBackground: data.detailsButtonBackgroundColor
                 ),
                 contentViewModel: UserDetailsContentView.ViewModel(
-                    background: data.backgroundColor,
-                    buttonBackground: data.buttonBackground,
+                    background: data.detailsBackgroundColor,
+                    buttonBackground: data.detailsButtonBackgroundColor,
                     title: data.name,
                     description: data.lastName,
                     notice: data.infoMessage
