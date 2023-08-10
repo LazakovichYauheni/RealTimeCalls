@@ -1,4 +1,5 @@
 import UIKit
+import CollectionViewPagingLayout
 
 private enum Constants {
     static let layerAlpha: CGFloat = 0.04
@@ -13,13 +14,36 @@ private extension Spacer {
     var iconSize: CGSize { CGSize(width: 90, height: 90) }
 }
 
-/// Ячейка для карточки партнера с возможностью активации
-public final class MainScreenCollectionViewCell: UICollectionViewCell {
-    public lazy var randomHue = CGFloat.random(in: (0...1))
-    
-    public lazy var background = UIColor(hue: randomHue, saturation: 0.44, brightness: 0.76, alpha: 1)
+public final class MainScreenCollectionViewCell: UICollectionViewCell, StackTransformView {
+    public var stackOptions = StackTransformViewOptions(
+            scaleFactor: 0.06,
+            minScale: 0.20,
+            maxScale: 1.00,
+            maxStackSize: 6,
+            spacingFactor: 0.13,
+            maxSpacing: nil,
+            alphaFactor: 0.00,
+            bottomStackAlphaSpeedFactor: 0.90,
+            topStackAlphaSpeedFactor: 0.30,
+            perspectiveRatio: 0.8,
+            shadowEnabled: true,
+            shadowColor: .black,
+            shadowOpacity: 0.10,
+            shadowOffset: .zero,
+            shadowRadius: 5.00,
+            stackRotateAngel: 0.00,
+            popAngle: 0.26,
+            popOffsetRatio: .init(width: -1.45, height: 0.30),
+            stackPosition: .init(x: 1.00, y: 0.00),
+            reverse: false,
+            blurEffectEnabled: false,
+            maxBlurEffectRadius: 0.00,
+            blurEffectStyle: .light
+        )
     
     // MARK: - Subview Properties
+    
+    private(set) lazy var containerView = UIView()
 
     private(set) lazy var iconImageView: UIImageView = {
         let image = UIImageView()
@@ -50,6 +74,18 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
     }()
     
     private(set) lazy var callIconView = ImageFillerView<DefaultFillerViewStyle>(frame: .zero)
+    
+    // MARK: - Private
+    
+    private lazy var gradientColors: [UIColor] = []
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.cornerRadius = spacer.space24
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 1)
+        return gradient
+    }()
 
     // MARK: - UIView
 
@@ -62,19 +98,17 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override public func layoutSubviews() {
+        gradientLayer.frame = containerView.bounds
+        gradientLayer.colors = [gradientColors[0].cgColor, gradientColors[1].cgColor]
+        containerView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
     func changeAppearance(isSelected: Bool) {
-        UIView.animate(withDuration: 0.3, delay: .zero, options: .curveEaseInOut) {
-            self.backgroundColor = isSelected ? self.background.withAlphaComponent(0.15) : self.background.withAlphaComponent(1)
-            self.callIconView.changeBackgroundAnimated(with: isSelected ? self.background : nil)
-        }
-        titleLabel.textColor = isSelected ? .black : .white
-        descriptionLabel.textColor = isSelected ? .black : .white
-        subDescriptionLabel.textColor = isSelected ? .black : .white
-        
         if isSelected {
             addAnim()
         } else {
-            let shapeLayers = layer.sublayers?.filter { $0 is CAShapeLayer }
+            let shapeLayers = containerView.layer.sublayers?.filter { $0 is CAShapeLayer }
             shapeLayers?.forEach {
                 $0.removeFromSuperlayer()
                 $0.removeAllAnimations()
@@ -93,8 +127,8 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         let topLeftPath = UIBezierPath(
             arcCenter: CGPoint(
-                x: bounds.maxX - 16,
-                y: bounds.minY + 16
+                x: containerView.bounds.maxX - 16,
+                y: containerView.bounds.minY + 16
             ),
             radius: 16,
             startAngle: -(.pi / 4),
@@ -103,14 +137,14 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         )
         topLeftPath.addLine(
             to: CGPoint(
-                x: bounds.minX + 16,
-                y: bounds.minY
+                x: containerView.bounds.minX + 16,
+                y: containerView.bounds.minY
             )
         )
         topLeftPath.addArc(
             withCenter: CGPoint(
-                x: bounds.minX + 16,
-                y: bounds.minY + 16
+                x: containerView.bounds.minX + 16,
+                y: containerView.bounds.minY + 16
             ),
             radius: 16,
             startAngle: (3 * .pi) / 2,
@@ -120,8 +154,8 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         let bottomLeft = UIBezierPath(
             arcCenter: CGPoint(
-                x: bounds.minX + 16,
-                y: bounds.maxY - 16
+                x: containerView.bounds.minX + 16,
+                y: containerView.bounds.maxY - 16
             ),
             radius: 16,
             startAngle: (3 * .pi) / 4,
@@ -130,14 +164,14 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         )
         bottomLeft.addLine(
             to: CGPoint(
-                x: bounds.minX,
-                y: bounds.minY + 16
+                x: containerView.bounds.minX,
+                y: containerView.bounds.minY + 16
             )
         )
         bottomLeft.addArc(
             withCenter: CGPoint(
-                x: bounds.minX + 16,
-                y: bounds.minY + 16
+                x: containerView.bounds.minX + 16,
+                y: containerView.bounds.minY + 16
             ),
             radius: 16,
             startAngle: .pi,
@@ -147,8 +181,8 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         let bottomRight = UIBezierPath(
             arcCenter: CGPoint(
-                x: bounds.minX + 16,
-                y: bounds.maxY - 16
+                x: containerView.bounds.minX + 16,
+                y: containerView.bounds.maxY - 16
             ),
             radius: 16,
             startAngle: 3 * .pi / 4,
@@ -158,15 +192,15 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         bottomRight.addLine(
             to: CGPoint(
-                x: bounds.maxX - 16,
-                y: bounds.maxY
+                x: containerView.bounds.maxX - 16,
+                y: containerView.bounds.maxY
             )
         )
         
         bottomRight.addArc(
             withCenter: CGPoint(
-                x: bounds.maxX - 16,
-                y: bounds.maxY - 16
+                x: containerView.bounds.maxX - 16,
+                y: containerView.bounds.maxY - 16
             ),
             radius: 16,
             startAngle: .pi / 2,
@@ -176,8 +210,8 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         let topRight = UIBezierPath(
             arcCenter: CGPoint(
-                x: bounds.maxX - 16,
-                y: bounds.minY + 16
+                x: containerView.bounds.maxX - 16,
+                y: containerView.bounds.minY + 16
             ),
             radius: 16,
             startAngle: (7 * .pi) / 4,
@@ -187,15 +221,15 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         
         topRight.addLine(
             to: CGPoint(
-                x: bounds.maxX,
-                y: bounds.maxY - 16
+                x: containerView.bounds.maxX,
+                y: containerView.bounds.maxY - 16
             )
         )
         
         topRight.addArc(
             withCenter: CGPoint(
-                x: bounds.maxX - 16,
-                y: bounds.maxY - 16
+                x: containerView.bounds.maxX - 16,
+                y: containerView.bounds.maxY - 16
             ),
             radius: 16,
             startAngle: .zero,
@@ -214,32 +248,39 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell {
         shapeLayer.path = path.cgPath
         shapeLayer.lineWidth = 6
         shapeLayer.lineCap = .round
-        shapeLayer.strokeColor = background.cgColor
+        shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.add(animation, forKey: "strokeEnd")
-        layer.addSublayer(shapeLayer)
+        containerView.layer.addSublayer(shapeLayer)
     }
 
     // MARK: - Private Methods
 
     private func initialize() {
         clipsToBounds = true
-        layer.cornerRadius = spacer.space16
-        layer.borderColor = UIColor.white.cgColor
-        backgroundColor = background
+        containerView.layer.cornerRadius = spacer.space24
+        containerView.layer.borderColor = UIColor.white.cgColor
         addSubviews()
         makeConstraints()
     }
 
     private func addSubviews() {
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(subDescriptionLabel)
-        contentView.addSubview(callIconView)
+        contentView.addSubview(containerView)
+        containerView.addSubview(iconImageView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(descriptionLabel)
+        containerView.addSubview(subDescriptionLabel)
+        containerView.addSubview(callIconView)
     }
 
     private func makeConstraints() {
+        containerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(12)
+            make.leading.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview().inset(72)
+            make.height.equalTo(326)
+            
+        }
         iconImageView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(spacer.space16)
             make.size.equalTo(spacer.iconSize)
@@ -277,14 +318,15 @@ extension MainScreenCollectionViewCell {
         let infoMessage: String
         let image: UIImage
         let callImage: UIImage
-        let isNeedToShowBorder: Bool
-        let backgroundColor: UIColor
-        let buttonBackground: UIColor
+        let gradientColors: [UIColor]
+        let detailsBackgroundColor: UIColor
+        let detailsButtonBackgroundColor: UIColor
     }
     
     func configure(with viewModel: ViewModel) {
-        backgroundColor = viewModel.backgroundColor
-        background = viewModel.backgroundColor
+        self.gradientColors = viewModel.gradientColors
+        containerView.layoutIfNeeded()
+        
         iconImageView.image = viewModel.image
         titleLabel.text = viewModel.name
         descriptionLabel.text = viewModel.lastName

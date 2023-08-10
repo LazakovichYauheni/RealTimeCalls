@@ -18,10 +18,10 @@ public struct UserData {
 public struct User {
     public let id: String
     public let username: String
-    public let password: String
+    public let password: String?
     public let firstName: String?
     public let lastName: String?
-    public let phoneNumber: String
+    public let phoneNumber: String?
     public let contacts: [Contact]
     public let recentContacts: [RecentContact]
     public let favoritesContacts: [Contact]

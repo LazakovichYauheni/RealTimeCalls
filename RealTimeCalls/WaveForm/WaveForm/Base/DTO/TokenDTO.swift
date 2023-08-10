@@ -8,5 +8,6 @@
 import Foundation
 
 public struct TokenDTO: Decodable {
-    public let token: String
+    public let accessToken: String
+    public let refreshToken: String
 }

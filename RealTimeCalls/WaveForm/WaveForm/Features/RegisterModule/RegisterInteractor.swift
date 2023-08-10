@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleSignIn
 
 public final class RegisterInteractor {
     
@@ -129,7 +130,7 @@ extension RegisterInteractor {
             username == "admin",
             let password = passwordText,
             password == "admin" {
-            presenter.presentMainScreen(username: username, token: "")
+            presenter.presentMainScreen()
         } else {
             guard
                 let username = usernameText,
@@ -145,9 +146,9 @@ extension RegisterInteractor {
             ) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case let .success(model):
-                    self.presenter.presentMainScreen(username: username, token: model.token)
-                case let .failure(error):
+                case .success:
+                    self.presenter.presentMainScreen()
+                case .failure:
                     self.isInvalidCredentials = true
                     self.presenter.present(
                         didEndEditing: false,
@@ -160,6 +161,18 @@ extension RegisterInteractor {
                         selectedFieldID: self.selectedFieldID
                     )
                 }
+            }
+        }
+    }
+    
+    func registerWithGoogleData(data: GIDGoogleUser) {
+        guard let idToken = data.idToken else { return }
+        service.register(idToken: idToken.tokenString) { [weak self] result in
+            switch result {
+            case .success:
+                self?.presenter.presentMainScreen()
+            case let .failure(error):
+                print(error)
             }
         }
     }

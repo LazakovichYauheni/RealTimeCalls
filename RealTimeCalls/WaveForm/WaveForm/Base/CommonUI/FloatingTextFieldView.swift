@@ -6,6 +6,7 @@ import UIKit
 public protocol FloatingTextFieldViewEventsRespondable {
     /// Обработка нажатия на view иконки
     func tapRightIconButton(id: String)
+    func tapSuccessIconButton(id: String)
     func shouldReturnAction(text: String)
 }
 
@@ -37,6 +38,23 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
         stack.spacing = spacer.space8
         stack.alignment = .center
         return stack
+    }()
+    
+    private lazy var findStatusContainerView = UIView()
+    
+    private lazy var successIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.successImage
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(successTapped)))
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private lazy var loaderImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Images.loaderImage.withTintColor(.blue)
+        imageView.isUserInteractionEnabled = false
+        return imageView
     }()
 
     // MARK: - Private Properties
@@ -109,6 +127,9 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
         addSubview(horizontalStackView)
         horizontalStackView.addArrangedSubview(textField)
         horizontalStackView.addArrangedSubview(iconImageView)
+        horizontalStackView.addArrangedSubview(findStatusContainerView)
+        findStatusContainerView.addSubview(successIconImageView)
+        findStatusContainerView.addSubview(loaderImageView)
     }
 
     private func makeConstraints() {
@@ -122,6 +143,18 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
         }
         
         iconImageView.snp.makeConstraints { make in
+            make.size.equalTo(spacer.space24)
+        }
+        
+        findStatusContainerView.snp.makeConstraints { make in
+            make.size.equalTo(spacer.space24)
+        }
+        
+        successIconImageView.snp.makeConstraints { make in
+            make.size.equalTo(spacer.space24)
+        }
+
+        loaderImageView.snp.makeConstraints { make in
             make.size.equalTo(spacer.space24)
         }
     }
@@ -150,6 +183,10 @@ public final class FloatingTextFieldView: UIView, UITextFieldDelegate {
     @objc private func imageTapped() {
         responder.object?.tapRightIconButton(id: textField.id ?? "")
     }
+    
+    @objc private func successTapped() {
+        responder.object?.tapSuccessIconButton(id: textField.id ?? "")
+    }
 }
 
 // MARK: - ViewConfigurable
@@ -161,19 +198,25 @@ extension FloatingTextFieldView {
         let mask: FloatingTextFieldMask?
         let isInvalidInput: Bool
         let isNeedToShowClearButton: Bool
+        let isNeedToShowSuccessButton: Bool
+        let isNeedToShowLoader: Bool
 
         public init(
             textField: FloatingTextField.ViewModel,
             isBecomeFirstResponder: Bool = false,
             mask: FloatingTextFieldMask? = nil,
             isInvalidInput: Bool,
-            isNeedToShowClearButton: Bool
+            isNeedToShowClearButton: Bool,
+            isNeedToShowSuccessButton: Bool = false,
+            isNeedToShowLoader: Bool = false
         ) {
             self.isBecomeFirstResponder = isBecomeFirstResponder
             self.textField = textField
             self.mask = mask
             self.isInvalidInput = isInvalidInput
             self.isNeedToShowClearButton = isNeedToShowClearButton
+            self.isNeedToShowSuccessButton = isNeedToShowSuccessButton
+            self.isNeedToShowLoader = isNeedToShowLoader
         }
     }
 
@@ -204,7 +247,23 @@ extension FloatingTextFieldView {
             textField.delegate = nil
         }
         
+        findStatusContainerView.isHidden = !viewModel.isNeedToShowSuccessButton && !viewModel.isNeedToShowLoader
+                
+        UIView.animate(withDuration: 0.15) {
+            self.successIconImageView.isHidden = !viewModel.isNeedToShowSuccessButton
+            self.successIconImageView.alpha = viewModel.isNeedToShowSuccessButton ? 1 : .zero
+            self.loaderImageView.isHidden = !viewModel.isNeedToShowLoader
+            self.loaderImageView.alpha = viewModel.isNeedToShowLoader ? 1 : .zero
+        }
+        
+        if viewModel.isNeedToShowLoader {
+            loaderImageView.rotate()
+        } else {
+            loaderImageView.stopRotating()
+        }
+        
         iconImageView.isHidden = !viewModel.isNeedToShowClearButton
+        
         
         if viewModel.isBecomeFirstResponder, textField.canBecomeFirstResponder {
             textField.becomeFirstResponder()

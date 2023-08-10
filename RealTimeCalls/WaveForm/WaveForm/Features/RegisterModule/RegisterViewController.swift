@@ -55,8 +55,8 @@ extension RegisterViewController {
         contentView.configure(viewModel: viewModel)
     }
     
-    func displayMainScreen(username: String, token: String) {
-        let mainScreenViewController = MainScreenAssembly().assemble(username: username, token: token)
+    func displayMainScreen() {
+        let mainScreenViewController = MainScreenAssembly().assemble()
         navigationController?.pushViewController(mainScreenViewController, animated: true)
     }
     
@@ -80,11 +80,8 @@ extension RegisterViewController: RegisterViewEventsRespondable {
     
     public func googleTapped() {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
-            guard
-                let result = result,
-                let username = result.user.profile?.email
-            else { return }
-            self?.displayMainScreen(username: username, token: result.user.accessToken.tokenString)
+            guard let result = result else { return }
+            self?.interactor.registerWithGoogleData(data: result.user)
         }
     }
 }
@@ -111,4 +108,6 @@ extension RegisterViewController: FloatingTextFieldViewEventsRespondable {
     public func tapRightIconButton(id: String) {
         interactor.obtainClearButton(id: id)
     }
+    
+    public func tapSuccessIconButton(id: String) {}
 }

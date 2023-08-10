@@ -94,6 +94,7 @@ public final class UserDetailsContentView: UIView {
         }
         
         closeButton.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(textContainerView.snp.bottom)
             make.bottom.equalToSuperview().inset(52)
             make.leading.trailing.equalToSuperview().inset(16)
         }

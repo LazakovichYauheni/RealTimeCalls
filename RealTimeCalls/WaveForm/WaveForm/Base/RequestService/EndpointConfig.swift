@@ -13,8 +13,16 @@ public class EndpointConfig {
         "\(ApiService.login.endpoint())"
     }
     
+    public var loginByGoogleEndpoint: String {
+        "\(ApiService.loginByGoogle.endpoint())"
+    }
+    
     public var registrationEndpoint: String {
         "\(ApiService.registration.endpoint())"
+    }
+    
+    public var registerByGoogleEndpoint: String {
+        "\(ApiService.registerByGoogle.endpoint())"
     }
     
     public var usersEndpoint: String {
@@ -27,5 +35,9 @@ public class EndpointConfig {
     
     public var getUserDataEndpoint: String {
         "\(ApiService.getUserData.endpoint())"
+    }
+    
+    public var checkUserEndpoint: String {
+        "\(ApiService.checkUser.endpoint())"
     }
 }

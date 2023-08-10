@@ -37,11 +37,6 @@ public final class MainScreenViewController: UIViewController {
         view = contentView
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        interactor.obtainInitialState()
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = "Welcome"
@@ -59,6 +54,7 @@ public final class MainScreenViewController: UIViewController {
             ),
             coordinatedTransition: false
         )
+        interactor.obtainInitialState()
     }
     
     public init(interactor: MainScreenInteractor) {

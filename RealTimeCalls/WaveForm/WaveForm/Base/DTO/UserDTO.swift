@@ -14,10 +14,10 @@ public struct UserDataDTO: Decodable {
 public struct UserDTO {
     public let id: String
     public let username: String
-    public let password: String
+    public let password: String?
     public let firstName: String?
     public let lastName: String?
-    public let phoneNumber: String
+    public let phoneNumber: String?
     public let contacts: [ContactDTO]
     public let recentContacts: [RecentContactDTO]
     public let favoritesContacts: [ContactDTO]?

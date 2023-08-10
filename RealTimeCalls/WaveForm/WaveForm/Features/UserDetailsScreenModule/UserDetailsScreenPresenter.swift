@@ -29,19 +29,19 @@ extension UserDetailsScreenPresenter {
                                 ) ?? UIImage()
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: UIImage(named: "qr")?.withTintColor(data.buttonBackground) ?? UIImage()
+                                image: UIImage(named: "qr")?.withTintColor(data.detailsButtonBackgroundColor) ?? UIImage()
                             ),
                             ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel(
-                                image: UIImage(named: "edit")?.withTintColor(data.buttonBackground) ?? UIImage()
+                                image: UIImage(named: "edit")?.withTintColor(data.detailsButtonBackgroundColor) ?? UIImage()
                             )
                         ],
-                        closeButtonBackground: data.buttonBackground
+                        closeButtonBackground: data.detailsButtonBackgroundColor
                     ),
-                    actionsBackground: data.buttonBackground
+                    actionsBackground: data.detailsButtonBackgroundColor
                 ),
                 contentViewModel: UserDetailsContentView.ViewModel(
-                    background: data.backgroundColor,
-                    buttonBackground: data.buttonBackground,
+                    background: data.detailsBackgroundColor,
+                    buttonBackground: data.detailsButtonBackgroundColor,
                     title: data.name,
                     description: data.lastName,
                     notice: data.infoMessage

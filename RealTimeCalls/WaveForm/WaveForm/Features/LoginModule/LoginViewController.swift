@@ -65,8 +65,8 @@ extension LoginViewController {
         )
     }
     
-    func pushMainScreen(username: String, token: String) {
-        let mainScreenViewController = MainScreenAssembly().assemble(username: username, token: token)
+    func pushMainScreen() {
+        let mainScreenViewController = MainScreenAssembly().assemble()
         navigationController?.pushViewController(mainScreenViewController, animated: true)
     }
 }
@@ -102,6 +102,8 @@ extension LoginViewController: FilterViewEventsRespondable {
 // MARK: - FloatingTextFieldViewEventsRespondable
 
 extension LoginViewController: FloatingTextFieldViewEventsRespondable {
+    public func tapSuccessIconButton(id: String) {}
+    
     public func tapRightIconButton(id: String) {
         interactor.obtainClearButton(id: id)
     }
@@ -118,9 +120,9 @@ extension LoginViewController: LoginViewEventsRespondable {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             guard
                 let result = result,
-                let username = result.user.profile?.email
+                let idToken = result.user.idToken
             else { return }
-            self?.pushMainScreen(username: username, token: result.user.accessToken.tokenString)
+            self?.interactor.obtainLoginByGoogle(idToken: idToken.tokenString)
         }
     }
     

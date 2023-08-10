@@ -58,7 +58,6 @@ public final class UserDetailsHeaderView: UIView {
         }
         
         addGradientBorder(to: mainActionsStackView.subviews[0])
-        addParallaxToView(vw: iconImageView)
     }
 
     // MARK: - Private Methods
@@ -84,13 +83,13 @@ public final class UserDetailsHeaderView: UIView {
             make.bottom.equalToSuperview().inset(44)
             make.trailing.equalToSuperview().inset(28)
         }
-        
+
         mainActionsContainerView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(44)
             make.leading.equalToSuperview().inset(10)
             make.trailing.lessThanOrEqualToSuperview().inset(100)
         }
-        
+
         mainActionsStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(6)
         }

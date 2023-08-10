@@ -107,7 +107,7 @@ extension LoginPresenter {
         viewController?.showAlert(error: error)
     }
     
-    func presentMainScreen(username: String, token: String) {
-        viewController?.pushMainScreen(username: username, token: token)
+    func presentMainScreen() {
+        viewController?.pushMainScreen()
     }
 }
