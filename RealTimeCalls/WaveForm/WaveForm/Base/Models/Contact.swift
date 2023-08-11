@@ -9,8 +9,10 @@ import Foundation
 
 public struct Contact {
     public let id: String
-    public let firstName: String
-    public let lastName: String
+    public let firstName: String?
+    public let lastName: String?
+    public let username: String
+    public let imageString: String?
     public let phoneNumber: String
     public let isFavorite: Bool
 
@@ -20,6 +22,8 @@ public struct Contact {
         self.id = dto.id
         self.firstName = dto.firstName
         self.lastName = dto.lastName
+        self.username = dto.username
+        self.imageString = dto.imageString
         self.phoneNumber = dto.phoneNumber
         self.isFavorite = dto.isFavorite
     }

@@ -36,7 +36,7 @@ extension UIView{
 
 extension UIView {
     /// Добавляет ангулар градиент с анимацией на круглую вью
-    func addGradientBorder(to view: UIView) {
+    func addGradientBorder(to view: UIView, lineWidth: CGFloat) {
         let path = UIBezierPath(ovalIn: view.bounds.insetBy(dx: 1, dy: 1))
 
         let gradient = CAGradientLayer()
@@ -47,7 +47,7 @@ extension UIView {
         gradient.colors = Color.current.google.googleColors.compactMap { $0.cgColor }
 
         let shape = CAShapeLayer()
-        shape.lineWidth = 2
+        shape.lineWidth = lineWidth
         shape.path = path.cgPath
         shape.strokeColor = Color.current.background.blackColor.cgColor
         shape.fillColor = UIColor.clear.cgColor

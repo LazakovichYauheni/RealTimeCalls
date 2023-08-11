@@ -20,6 +20,7 @@ private extension Spacer {
 protocol MainScreenViewEventsRespondable {
     func didItemTapped(index: Int, cell: MainScreenCollectionViewCell)
     func didAllContactsTapped()
+    func tapped()
 }
 
 public final class MainScreenView: UIView {
@@ -104,7 +105,11 @@ public final class MainScreenView: UIView {
         return imageView
     }()
     
-    private lazy var firstRecentContact = MainScreenContactView()
+    private lazy var firstRecentContact: MainScreenContactView = {
+        let view = MainScreenContactView()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
+        return view
+    }()
     private lazy var secondRecentContact = MainScreenContactView()
     
     private lazy var responder = Weak(firstResponder(of: MainScreenViewEventsRespondable.self))
@@ -144,7 +149,8 @@ public final class MainScreenView: UIView {
         }
         
         containerView.snp.makeConstraints { make in
-            make.edges.width.equalToSuperview()
+            make.edges.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -183,6 +189,10 @@ public final class MainScreenView: UIView {
     
     @objc private func allContactsTapped() {
         responder.object?.didAllContactsTapped()
+    }
+    
+    @objc private func tapped() {
+        responder.object?.tapped()
     }
 }
 

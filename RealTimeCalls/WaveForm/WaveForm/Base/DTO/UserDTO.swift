@@ -21,6 +21,7 @@ public struct UserDTO {
     public let contacts: [ContactDTO]
     public let recentContacts: [RecentContactDTO]
     public let favoritesContacts: [ContactDTO]?
+    public let imageString: String?
 }
 
 extension UserDTO: Codable {
@@ -34,5 +35,6 @@ extension UserDTO: Codable {
         case phoneNumber
         case recentContacts
         case favoritesContacts
+        case imageString
     }
 }

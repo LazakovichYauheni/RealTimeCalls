@@ -14,8 +14,10 @@ public final class MainScreenViewController: UIViewController {
     private(set) var currentCell: MainScreenCollectionViewCell?
     
     private let interactor: MainScreenInteractor
-    private(set) var contentView = MainScreenView(frame: .zero)
-    
+    private(set) lazy var contentView = MainScreenView(frame: .zero)
+    private lazy var loadingView = MainScreenLoadingView()
+    private lazy var baseView = BaseAnimatedView(loadingView: loadingView, contentView: contentView)
+
     private var viewModels: [MainScreenCollectionViewCell.ViewModel] = []
     private let presenter = TransitionPresenter()
     
@@ -30,16 +32,29 @@ public final class MainScreenViewController: UIViewController {
         let item = UIBarButtonItem(customView: imageView)
         return item
     }()
+    
+    private lazy var profileButton: UIBarButtonItem = {
+        let imageView = UIImageView()
+        imageView.snp.makeConstraints { make in
+            make.size.equalTo(spacer.space24)
+        }
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(profileTapped)))
+        imageView.image = Images.addImage.withTintColor(Color.current.text.lightBlueColor)
+        
+        let item = UIBarButtonItem(customView: imageView)
+        return item
+    }()
 
     
     public override func loadView() {
-        super.loadView()
-        view = contentView
+        //super.loadView()
+        view = baseView
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         title = "Welcome"
+        navigationItem.setLeftBarButton(profileButton, animated: false)
         navigationItem.setRightBarButton(notificationButton, animated: false)
         navigationItem.setHidesBackButton(true, animated: false)
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -48,12 +63,18 @@ public final class MainScreenViewController: UIViewController {
                 tintColor: Color.current.background.blackColor,
                 barTintColor: Color.current.background.mainColor,
                 textColor: Color.current.text.blackColor,
-                isTranslucent: true,
+                isTranslucent: false,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()
             ),
             coordinatedTransition: false
         )
+        
+    }
+    
+    override public func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        baseView.showLoading()
         interactor.obtainInitialState()
     }
     
@@ -95,16 +116,33 @@ public final class MainScreenViewController: UIViewController {
         floatingController.set(contentViewController: notificationViewController)
         navigationController?.present(floatingController, animated: true)
     }
+    
+    @objc private func profileTapped() {
+        interactor.obtainProfile()
+    }
 }
 
 extension MainScreenViewController {
+//    func displayLoading() {
+//        view.addSubview(loadingView)
+//        loadingView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+//    }
+    
     func display(viewModel: MainScreenView.ViewModel) {
         viewModels = viewModel.cellViewModels
+        baseView.showContent()
         contentView.configure(viewModel: viewModel)
     }
     
     func displayAllContactsScreen(contacts: [Contact]) {
         let viewController = AllContactsAssemby().assemble(contacts: contacts)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func displayProfile(user: User) {
+        let viewController = ProfileAssembly().assemble(user: user)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -119,6 +157,10 @@ extension MainScreenViewController: MainScreenViewEventsRespondable {
     
     func didAllContactsTapped() {
         interactor.obtainAllContacts()
+    }
+    
+    func tapped() {
+        interactor.sendImage()
     }
 }
 

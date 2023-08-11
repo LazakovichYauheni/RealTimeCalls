@@ -84,12 +84,14 @@ public final class UserDetailsContentView: UIView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.leading.equalToSuperview()
+            make.trailing.lessThanOrEqualToSuperview().inset(16)
         }
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space4)
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.lessThanOrEqualToSuperview().inset(spacer.space16)
         }
         
         noticeLabel.snp.makeConstraints { make in
@@ -105,6 +107,8 @@ public final class UserDetailsContentView: UIView {
     }
     
     @objc private func closeButtonTapped() {
+        titleLabel.isHidden = true
+        descriptionLabel.isHidden = true
         responder.object?.didCloseButtonTapped()
     }
 }

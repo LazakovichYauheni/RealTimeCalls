@@ -48,8 +48,14 @@ extension UserDetailsScreenViewController {
     }
 }
 
-extension UserDetailsScreenViewController: UserDetailsContentViewEventsRespondable {
+extension UserDetailsScreenViewController: UserDetailsScreenEventsRespondable {
     func didCloseButtonTapped() {
         dismisser.dismiss(productViewController: self)
+    }
+}
+
+extension UserDetailsScreenViewController: ImageFillerViewEventsRespondable {
+    func imageTapped(id: Int) {
+        interactor.obtainMainAction(id: id)
     }
 }

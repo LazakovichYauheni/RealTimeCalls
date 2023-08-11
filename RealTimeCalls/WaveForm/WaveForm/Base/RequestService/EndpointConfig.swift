@@ -40,4 +40,12 @@ public class EndpointConfig {
     public var checkUserEndpoint: String {
         "\(ApiService.checkUser.endpoint())"
     }
+    
+    public var changeProfileImageEndpoint: String {
+        "\(ApiService.changeProfileImage.endpoint())"
+    }
+    
+    public var addToFavoritesEndpoint: String {
+        "\(ApiService.addToFavorites.endpoint())"
+    }
 }

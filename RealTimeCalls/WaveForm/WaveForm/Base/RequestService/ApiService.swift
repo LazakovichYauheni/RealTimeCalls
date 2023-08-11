@@ -18,6 +18,8 @@ import Foundation
     case addContact
     case getUserData
     case checkUser
+    case changeProfileImage
+    case addToFavorites
 
     // MARK: - Private Properties
 
@@ -46,6 +48,10 @@ import Foundation
             return "\(baseEndpoint)\(auth)/getUserData"
         case .checkUser:
             return "\(baseEndpoint)\(auth)/checkUsers"
+        case .changeProfileImage:
+            return "\(baseEndpoint)\(auth)/changeProfileImage"
+        case .addToFavorites:
+            return "\(baseEndpoint)\(auth)/addToFavorites"
         }
     }
 }

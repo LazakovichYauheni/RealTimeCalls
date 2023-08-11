@@ -5,12 +5,18 @@ private extension Spacer {
     var imageHeightMultiplier: CGFloat { 0.64 }
 }
 
+protocol UserDetailsScreenEventsRespondable {
+    func didCloseButtonTapped()
+}
+
 public final class UserDetailsScreenView: UIView {
     // MARK: - Subview Properties
     
     private(set) lazy var headerView = UserDetailsHeaderView()
 
     private(set) lazy var contentView = UserDetailsContentView()
+    
+    private lazy var responder = Weak(firstResponder(of: UserDetailsScreenEventsRespondable.self))
     
     // MARK: - UIView
 
@@ -64,5 +70,12 @@ extension UserDetailsScreenView {
     public func configure(with viewModel: ViewModel) {
         headerView.configure(with: viewModel.headerViewModel)
         contentView.configure(with: viewModel.contentViewModel)
+    }
+}
+
+extension UserDetailsScreenView: UserDetailsContentViewEventsRespondable {
+    func didCloseButtonTapped() {
+        headerView.hideContent()
+        responder.object?.didCloseButtonTapped()
     }
 }

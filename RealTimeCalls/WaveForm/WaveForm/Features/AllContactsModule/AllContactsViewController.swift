@@ -40,7 +40,7 @@ final class AllContactsViewController: UIViewController {
                 tintColor: Color.current.background.blackColor,
                 barTintColor: Color.current.background.mainColor,
                 textColor: Color.current.text.blackColor,
-                isTranslucent: true,
+                isTranslucent: false,
                 backgroundImage: UIImage(),
                 shadowImage: UIImage()
             ),
@@ -81,16 +81,18 @@ extension AllContactsViewController {
     }
     
     func displayContactDetails(contact: Contact) {
+        let image = Converter.convertBase64StringToImage(imageBase64String: contact.imageString)
         transitionPresenter.present(
             .init(
-                name: contact.firstName,
-                lastName: contact.firstName,
-                infoMessage: contact.firstName,
-                image: Images.girlImage,
-                callImage:Images.girlImage,
+                username: contact.username,
+                name: contact.firstName ?? .empty,
+                lastName: contact.lastName ?? .empty,
+                infoMessage: .empty,
+                image: image ?? UIImage(),
+                callImage: UIImage(),
                 gradientColors: [],
-                detailsBackgroundColor: .black,
-                detailsButtonBackgroundColor: .white
+                detailsBackgroundColor: Color.current.background.blackColor,
+                detailsButtonBackgroundColor: UIColor(red: 17 / 255, green: 17 / 255, blue: 17 / 255, alpha: 1)
             ),
             from: self,
             duration: 0.2

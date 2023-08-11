@@ -5,10 +5,11 @@ public final class AllContactsPresenter {
     
     private func makeViewModels(contacts: [Contact]) -> [ContactTableViewCell.ViewModel] {
         contacts.compactMap { contact in
-            ContactTableViewCell.ViewModel(
-                image: Images.girlImage,
-                title: contact.firstName,
-                description: contact.firstName
+            let image = Converter.convertBase64StringToImage(imageBase64String: contact.imageString)
+            return ContactTableViewCell.ViewModel(
+                image: image ?? UIImage(),
+                title: contact.firstName ?? .empty,
+                description: contact.lastName ?? .empty
             )
         }
     }

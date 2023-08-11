@@ -30,6 +30,8 @@ public protocol UserServiceProtocol {
     func getUserData(completion: @escaping (Result<User, UIError>) -> Void)
     func checkUser(username: String, completion: @escaping (Result<InvitableUsers, UIError>) -> Void)
     func addContact(username: String, completion: @escaping (Result<String, UIError>) -> Void)
+    func changeProfileImage(string: String, completion: @escaping (Result<Void, UIError>) -> Void)
+    func addToFavorites(username: String, completion: @escaping (Result<Void, UIError>) -> Void)
 }
 
 public class UserService: UserServiceProtocol {
@@ -264,6 +266,76 @@ public class UserService: UserServiceProtocol {
                 switch result {
                 case let .success(dto):
                     completion(.success(dto.data))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
+    
+    public func changeProfileImage(string: String, completion: @escaping (Result<Void, UIError>) -> Void) {
+        guard
+            let data = KeychainHelper.shared.read(service: "accessToken"),
+            let token = String(data: data, encoding: .utf8)
+        else {
+            completion(.failure(.emptyPath))
+            return
+        }
+
+        let parameters = [
+            "imageString": string
+        ]
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token),
+            .contentType("application/json")
+        ]
+
+        requestManager.request(
+            baseURL: endpointConfig.changeProfileImageEndpoint,
+            headers: headers,
+            parameters: parameters,
+            method: .post,
+            encoding: JSONEncoding.default,
+            completion: { (result: Result<ApiResponseDTO<String>, UIError>) in
+                switch result {
+                case .success:
+                    completion(.success(()))
+                case let .failure(error):
+                    completion(.failure(error))
+                }
+            }
+        )
+    }
+    
+    public func addToFavorites(username: String, completion: @escaping (Result<Void, UIError>) -> Void) {
+        guard
+            let data = KeychainHelper.shared.read(service: "accessToken"),
+            let token = String(data: data, encoding: .utf8)
+        else {
+            completion(.failure(.emptyPath))
+            return
+        }
+
+        let parameters = [
+            "username": username
+        ]
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token),
+            .contentType("application/json")
+        ]
+
+        requestManager.request(
+            baseURL: endpointConfig.addToFavoritesEndpoint,
+            headers: headers,
+            parameters: parameters,
+            method: .post,
+            encoding: JSONEncoding.default,
+            completion: { (result: Result<SuccessResponseDTO, UIError>) in
+                switch result {
+                case .success:
+                    completion(.success(()))
                 case let .failure(error):
                     completion(.failure(error))
                 }

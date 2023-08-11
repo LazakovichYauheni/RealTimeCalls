@@ -26,6 +26,7 @@ extension MainScreenInteractor {
         service.getUserData() { [weak self] result in
             switch result {
             case let .success(user):
+                self?.user = user
                 self?.presenter.present(user: user)
             case .failure:
                 self?.presenter.presentEmpty()
@@ -39,5 +40,16 @@ extension MainScreenInteractor {
             return
         }
         presenter.presentAll(contacts: user.contacts)
+    }
+    
+    func sendImage() {
+        let image = Images.godHand
+        let string = Converter.convertImageToBase64String(img: image)
+        service.changeProfileImage(string: string) { _ in }
+    }
+    
+    func obtainProfile() {
+        guard let user = user else { return }
+        presenter.presentProfile(user: user)
     }
 }

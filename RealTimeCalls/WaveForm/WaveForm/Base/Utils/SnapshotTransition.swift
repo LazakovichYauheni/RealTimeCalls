@@ -42,8 +42,8 @@ class SnapshotTransition {
         layerCornerRadiuses.forEach { layer, _ in layer.cornerRadius = 0 }
         childAlphas.forEach { view, _ in view.alpha = 0 }
         
-        toSnapshot = toView.snapshotView(afterScreenUpdates: true)
-        fromSnapshot = fromView.snapshotView(afterScreenUpdates: true)
+        toSnapshot = toView.snapshotImageView()
+        fromSnapshot = fromView.snapshotImageView()
         
         layerCornerRadiuses.forEach { layer, radius in layer.cornerRadius = radius }
         childAlphas.forEach { view, alpha in view.alpha = alpha }
@@ -79,6 +79,7 @@ class SnapshotTransition {
         
         animator.addCompletion { position in
             self.cleanUp()
+            animator.stopAnimation(true)
             self.animationCompletion?()
         }
         
@@ -95,7 +96,22 @@ class SnapshotTransition {
         toSnapshot?.removeFromSuperview()
         fromSnapshot = nil
         toSnapshot = nil
-
         childTransitions.forEach { $0.cleanUp() }
+    }
+}
+
+extension UIView {
+    func snapshotImageView() -> UIImageView? {
+        UIGraphicsBeginImageContext(bounds.size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+
+        layer.render(in: context)
+
+        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return UIImageView(image: viewImage, highlightedImage: viewImage)
     }
 }

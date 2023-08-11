@@ -120,6 +120,17 @@
 		51A6421A2A61B07800792D74 /* UserDetailsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A642192A61B07800792D74 /* UserDetailsScreenInteractor.swift */; };
 		51A6421C2A61B0B900792D74 /* UserDetailsScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A6421B2A61B0B900792D74 /* UserDetailsScreenPresenter.swift */; };
 		51AEB0192A83F62A00AF9479 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0182A83F62A00AF9479 /* UIColor+Extensions.swift */; };
+		51AEB01B2A852B0900AF9479 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB01A2A852B0900AF9479 /* Converter.swift */; };
+		51AEB01F2A85349300AF9479 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB01E2A85349300AF9479 /* ProfileViewController.swift */; };
+		51AEB0212A8534E100AF9479 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0202A8534E100AF9479 /* ProfilePresenter.swift */; };
+		51AEB0232A85351800AF9479 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0222A85351800AF9479 /* ProfileInteractor.swift */; };
+		51AEB0252A85354600AF9479 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0242A85354600AF9479 /* ProfileAssembly.swift */; };
+		51AEB0272A85358600AF9479 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0262A85358600AF9479 /* ProfileView.swift */; };
+		51AEB0292A853C4100AF9479 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0282A853C4100AF9479 /* WaveView.swift */; };
+		51AEB02B2A8647B000AF9479 /* ProfileActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB02A2A8647B000AF9479 /* ProfileActionView.swift */; };
+		51AEB02D2A86767900AF9479 /* MainScreenLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB02C2A86767900AF9479 /* MainScreenLoadingView.swift */; };
+		51AEB02F2A86773800AF9479 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB02E2A86773800AF9479 /* LoadingView.swift */; };
+		51AEB0312A86810A00AF9479 /* BaseAnimatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AEB0302A86810A00AF9479 /* BaseAnimatedView.swift */; };
 		51B9BF6329E82B1200D7B2DD /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6229E82B1200D7B2DD /* StartViewController.swift */; };
 		51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF6529E82B4F00D7B2DD /* StartView.swift */; };
 		51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9BF7429EB0A0700D7B2DD /* CameraSession.swift */; };
@@ -267,6 +278,17 @@
 		51A642192A61B07800792D74 /* UserDetailsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsScreenInteractor.swift; sourceTree = "<group>"; };
 		51A6421B2A61B0B900792D74 /* UserDetailsScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsScreenPresenter.swift; sourceTree = "<group>"; };
 		51AEB0182A83F62A00AF9479 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		51AEB01A2A852B0900AF9479 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		51AEB01E2A85349300AF9479 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		51AEB0202A8534E100AF9479 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		51AEB0222A85351800AF9479 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		51AEB0242A85354600AF9479 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
+		51AEB0262A85358600AF9479 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		51AEB0282A853C4100AF9479 /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		51AEB02A2A8647B000AF9479 /* ProfileActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileActionView.swift; sourceTree = "<group>"; };
+		51AEB02C2A86767900AF9479 /* MainScreenLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenLoadingView.swift; sourceTree = "<group>"; };
+		51AEB02E2A86773800AF9479 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		51AEB0302A86810A00AF9479 /* BaseAnimatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAnimatedView.swift; sourceTree = "<group>"; };
 		51B9BF6229E82B1200D7B2DD /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		51B9BF6529E82B4F00D7B2DD /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		51B9BF6D29E9846F00D7B2DD /* WaveForm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WaveForm.entitlements; sourceTree = "<group>"; };
@@ -511,6 +533,8 @@
 				51CA569E2A6ADCEF004088CC /* AlertView.swift */,
 				51CA56A72A6AF28A004088CC /* ResizableTableView.swift */,
 				512BFB3F2A7A63BC002706DF /* ImageFillerViewStyles.swift */,
+				51AEB02E2A86773800AF9479 /* LoadingView.swift */,
+				51AEB0302A86810A00AF9479 /* BaseAnimatedView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -554,6 +578,7 @@
 				51812C752A5325D600D2C7DE /* MainScreenContactView.swift */,
 				518271932A45B5E3003E7A29 /* MainScreenView.swift */,
 				518271962A45B96B003E7A29 /* MainScreenCollectionViewCell.swift */,
+				51AEB02C2A86767900AF9479 /* MainScreenLoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -635,6 +660,7 @@
 		51AB9ABF2A697CD800D26A4F /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				51AEB01C2A85348000AF9479 /* ProfileModule */,
 				513A5EF42A7C10F40053FCB0 /* RegisterModule */,
 				512BFB362A7925ED002706DF /* AddUserModule */,
 				51CA56A02A6AE8E1004088CC /* NotificationsModule */,
@@ -657,6 +683,28 @@
 				5160612E2A409C3E004FEE54 /* RequestService */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		51AEB01C2A85348000AF9479 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				51AEB01D2A85348900AF9479 /* Views */,
+				51AEB0242A85354600AF9479 /* ProfileAssembly.swift */,
+				51AEB0222A85351800AF9479 /* ProfileInteractor.swift */,
+				51AEB0202A8534E100AF9479 /* ProfilePresenter.swift */,
+				51AEB01E2A85349300AF9479 /* ProfileViewController.swift */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		51AEB01D2A85348900AF9479 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				51AEB0262A85358600AF9479 /* ProfileView.swift */,
+				51AEB0282A853C4100AF9479 /* WaveView.swift */,
+				51AEB02A2A8647B000AF9479 /* ProfileActionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		51B9BF6129E82AFE00D7B2DD /* ViewControllers */ = {
@@ -734,6 +782,7 @@
 				51C951FB2A65929F001C59FB /* TransitionPresenter.swift */,
 				51C951FD2A6594E7001C59FB /* SnapshotTransition.swift */,
 				518D12F72A66CC620090EAF3 /* TransitionDismisser.swift */,
+				51AEB01A2A852B0900AF9479 /* Converter.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -889,6 +938,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51307E3929C0997C0080EE05 /* CALayer+Extensions.swift in Sources */,
+				51AEB0252A85354600AF9479 /* ProfileAssembly.swift in Sources */,
 				513A5EED2A7BD5640053FCB0 /* Spacer.swift in Sources */,
 				517EFB2529C4AC9600DE8C7B /* BottomCloseButton.swift in Sources */,
 				51307E4729C0DEBC0080EE05 /* NetworkAnimatableView.swift in Sources */,
@@ -901,6 +951,7 @@
 				516061202A409C15004FEE54 /* ContactDTO.swift in Sources */,
 				5164CD1D2A3780D20091052E /* FloatingTextFieldTextFormatter.swift in Sources */,
 				51D3928129F6DEA8003E8E84 /* UIResponder+Extensions.swift in Sources */,
+				51AEB02F2A86773800AF9479 /* LoadingView.swift in Sources */,
 				516061342A409C3E004FEE54 /* RequestManager.swift in Sources */,
 				51CA56932A6ABB86004088CC /* AllContactsAssemby.swift in Sources */,
 				517EFB1C29C32D4B00DE8C7B /* ToastView.swift in Sources */,
@@ -922,6 +973,7 @@
 				513A5F012A7C143C0053FCB0 /* RegisterFieldsView.swift in Sources */,
 				51307E4029C0AF740080EE05 /* StatusView.swift in Sources */,
 				5164CD272A3889160091052E /* PrimaryButton.swift in Sources */,
+				51AEB01B2A852B0900AF9479 /* Converter.swift in Sources */,
 				510F997B29BD10C700B34C72 /* RadialGradientLayer.swift in Sources */,
 				51B9BF7A29EB13A400D7B2DD /* LocalVideoView.swift in Sources */,
 				513F049429CDEA02008E19E7 /* Images.swift in Sources */,
@@ -937,25 +989,31 @@
 				5182718E2A45AE2F003E7A29 /* MainScreenInteractor.swift in Sources */,
 				51307E4B29C0DFBA0080EE05 /* BaseNetworkView.swift in Sources */,
 				510F998729BE10E400B34C72 /* LiquidLayer.swift in Sources */,
+				51AEB02B2A8647B000AF9479 /* ProfileActionView.swift in Sources */,
 				516061262A409C31004FEE54 /* Contact.swift in Sources */,
 				51CA56952A6ABC38004088CC /* AllContactsInteractor.swift in Sources */,
+				51AEB0232A85351800AF9479 /* ProfileInteractor.swift in Sources */,
 				51E228062A45E182003A6960 /* PagingCollectionViewLayout.swift in Sources */,
 				5164CD132A3756D70091052E /* UIViewController+Extensions.swift in Sources */,
 				517EFB2329C33A5400DE8C7B /* BottomButtonLayer.swift in Sources */,
 				510F998C29BE1E7E00B34C72 /* CGPath+Extensions.swift in Sources */,
+				51AEB0212A8534E100AF9479 /* ProfilePresenter.swift in Sources */,
 				512BFB422A7A662A002706DF /* UserDetailsContentView.swift in Sources */,
 				5182718C2A45ADF2003E7A29 /* MainScreenAssembly.swift in Sources */,
 				5160611C2A406F2A004FEE54 /* FloatingTextFieldMask.swift in Sources */,
 				518D5E7E27F5C85D00B78B98 /* CallViewController.swift in Sources */,
+				51AEB02D2A86767900AF9479 /* MainScreenLoadingView.swift in Sources */,
 				51B9BF6629E82B4F00D7B2DD /* StartView.swift in Sources */,
 				51CA569D2A6ABD39004088CC /* ContactTableViewCell.swift in Sources */,
 				5164CD232A37831E0091052E /* String+Extensions.swift in Sources */,
 				512BFB382A7925FE002706DF /* AddUserViewController.swift in Sources */,
+				51AEB0292A853C4100AF9479 /* WaveView.swift in Sources */,
 				51307E4429C0DE590080EE05 /* NetworkView.swift in Sources */,
 				51D3198329EE9F6D00A8BBAD /* CustomFrameCapturer.swift in Sources */,
 				513A5EF82A7C116B0053FCB0 /* RegisterPresenter.swift in Sources */,
 				513F049829CDEA84008E19E7 /* Fonts.swift in Sources */,
 				516061362A409C3E004FEE54 /* ApiService.swift in Sources */,
+				51AEB0272A85358600AF9479 /* ProfileView.swift in Sources */,
 				51CA56972A6ABC62004088CC /* AllContactsPresenter.swift in Sources */,
 				513A5EFF2A7C11880053FCB0 /* RegisterView.swift in Sources */,
 				518D5E7A27F5C85D00B78B98 /* AppDelegate.swift in Sources */,
@@ -975,6 +1033,7 @@
 				5164CD1B2A377F010091052E /* FloatingTextFieldView.swift in Sources */,
 				513EDD102A8253F20064D073 /* InvitableUsers.swift in Sources */,
 				51B9BF7529EB0A0700D7B2DD /* CameraSession.swift in Sources */,
+				51AEB0312A86810A00AF9479 /* BaseAnimatedView.swift in Sources */,
 				512BFB3C2A79341F002706DF /* UserActionsView.swift in Sources */,
 				513EDD0C2A7D63EA0064D073 /* AddUserAssembly.swift in Sources */,
 				51CA56A42A6AE906004088CC /* NotificationsView.swift in Sources */,
@@ -1010,6 +1069,7 @@
 				517EFB1A29C3270300DE8C7B /* TimerView.swift in Sources */,
 				518D5E7C27F5C85D00B78B98 /* SceneDelegate.swift in Sources */,
 				512BFB3A2A79262C002706DF /* AddUserView.swift in Sources */,
+				51AEB01F2A85349300AF9479 /* ProfileViewController.swift in Sources */,
 				517EFB2129C336E400DE8C7B /* BottomButton.swift in Sources */,
 				513A5EEF2A7BD5B50053FCB0 /* RecentContactDTO.swift in Sources */,
 				51307E4D29C0E4980080EE05 /* BaseNetworkLayer.swift in Sources */,

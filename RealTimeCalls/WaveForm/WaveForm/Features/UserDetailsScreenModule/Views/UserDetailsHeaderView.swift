@@ -20,6 +20,7 @@ public final class UserDetailsHeaderView: UIView {
     private lazy var additionalActionsView: UserActionsView = {
         let view = UserActionsView()
         view.isUserInteractionEnabled = true
+        view.isHidden = true
         return view
     }()
     
@@ -28,14 +29,14 @@ public final class UserDetailsHeaderView: UIView {
         view.clipsToBounds = true
         view.layer.cornerRadius = spacer.space28
         view.blur(blurStyle: .light)
+        view.isHidden = true
         return view
     }()
     
     private lazy var mainActionsStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = -spacer.space48
+        stack.distribution = .equalSpacing
         return stack
     }()
 
@@ -51,7 +52,14 @@ public final class UserDetailsHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func hideContent() {
+        additionalActionsView.isHidden = true
+        mainActionsContainerView.isHidden = true
+    }
+    
     func updateMainActionsStack() {
+        additionalActionsView.isHidden = false
+        mainActionsContainerView.isHidden = false
         UIView.animate(withDuration: 0.2, delay: .zero, options: .curveEaseOut) {
             self.mainActionsStackView.spacing = self.spacer.spacing
             self.mainActionsContainerView.snp.remakeConstraints { make in
@@ -62,7 +70,7 @@ public final class UserDetailsHeaderView: UIView {
             self.layoutIfNeeded()
         }
         
-        addGradientBorder(to: mainActionsStackView.subviews[0])
+        addGradientBorder(to: mainActionsStackView.subviews[0], lineWidth: 2)
     }
 
     // MARK: - Private Methods
@@ -125,6 +133,7 @@ extension UserDetailsHeaderView {
             view.changeBackground(with: viewModel.actionsBackground)
             return view
         }
+        mainActionsStackView.subviews.forEach { $0.removeFromSuperview() }
         setupStack(views: editedMainActions)
         additionalActionsView.configure(with: viewModel.additionalActionsViewModel)
     }

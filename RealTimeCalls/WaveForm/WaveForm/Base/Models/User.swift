@@ -25,6 +25,7 @@ public struct User {
     public let contacts: [Contact]
     public let recentContacts: [RecentContact]
     public let favoritesContacts: [Contact]
+    public let imageString: String?
 
     public init(dto: UserDTO) {
         id = dto.id
@@ -36,5 +37,6 @@ public struct User {
         contacts = dto.contacts.compactMap { Contact(dto: $0) }
         recentContacts = dto.recentContacts.compactMap { RecentContact(dto: $0) }
         favoritesContacts = contacts.filter { $0.isFavorite }
+        imageString = dto.imageString
     }
 }

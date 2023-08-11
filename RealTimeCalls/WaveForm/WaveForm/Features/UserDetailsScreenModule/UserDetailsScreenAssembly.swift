@@ -9,11 +9,15 @@ public final class UserDetailsScreenAssembly {
     func assemble(
         data: MainScreenCollectionViewCell.ViewModel
     ) -> UserDetailsScreenViewController {
+        let requestManager = RequestManager()
+        let endpointConfig = EndpointConfig()
+        let service = UserService(requestManager: requestManager, endpointConfig: endpointConfig)
         let presenter = UserDetailsScreenPresenter()
         let dismisser = TransitionDismisser()
         let interactor = UserDetailsScreenInteractor(
             presenter: presenter,
-            data: data
+            data: data,
+            service: service
         )
 
         let viewController = UserDetailsScreenViewController(

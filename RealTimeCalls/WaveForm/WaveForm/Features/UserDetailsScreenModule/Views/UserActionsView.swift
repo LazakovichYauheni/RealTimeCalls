@@ -90,21 +90,17 @@ public final class UserActionsView: UIView {
         
         stackView.snp.remakeConstraints { make in
             make.edges.equalToSuperview().inset(spacer.space4)
-            make.width.equalTo(spacer.space32)
-            make.height.equalTo(spacer.space16 + CGFloat(viewModels.count) * spacer.space16)
         }
     }
     
     private func changeViewToExpanded() {
-        let newHeight = 32 + self.viewModels.count * 32 + self.viewModels.count * 12
-
         UIView.animate(withDuration: 0.15, delay: .zero, options: .curveEaseIn, animations: {
             self.closeView.isHidden = false
             self.closeView.rotate(duration: 0.4)
             self.stackView.spacing = self.spacer.space12
-            self.stackView.snp.updateConstraints { make in
+            self.stackView.distribution = .equalSpacing
+            self.stackView.snp.remakeConstraints { make in
                 make.edges.equalToSuperview().inset(self.spacer.space6)
-                make.height.equalTo(newHeight)
             }
             self.layoutIfNeeded()
         }, completion: { _ in
@@ -118,9 +114,9 @@ public final class UserActionsView: UIView {
         UIView.animate(withDuration: 0.15, delay: .zero, options: .curveEaseOut) {
             self.closeView.isHidden = true
             self.stackView.spacing = -self.spacer.space16
+            self.stackView.distribution = .fillEqually
             self.stackView.snp.updateConstraints { make in
                 make.edges.equalToSuperview().inset(self.spacer.space4)
-                make.height.equalTo(self.spacer.space16 + CGFloat(self.viewModels.count) * self.spacer.space16)
             }
             self.layoutIfNeeded()
         }
@@ -186,6 +182,7 @@ extension UserActionsView {
 
     public func configure(with viewModel: ViewModel) {
         viewModels = viewModel.viewModels
+        stackView.subviews.forEach { $0.removeFromSuperview() }
         setupStack(viewModels: viewModel.viewModels)
         closeView.changeBackground(with: viewModel.closeButtonBackground)
     }

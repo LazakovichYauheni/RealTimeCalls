@@ -10,8 +10,9 @@ import UIKit
 public final class MainScreenPresenter {
     weak var viewController: MainScreenViewController?
     
-    private func makeViewModels(contacts: [Contact]) -> [MainScreenCollectionViewCell.ViewModel] {
-        return contacts.enumerated().compactMap { index, contact in
+    private func makeViewModels(contacts: [Contact], user: User) -> [MainScreenCollectionViewCell.ViewModel] {
+        let favoriteContacts = contacts.filter { $0.isFavorite }
+        return favoriteContacts.enumerated().compactMap { index, contact in
             let gradientFirstColors = Color.current.background.gradientBackgroundFirstColors
             let gradientSecondColors = Color.current.background.gradientBackgroundSecondColors
             let detailsBackgroundColors = Color.current.background.detailsBackgroundColors
@@ -20,11 +21,14 @@ public final class MainScreenPresenter {
             let firstColor = gradientFirstColors[index]
             let secondColor = gradientSecondColors[index]
             
+            let image = Converter.convertBase64StringToImage(imageBase64String: contact.imageString)
+            
             return MainScreenCollectionViewCell.ViewModel(
-                name: contact.firstName,
-                lastName: "Cell",
+                username: user.username,
+                name: contact.firstName ?? .empty,
+                lastName: contact.lastName ?? .empty,
                 infoMessage: "loh",
-                image: Images.girlImage,
+                image: image ?? Images.girlImage,
                 callImage: Images.statusEndImage,
                 gradientColors: [firstColor, secondColor],
                 detailsBackgroundColor: detailsBackgroundColors[index],
@@ -36,16 +40,9 @@ public final class MainScreenPresenter {
 
 extension MainScreenPresenter {
     func present(user: User) {
-        let hardcodeContacts = [
-            Contact(dto: ContactDTO(id: "0", firstName: "odin", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "1", firstName: "dva", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "2", firstName: "tri", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "3", firstName: "4tyre", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "4", firstName: "pyat", lastName: "odin", phoneNumber: "qwewq", isFavorite: true))
-        ]
         viewController?.display(
             viewModel: MainScreenView.ViewModel(
-                cellViewModels: makeViewModels(contacts: hardcodeContacts),
+                cellViewModels: makeViewModels(contacts: user.contacts, user: user),
                 recentContactViewModels: [
                     MainScreenContactView.ViewModel(name: "Emma"),
                     MainScreenContactView.ViewModel(name: "Emma")
@@ -58,6 +55,10 @@ extension MainScreenPresenter {
         viewController?.displayAllContactsScreen(contacts: contacts)
     }
     
+    func presentProfile(user: User) {
+        viewController?.displayProfile(user: user)
+    }
+    
     func presentEmpty() {
 //        viewController?.display(
 //            viewModel: MainScreenView.ViewModel(
@@ -66,21 +67,21 @@ extension MainScreenPresenter {
 //            )
 //        )
         
-        let hardcodeContacts = [
-            Contact(dto: ContactDTO(id: "0", firstName: "odin", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "1", firstName: "dva", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "2", firstName: "tri", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "3", firstName: "4tyre", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
-            Contact(dto: ContactDTO(id: "4", firstName: "pyat", lastName: "odin", phoneNumber: "qwewq", isFavorite: true))
-        ]
-        viewController?.display(
-            viewModel: MainScreenView.ViewModel(
-                cellViewModels: makeViewModels(contacts: hardcodeContacts),
-                recentContactViewModels: [
-                    MainScreenContactView.ViewModel(name: "Emma"),
-                    MainScreenContactView.ViewModel(name: "Emma")
-                ]
-            )
-        )
+//        let hardcodeContacts = [
+//            Contact(dto: ContactDTO(id: "0", firstName: "odin odin odin odin odin odin odin odin odin odin odin", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
+//            Contact(dto: ContactDTO(id: "1", firstName: "dva", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
+//            Contact(dto: ContactDTO(id: "2", firstName: "tri", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
+//            Contact(dto: ContactDTO(id: "3", firstName: "4tyre", lastName: "odin", phoneNumber: "qwewq", isFavorite: true)),
+//            Contact(dto: ContactDTO(id: "4", firstName: "pyat", lastName: "odin", phoneNumber: "qwewq", isFavorite: true))
+//        ]
+//        viewController?.display(
+//            viewModel: MainScreenView.ViewModel(
+//                cellViewModels: makeViewModels(contacts: hardcodeContacts),
+//                recentContactViewModels: [
+//                    MainScreenContactView.ViewModel(name: "Emma"),
+//                    MainScreenContactView.ViewModel(name: "Emma")
+//                ]
+//            )
+//        )
     }
 }

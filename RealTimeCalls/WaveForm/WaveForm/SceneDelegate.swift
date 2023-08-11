@@ -17,12 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//        window?.windowScene = windowScene
-//        let assembly = LoginAssembly()
-//        let controller = assembly.assemble()
-//        window?.rootViewController = UINavigationController(rootViewController: controller)
-//        window?.makeKeyAndVisible()
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if error != nil || user == nil {
                 self?.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -32,11 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self?.window?.rootViewController = UINavigationController(rootViewController: controller)
                 self?.window?.makeKeyAndVisible()
             } else {
-                guard
-                    let self = self,
-                    let user = user,
-                    let username = user.profile?.email
-                else { return }
+                guard let self = self else { return }
                 let assembly = MainScreenAssembly()
                 let controller = assembly.assemble()
                 self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -46,7 +36,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(unauthorized), name: Notification.Name("Unauthorized"), object: nil)
+        
         // Добавить SplashScreen
+    }
+    
+    @objc private func unauthorized() {
+        let assembly = LoginAssembly()
+        let controller = assembly.assemble()
+        window?.rootViewController = UINavigationController(rootViewController: controller)
+        window?.makeKeyAndVisible()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

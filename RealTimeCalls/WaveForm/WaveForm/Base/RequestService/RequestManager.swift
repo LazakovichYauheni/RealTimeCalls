@@ -102,25 +102,29 @@ final class RequestManager: RequestManagerProtocol {
         )
 
         request.response { response in
-            do {
-                guard let data = response.data else {
-                    completion(.failure(.noData))
-                    return
-                }
-
-                let result = try self.decoder.decode(ResultType.self, from: data)
-                
-                if let wrappedSuccessResult = try? self.decoder.decode(SuccessResponseDTO.self, from: data) {
-                    if wrappedSuccessResult.success {
-                        DispatchQueue.main.async {
-                            completion(.success(result))
-                        }
-                    } else {
-                        completion(.failure(.unknown))
+            if response.response?.statusCode == 403 {
+                NotificationCenter.default.post(name: Notification.Name("Unauthorized"), object: nil)
+            } else {
+                do {
+                    guard let data = response.data else {
+                        completion(.failure(.noData))
+                        return
                     }
+                    
+                    let result = try self.decoder.decode(ResultType.self, from: data)
+                    
+                    if let wrappedSuccessResult = try? self.decoder.decode(SuccessResponseDTO.self, from: data) {
+                        if wrappedSuccessResult.success {
+                            DispatchQueue.main.async {
+                                completion(.success(result))
+                            }
+                        } else {
+                            completion(.failure(.unknown))
+                        }
+                    }
+                } catch {
+                    completion(.failure(.notParsableData))
                 }
-            } catch {
-                completion(.failure(.notParsableData))
             }
         }
     }

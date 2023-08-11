@@ -30,6 +30,13 @@ public struct SmallGrayWithoutAlphaFillerViewStyle: ImageFillerViewStyle {
     public static var backgroundColor: UIColor { Color.current.background.lightGrayColor }
 }
 
+public struct SmallGrayWithoutAlphaRadius12FillerViewStyle: ImageFillerViewStyle {
+    public static var imageSize: CGSize { CGSize(width: 24, height: 24) }
+    public static var imageInsets: CGFloat { 8 }
+    public static var radius: CGFloat { 12 }
+    public static var backgroundColor: UIColor { Color.current.background.lightGrayColor }
+}
+
 public struct SmallFillerViewStyle: ImageFillerViewStyle {
     public static var imageSize: CGSize { CGSize(width: 24, height: 24) }
     public static var imageInsets: CGFloat { 8 }

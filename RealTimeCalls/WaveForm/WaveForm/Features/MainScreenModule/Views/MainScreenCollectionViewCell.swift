@@ -267,10 +267,10 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell, StackTran
     private func addSubviews() {
         contentView.addSubview(containerView)
         containerView.addSubview(iconImageView)
+        containerView.addSubview(callIconView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(subDescriptionLabel)
-        containerView.addSubview(callIconView)
     }
 
     private func makeConstraints() {
@@ -288,12 +288,14 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell, StackTran
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(iconImageView.snp.bottom).offset(spacer.space48)
-            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.leading.equalToSuperview().inset(spacer.space16)
+            make.trailing.lessThanOrEqualToSuperview().inset(spacer.space16)
         }
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space8)
-            make.leading.trailing.equalToSuperview().inset(spacer.space16)
+            make.leading.equalToSuperview().inset(spacer.space16)
+            make.trailing.lessThanOrEqualToSuperview().inset(spacer.space16)
         }
         
         subDescriptionLabel.snp.makeConstraints { make in
@@ -313,6 +315,7 @@ public final class MainScreenCollectionViewCell: UICollectionViewCell, StackTran
 
 extension MainScreenCollectionViewCell {
     public struct ViewModel {
+        let username: String
         let name: String
         let lastName: String
         let infoMessage: String
