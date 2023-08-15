@@ -14,6 +14,15 @@ public final class ProfileView: UIView {
         return imageView
     }()
     
+    private lazy var userLabel: UILabel = {
+       let label = UILabel()
+        label.font = Fonts.Medium.medium24
+        label.textAlignment = .center
+        label.textColor = Color.current.background.whiteColor
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.Medium.medium18
@@ -63,6 +72,7 @@ public final class ProfileView: UIView {
     
     private func addSubviews() {
         addSubview(iconImageView)
+        iconImageView.addSubview(userLabel)
         addSubview(titleLabel)
         addSubview(usernameLabel)
         addSubview(containerView)
@@ -74,6 +84,10 @@ public final class ProfileView: UIView {
             make.top.equalToSuperview().inset(spacer.space40)
             make.centerX.equalToSuperview()
             make.size.equalTo(120)
+        }
+        
+        userLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -112,14 +126,21 @@ public final class ProfileView: UIView {
 
 extension ProfileView {
     struct ViewModel {
-        let iconImage: UIImage
+        let iconImage: UIImage?
         let title: String
         let username: String
         let actionViewModels: [ProfileActionView.ViewModel]
     }
 
     func configure(viewModel: ProfileView.ViewModel) {
-        iconImageView.image = viewModel.iconImage
+        userLabel.text = viewModel.title.first?.uppercased()
+        if viewModel.iconImage == nil {
+            userLabel.isHidden = false
+            iconImageView.image = UIImage.make(with: .darkGray, cornerRadius: 60)
+        } else {
+            userLabel.isHidden = true
+            iconImageView.image = viewModel.iconImage
+        }
         titleLabel.text = viewModel.title
         usernameLabel.text = viewModel.username
         setupStack(viewModels: viewModel.actionViewModels)

@@ -58,8 +58,7 @@ final class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
                     in: transitionContext.containerView,
                     childTransitions: [
                         (from: cell.iconImageView, to: detailsScreenView.headerView.iconImageView),
-                        (from: cell.titleLabel, to: detailsScreenView.contentView.titleLabel),
-                        (from: cell.descriptionLabel, to: detailsScreenView.contentView.descriptionLabel),
+                        (from: cell.containerView, to: detailsScreenView.contentView)
                     ],
                     duration: duration
                 )
@@ -94,8 +93,7 @@ final class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
                     in: transitionContext.containerView,
                     childTransitions: [
                         (from: detailsScreenView.headerView.iconImageView, to: cell.iconImageView),
-                        (from: detailsScreenView.contentView.titleLabel, to: cell.titleLabel),
-                        (from: detailsScreenView.contentView.descriptionLabel, to: cell.descriptionLabel),
+                        (from: detailsScreenView.contentView, to: cell.containerView)
                     ],
                     duration: duration
                 )

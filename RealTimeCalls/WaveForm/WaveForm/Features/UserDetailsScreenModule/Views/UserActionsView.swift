@@ -6,6 +6,10 @@ private extension Spacer {
     var viewSize: CGFloat { 32 }
 }
 
+protocol UserActionsViewEventsRespondable {
+    func imageSelected(id: Int?)
+}
+
 public final class UserActionsView: UIView {
     // MARK: - Subview Properties
     
@@ -29,12 +33,13 @@ public final class UserActionsView: UIView {
         let view = ImageFillerView<SmallGrayWithoutAlphaFillerViewStyle>()
         view.configure(with: .init(image: Images.closeImage.withTintColor(Color.current.background.whiteColor)))
         view.isHidden = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeTapped)))
         return view
     }()
     
+    private lazy var responder = Weak(firstResponder(of: UserActionsViewEventsRespondable.self))
     private var prevView = UIView()
     private var viewModels: [ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel] = []
+    private var selectedID: Int?
 
     // MARK: - UIView
 
@@ -52,9 +57,6 @@ public final class UserActionsView: UIView {
 
     private func commonInit() {
         backgroundColor = .clear
-        isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(actionsViewTapped(_:)))
-        addGestureRecognizer(tap)
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTap(_:)))
         longTap.minimumPressDuration = 0.12
         addGestureRecognizer(longTap)
@@ -76,6 +78,7 @@ public final class UserActionsView: UIView {
     private func setupStack(viewModels: [ImageFillerView<SmallWhiteFillerViewStyle>.ViewModel]) {
         viewModels.forEach { viewModel in
             let view = ImageFillerView<SmallWhiteFillerViewStyle>()
+            view.isUserInteractionEnabled = false
             view.snp.makeConstraints { make in
                 make.size.equalTo(spacer.viewSize)
             }
@@ -122,10 +125,6 @@ public final class UserActionsView: UIView {
         }
     }
     
-    @objc private func actionsViewTapped(_ sender: UITapGestureRecognizer) {}
-    
-    @objc private func closeTapped() {}
-    
     @objc private func longTap(_ sender: UILongPressGestureRecognizer) {
         switch sender.state {
         case .began:
@@ -141,7 +140,12 @@ public final class UserActionsView: UIView {
                 if view != prevView {
                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                     prevView = view
+                    if let castedView = view as? ImageFillerView<SmallWhiteFillerViewStyle> {
+                        selectedID = castedView.id
+                    }
                 }
+            } else {
+                selectedID = nil
             }
             
             stackView.subviews.enumerated().forEach { index, subview in
@@ -159,6 +163,7 @@ public final class UserActionsView: UIView {
             stackView.subviews.enumerated().forEach { index, subview in
                 changeSizeOfSelectedView(index: index, transform: .identity)
             }
+            responder.object?.imageSelected(id: selectedID)
         default:
             return
         }

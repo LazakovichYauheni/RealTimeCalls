@@ -113,6 +113,16 @@ public final class UserDetailsHeaderView: UIView {
             mainActionsStackView.addArrangedSubview($0)
         }
     }
+    
+    private func updateStack(view: ImageFillerView<DefaultLargeFillerViewStyle>) {
+        mainActionsStackView.subviews.enumerated().forEach { index, subview in
+            if index == 2 {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        mainActionsStackView.addArrangedSubview(view)
+    }
 }
 
 // MARK: - Configurable
@@ -123,6 +133,7 @@ extension UserDetailsHeaderView {
         let mainActions: [ImageFillerView<DefaultLargeFillerViewStyle>.ViewModel]
         let additionalActionsViewModel: UserActionsView.ViewModel
         let actionsBackground: UIColor
+        let needToUpdateMainActionsStack: Bool
     }
 
     public func configure(with viewModel: ViewModel) {
@@ -133,8 +144,15 @@ extension UserDetailsHeaderView {
             view.changeBackground(with: viewModel.actionsBackground)
             return view
         }
-        mainActionsStackView.subviews.forEach { $0.removeFromSuperview() }
-        setupStack(views: editedMainActions)
+        if viewModel.needToUpdateMainActionsStack {
+            let view = ImageFillerView<DefaultLargeFillerViewStyle>()
+            view.configure(with: viewModel.mainActions[2])
+            view.changeBackground(with: viewModel.actionsBackground)
+            updateStack(view: view)
+        } else {
+            mainActionsStackView.subviews.forEach { $0.removeFromSuperview() }
+            setupStack(views: editedMainActions)
+        }
         additionalActionsView.configure(with: viewModel.additionalActionsViewModel)
     }
 }

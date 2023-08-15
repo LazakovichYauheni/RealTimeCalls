@@ -23,6 +23,10 @@ final class LoadingView: UIView {
         super.init(coder: coder)
         commonInit()
     }
+    
+    override func layoutSubviews() {
+        setShimmeringAnimation(true, animationSpeed: 1)
+    }
 
     // MARK: - Public Methods
 
@@ -40,12 +44,13 @@ final class LoadingView: UIView {
     }
 
     public func stopAnimation() {
+        layer.removeAnimation(forKey: "locations")
         layer.removeAnimation(forKey: Constants.animationKey)
     }
 
     func commonInit() {
         guard UIView.areAnimationsEnabled else { return }
-        darkColor = Color.current.background.darkGrayColor
+        darkColor = UIColor(red: 196 / 255, green: 200 / 255, blue: 203 / 255, alpha: 1)
         lightColor = Color.current.background.lightGrayColor
         backgroundColor = lightColor
         startAnimation()

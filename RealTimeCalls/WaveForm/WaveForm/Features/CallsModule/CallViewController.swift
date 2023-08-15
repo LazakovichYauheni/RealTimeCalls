@@ -35,17 +35,28 @@ final class CallViewController: UIViewController {
     // MARK: - Private Properties
     
     private let contentableView = ContentableView()
+    private let interactor: CallsInteractor
     private var microMonitor: MicrophoneMonitor?
     private var currentCameraPosition: AVCaptureDevice.Position = .back
     
     // MARK: - Init
     
+    public init(interactor: CallsInteractor) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = contentableView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor.obtainInitialState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,6 +67,10 @@ final class CallViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
     
     // MARK: - Public Methods
+    
+    func display(title: String) {
+        contentableView.setTitle(title: title)
+    }
     
     func didClientChecking() {
         contentableView.changeCallStatus(status: .ringing)

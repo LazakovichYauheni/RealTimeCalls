@@ -13,7 +13,6 @@ public struct ContactDTO {
     public let lastName: String?
     public let username: String
     public let imageString: String?
-    public let phoneNumber: String
     public let isFavorite: Bool
 }
 
@@ -24,7 +23,6 @@ extension ContactDTO: Codable {
         case lastName
         case username
         case imageString
-        case phoneNumber
         case isFavorite
     }
 }

@@ -88,11 +88,12 @@ extension AllContactsViewController {
                 name: contact.firstName ?? .empty,
                 lastName: contact.lastName ?? .empty,
                 infoMessage: .empty,
-                image: image ?? UIImage(),
+                image: image ?? UIImage.make(with: .darkGray, cornerRadius: 50) ?? UIImage(),
                 callImage: UIImage(),
                 gradientColors: [],
                 detailsBackgroundColor: Color.current.background.blackColor,
-                detailsButtonBackgroundColor: UIColor(red: 17 / 255, green: 17 / 255, blue: 17 / 255, alpha: 1)
+                detailsButtonBackgroundColor: UIColor(red: 17 / 255, green: 17 / 255, blue: 17 / 255, alpha: 1),
+                isFavorite: contact.isFavorite
             ),
             from: self,
             duration: 0.2

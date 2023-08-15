@@ -7,7 +7,7 @@ public final class AllContactsPresenter {
         contacts.compactMap { contact in
             let image = Converter.convertBase64StringToImage(imageBase64String: contact.imageString)
             return ContactTableViewCell.ViewModel(
-                image: image ?? UIImage(),
+                image: image ?? UIImage.make(with: .black, cornerRadius: 16) ?? UIImage(),
                 title: contact.firstName ?? .empty,
                 description: contact.lastName ?? .empty
             )

@@ -324,6 +324,7 @@ extension MainScreenCollectionViewCell {
         let gradientColors: [UIColor]
         let detailsBackgroundColor: UIColor
         let detailsButtonBackgroundColor: UIColor
+        let isFavorite: Bool
     }
     
     func configure(with viewModel: ViewModel) {

@@ -85,7 +85,6 @@ final class ContentableView: UIView {
         label.textColor = Color.current.text.whiteColor
         label.font = Fonts.Regular.regular25
         label.textAlignment = .center
-        label.text = Texts.callingName
         return label
     }()
     
@@ -177,6 +176,10 @@ final class ContentableView: UIView {
                 }
             )
         }
+    }
+    
+    public func setTitle(title: String) {
+        titleLabel.text = title
     }
     
     public func changeCallStatus(status: CallStatus) {

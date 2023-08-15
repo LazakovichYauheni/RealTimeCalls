@@ -41,22 +41,24 @@ public final class MainScreenView: UIView {
         label.textColor = Color.current.text.blackColor
         return label
     }()
-    
-    private lazy var containerFavoritesView = UIView()
-    
+
     private lazy var containerFavoritesStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.alignment = .center
         stack.distribution = .equalCentering
+        stack.alignment = .center
         return stack
     }()
     
-    private lazy var emptyImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = Images.noFavorites
-        imageView.isHidden = true
-        return imageView
+    private lazy var emptyFavoritesLabel: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.Regular.regular20
+        label.textAlignment = .center
+        label.textColor = Color.current.text.blackColor
+        label.isHidden = true
+        label.numberOfLines = .zero
+        label.text = "You don't have any favorite contact.\nAdd it on the user details screen"
+        return label
     }()
     
     private lazy var memeCollectionView: UICollectionView = {
@@ -98,11 +100,15 @@ public final class MainScreenView: UIView {
         return stack
     }()
     
-    private lazy var emptyRecentsView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.isHidden = true
-        imageView.image = Images.noRecents
-        return imageView
+    private lazy var emptyRecentsLabel: UILabel = {
+        let label = UILabel()
+        label.font = Fonts.Regular.regular20
+        label.textAlignment = .center
+        label.textColor = Color.current.text.blackColor
+        label.isHidden = true
+        label.numberOfLines = .zero
+        label.text = "You don't have any recent contact now. Call anybody"
+        return label
     }()
     
     private lazy var firstRecentContact: MainScreenContactView = {
@@ -134,11 +140,13 @@ public final class MainScreenView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(memeCollectionView)
+        containerView.addSubview(containerFavoritesStackView)
+        containerFavoritesStackView.addSubview(memeCollectionView)
+        containerFavoritesStackView.addSubview(emptyFavoritesLabel)
         containerView.addSubview(recentLabel)
         containerView.addSubview(allContactsLabel)
         containerView.addSubview(recentsContainerStackView)
-        recentsContainerStackView.addArrangedSubview(emptyRecentsView)
+        recentsContainerStackView.addArrangedSubview(emptyRecentsLabel)
         recentsContainerStackView.addArrangedSubview(firstRecentContact)
         recentsContainerStackView.addArrangedSubview(secondRecentContact)
     }
@@ -158,15 +166,25 @@ public final class MainScreenView: UIView {
             make.leading.trailing.equalToSuperview().inset(spacer.space16)
         }
         
-        memeCollectionView.snp.makeConstraints { make in
+        containerFavoritesStackView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(spacer.space24)
+            make.leading.trailing.equalToSuperview()
+            make.height.greaterThanOrEqualTo(spacer.itemSize.height)
+        }
+        
+        emptyFavoritesLabel.snp.makeConstraints { make in
+            make.height.equalTo(spacer.itemSize.height)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        memeCollectionView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.height.equalTo(spacer.itemSize.height)
         }
         
         recentLabel.snp.makeConstraints { make in
-            make.top.equalTo(memeCollectionView.snp.bottom).offset(spacer.space24)
+            make.top.equalTo(containerFavoritesStackView.snp.bottom).offset(spacer.space24)
             make.leading.equalToSuperview().inset(spacer.space16)
             make.trailing.lessThanOrEqualTo(allContactsLabel.snp.leading).offset(spacer.space16)
         }
@@ -182,8 +200,8 @@ public final class MainScreenView: UIView {
             make.bottom.equalToSuperview()
         }
         
-        emptyRecentsView.snp.makeConstraints { make in
-            make.size.equalTo(150)
+        emptyRecentsLabel.snp.makeConstraints { make in
+            make.height.equalTo(150)
         }
     }
     
@@ -204,9 +222,11 @@ extension MainScreenView {
     
     func configure(viewModel: MainScreenView.ViewModel) {
         if viewModel.cellViewModels.isEmpty {
-            emptyImageView.isHidden = false
+            emptyFavoritesLabel.isHidden = false
             memeCollectionView.isHidden = true
         } else {
+            emptyFavoritesLabel.isHidden = true
+            memeCollectionView.isHidden = false
             cellViewModels = viewModel.cellViewModels
             memeCollectionView.reloadData()
             memeCollectionView.performBatchUpdates({ [weak self] in
@@ -215,10 +235,13 @@ extension MainScreenView {
         }
         
         if viewModel.recentContactViewModels.isEmpty {
-            emptyRecentsView.isHidden = false
+            emptyRecentsLabel.isHidden = false
             firstRecentContact.isHidden = true
             secondRecentContact.isHidden = true
         } else {
+            emptyRecentsLabel.isHidden = true
+            firstRecentContact.isHidden = false
+            secondRecentContact.isHidden = false
             firstRecentContact.configure(with: viewModel.recentContactViewModels[0])
             secondRecentContact.configure(with: viewModel.recentContactViewModels[1])
         }

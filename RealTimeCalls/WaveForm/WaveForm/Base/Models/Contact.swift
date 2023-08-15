@@ -13,7 +13,6 @@ public struct Contact {
     public let lastName: String?
     public let username: String
     public let imageString: String?
-    public let phoneNumber: String
     public let isFavorite: Bool
 
     // MARK: Lifecycle
@@ -24,7 +23,6 @@ public struct Contact {
         self.lastName = dto.lastName
         self.username = dto.username
         self.imageString = dto.imageString
-        self.phoneNumber = dto.phoneNumber
         self.isFavorite = dto.isFavorite
     }
 }

@@ -14,13 +14,11 @@ public struct UserDataDTO: Decodable {
 public struct UserDTO {
     public let id: String
     public let username: String
-    public let password: String?
     public let firstName: String?
     public let lastName: String?
     public let phoneNumber: String?
     public let contacts: [ContactDTO]
     public let recentContacts: [RecentContactDTO]
-    public let favoritesContacts: [ContactDTO]?
     public let imageString: String?
 }
 
@@ -28,13 +26,11 @@ extension UserDTO: Codable {
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case username
-        case password
         case firstName
         case lastName
         case contacts
         case phoneNumber
         case recentContacts
-        case favoritesContacts
         case imageString
     }
 }

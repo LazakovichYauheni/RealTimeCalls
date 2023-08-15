@@ -18,7 +18,6 @@ public struct UserData {
 public struct User {
     public let id: String
     public let username: String
-    public let password: String?
     public let firstName: String?
     public let lastName: String?
     public let phoneNumber: String?
@@ -30,7 +29,6 @@ public struct User {
     public init(dto: UserDTO) {
         id = dto.id
         username = dto.username
-        password = dto.password
         firstName = dto.firstName
         lastName = dto.lastName
         phoneNumber = dto.phoneNumber

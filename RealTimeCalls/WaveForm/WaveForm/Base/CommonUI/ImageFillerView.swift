@@ -9,8 +9,12 @@ protocol ImageFillerViewEventsRespondable {
 public final class ImageFillerView<Style: ImageFillerViewStyle>: UIView {
     // MARK: - Subview Properties
 
-    private lazy var iconImageView = UIImageView()
-    private var id: Int = .zero
+    private lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    public var id: Int = .zero
     private lazy var responder = Weak(firstResponder(of: ImageFillerViewEventsRespondable.self))
 
     // MARK: - UIView

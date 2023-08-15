@@ -7,6 +7,11 @@ private extension Spacer {
 
 protocol UserDetailsScreenEventsRespondable {
     func didCloseButtonTapped()
+    func didOKButtonTapped(
+        titleText: String,
+        descriptionText: String,
+        noticeText: String
+    )
 }
 
 public final class UserDetailsScreenView: UIView {
@@ -65,11 +70,21 @@ extension UserDetailsScreenView {
     public struct ViewModel {
         let headerViewModel: UserDetailsHeaderView.ViewModel
         let contentViewModel: UserDetailsContentView.ViewModel
+        let isEditMode: Bool
     }
 
     public func configure(with viewModel: ViewModel) {
         headerView.configure(with: viewModel.headerViewModel)
         contentView.configure(with: viewModel.contentViewModel)
+        if viewModel.isEditMode {
+            UIView.animate(withDuration: 0.3) {
+                self.contentView.snp.remakeConstraints { make in
+                    make.top.equalToSuperview().inset(self.spacer.space40)
+                    make.bottom.leading.trailing.equalToSuperview()
+                }
+                self.layoutIfNeeded()
+            }
+        }
     }
 }
 
@@ -77,5 +92,24 @@ extension UserDetailsScreenView: UserDetailsContentViewEventsRespondable {
     func didCloseButtonTapped() {
         headerView.hideContent()
         responder.object?.didCloseButtonTapped()
+    }
+    
+    func didOKButtonTapped(
+        titleText: String,
+        descriptionText: String,
+        noticeText: String
+    ) {
+        UIView.animate(withDuration: 0.3) {
+            self.contentView.snp.remakeConstraints { make in
+                make.top.equalTo(self.headerView.snp.bottom).offset(-self.spacer.space20)
+                make.bottom.leading.trailing.equalToSuperview()
+            }
+            self.layoutIfNeeded()
+        }
+        responder.object?.didOKButtonTapped(
+            titleText: titleText,
+            descriptionText: descriptionText,
+            noticeText: noticeText
+        )
     }
 }
